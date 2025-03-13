@@ -9,12 +9,20 @@ public class Robo{
         posicaoY = posYIn;
     }
 
+    public int getPosX(){
+        return this.posicaoX;
+    }
+
+    public int getPosY(){
+        return this.posicaoY;
+    }
+
     public void mover(int deltaX, int deltaY){
         this.posicaoX += deltaX;
         this.posicaoY += deltaY;
     }
 
     public void exibirPosicao(){
-        System.out.println("posicao: " + posicaoX + ", " + posicaoY);
+        System.out.println("posicao do Robo " + this.nome + ": " + posicaoX + ", " + posicaoY);
     }
 }
