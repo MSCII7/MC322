@@ -29,6 +29,10 @@ public class Robo{
     }
 
     public void identificarObstaculos(Ambiente amb1, int raio){
-
+        for (Robo robo : amb1.getRobos()){
+            if(Math.pow(this.posicaoX - robo.posicaoX, 2) + Math.pow(this.posicaoY - robo.posicaoY, 2) < raio*raio){
+                System.out.println("Robo " + robo.nome + " esta no raio " + raio);
+            }
+        }
     }
 }

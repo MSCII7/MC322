@@ -4,13 +4,11 @@ public class Ambiente
 {
     private int largura;
     private int comprimento;
-    private int altura;
     private ArrayList<Robo> robos;
-    public Ambiente(int l, int c, int a)
+    public Ambiente(int l, int c)
     {
         largura = l;
         comprimento = c;
-        altura = a;
         robos = new ArrayList<>();
     }
     public boolean dentroDosLimites(Robo r)
