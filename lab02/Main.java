@@ -14,7 +14,7 @@ public class Main{
 
     private static void imprimirLimites(Robo r1, Ambiente amb1){
 
-        if(amb1.dentroDosLimites(r1.getPosX(), r1.getPosY())){
+        if(amb1.dentroDosLimites(r1)){
             System.out.println("dentro dos limites do ambiente!");
         }
         else{
