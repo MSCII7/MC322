@@ -1,16 +1,31 @@
+
+import java.util.ArrayList;
 public class Ambiente
 {
     private int largura;
+    private int comprimento;
     private int altura;
-    public Ambiente(int l, int a)
+    private ArrayList<Robo> robos;
+    public Ambiente(int l, int c, int a)
     {
         largura = l;
+        comprimento = c;
         altura = a;
+        robos = new ArrayList<>();
     }
-    public boolean dentroDosLimites(int x, int y)
+    public boolean dentroDosLimites(Robo r)
     {
-        return (x <= this.largura && y <= this.altura);
+        if (r instanceof RoboAereo) {
+            return (r.getPosX() <= this.largura && r.getPosY() <= this.comprimento && r.getPosZ() <= r.getAltitudeMaxima());
+        }
+        return (r.getPosX() <= this.largura && r.getPosY() <= this.comprimento);
     }
-    
+    public void adicionarRobo(Robo r)
+    {
+        this.robos.add(r);
+    }
+    public ArrayList<Robo> getRobos(){
+        return this.robos;
+    }
 
 }
