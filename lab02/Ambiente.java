@@ -15,10 +15,14 @@ public class Ambiente
     }
     public boolean dentroDosLimites(Robo r)
     {
-        if (r instanceof RoboAereo) {
-            return (r.getPosX() <= this.largura && r.getPosY() <= this.comprimento && r.getPosZ() <= r.getAltitudeMaxima());
+        if(r != null){
+            if (r instanceof RoboAereo ra) 
+                return (ra.getPosX() <= this.largura && ra.getPosY() <= this.comprimento && ra.getPosZ() <= ra.getAltitudeMaxima());
+            
+            return (r.getPosX() <= this.largura && r.getPosY() <= this.comprimento);
         }
-        return (r.getPosX() <= this.largura && r.getPosY() <= this.comprimento);
+        else
+            return false;
     }
     public void adicionarRobo(Robo r)
     {

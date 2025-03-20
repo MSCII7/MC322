@@ -1,7 +1,9 @@
+
 public class Robo{
-    private String nome;
-    private int posicaoX;
-    private int posicaoY;
+    protected String nome;
+    protected int posicaoX;
+    protected int posicaoY;
+    protected String direcao;
 
     public Robo(String nomeIn, int posXIn, int posYIn){
         nome = nomeIn;
@@ -24,5 +26,9 @@ public class Robo{
 
     public void exibirPosicao(){
         System.out.println("posicao do Robo " + this.nome + ": " + posicaoX + ", " + posicaoY);
+    }
+
+    public void identificarObstaculos(Ambiente amb1, int raio){
+
     }
 }
