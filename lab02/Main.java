@@ -10,6 +10,7 @@ public class Main{
         imprimirLimites(meuRobo, meuAmbiente);
 
         meuRobo.exibirPosicao();
+         
     }
 
     private static void imprimirLimites(Robo r1, Ambiente amb1){
