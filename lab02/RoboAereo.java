@@ -1,5 +1,5 @@
 public class RoboAereo extends Robo{
-    int posicaoZ;
+    int posicaoZ; //representa altitude(para seguir convecao de posicaoX e posicaoY)
     int altitudeMaxima;
 
     public RoboAereo(String nomeIn, int posXIn, int posYIn, int posZIn, int altMax){
@@ -14,6 +14,10 @@ public class RoboAereo extends Robo{
 
     public void descer(int deltaZ){
         this.posicaoZ -= deltaZ;
+    }
+    
+    @Override public void exibirPosicao(){
+        System.out.println("posicao do Robo " + this.nome + ": " + posicaoX + ", " + posicaoY + ", " + posicaoZ);
     }
 
     public int getPosZ(){
