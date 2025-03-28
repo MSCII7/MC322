@@ -13,6 +13,9 @@ public class RoboTerrestre extends Robo{
             this.posicaoX += deltaX;
             this.posicaoY += deltaY;
         }
+        else{
+            System.out.println("Velocidade total do robo " + nome + " excedeu maximo: movimento impedido");
+        }
     }
 }
 

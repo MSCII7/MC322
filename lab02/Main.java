@@ -14,8 +14,9 @@ public class Main{
         imprimirLimites(meuRobo, meuAmbiente);
 
         meuRobo.exibirPosicao();
+        //funcoes de teste para cada subclasse de robo
         //Teste RoboAereoDevagar
-        //Teste RoboTerrestre
+        testeTerrestre();
         testeRefletor(30, 132, 0);
         testeAereo(meuAmbiente);
         testeEletrico();
@@ -101,7 +102,7 @@ public class Main{
         System.out.print("ESPERADO: 0% \nOBTIDO: ");
         tele.getBarra_teletransporte();
     }
-    //Testa o Robo refletor, subindo e descendo ate uma hora que ele bate nas bordas e fica indo e voltando
+    //Testa o Robo refletor, subindo e descendo ate uma hora que ele bate nas bordas e fica indo e voltando batendo nas bordas
     private static void testeRefletor(int passoZ, int altMax, int altMin){
         RoboAereoRefletor refletor = new RoboAereoRefletor("REFRED", 10, 10, (altMax - altMin)/2, altMax, altMin);
         
@@ -154,6 +155,23 @@ public class Main{
         System.out.println("A altura maxima e " + altMax);
         imprimirLimites(aereo, amb);
         System.out.println("");
+    }
+
+    //testa o robo terrestre, excedendo a velocidade maxima em um dos deslocamentos
+    private static void testeTerrestre(){
+        RoboTerrestre terrestre = new RoboTerrestre("Carro", 10, 10, 30);
+
+        System.out.println("\n-----------\nTESTE RoboTerrestre:\n");
+        terrestre.exibirPosicao();
+
+        terrestre.mover(10, 20);
+        terrestre.exibirPosicao();
+
+        terrestre.mover(20, 10);
+        terrestre.exibirPosicao();
+
+        terrestre.mover(20, 25);
+        terrestre.exibirPosicao();
     }
 
 }
