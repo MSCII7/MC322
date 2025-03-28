@@ -20,8 +20,10 @@ public class Robo{
     }
 
     public void mover(int deltaX, int deltaY){
-        this.posicaoX += deltaX;
-        this.posicaoY += deltaY;
+        if(posicaoX + deltaX > 0) //para nao ir para negativo
+            this.posicaoX += deltaX;
+        if(posicaoY + deltaY > 0) //para nao ir para negativo
+            this.posicaoY += deltaY;
     }
 
     public void exibirPosicao(){
@@ -29,6 +31,7 @@ public class Robo{
     }
 
     public void identificarObstaculos(Ambiente amb1, int raio){
+        //para cada robo do ambiente, utiliza pitagoras da diferenca de posicao para ver se esta dentro do raio
         for (Robo robo : amb1.getRobos()){
             if(Math.pow(this.posicaoX - robo.posicaoX, 2) + Math.pow(this.posicaoY - robo.posicaoY, 2) < raio*raio){
                 System.out.println("Robo " + robo.nome + " esta no raio " + raio);

@@ -13,7 +13,8 @@ public class RoboAereo extends Robo{
     }
 
     public void descer(int deltaZ){
-        this.posicaoZ -= deltaZ;
+        if(posicaoZ - deltaZ > 0) //para nao ir para negativo
+            this.posicaoZ -= deltaZ;
     }
     
     @Override public void exibirPosicao(){

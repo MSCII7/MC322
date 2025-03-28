@@ -30,4 +30,7 @@ public class Ambiente
         return this.robos;
     }
 
+    public void imprimirDimensoes(){
+        System.out.println("O ambiente tem largura " + largura + " e comprimento " + comprimento);
+    }
 }
