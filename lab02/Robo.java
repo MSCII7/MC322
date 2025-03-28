@@ -25,7 +25,7 @@ public class Robo{
     }
 
     public void exibirPosicao(){
-        System.out.println("posicao do Robo " + this.nome + ": " + posicaoX + ", " + posicaoY);
+        System.out.println("posicao do Robo " + this.nome + ": " + this.posicaoX + ", " + this.posicaoY);
     }
 
     public void identificarObstaculos(Ambiente amb1, int raio){
