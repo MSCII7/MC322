@@ -9,8 +9,12 @@ class RoboAereoConsciente extends RoboAereo{
     }
 
     public void subir(int deltaZ, Ambiente amb){
+        
+        //para cada robo, ver se e aereo e comparar pra ver se a diferenca de posicao em z que fica se mover e menor que a distancia minima
         for(Robo r : amb.getRobos()){
             if(r instanceof RoboAereo){
+
+                //ve o valor em modulo da diferenca de posicoes se for mover
                 if(Math.abs(posicaoZ + deltaZ - ((RoboAereo) r).posicaoZ) < distanciaMin){
                     System.out.println("Robo " + nome + " nao moveu: ficaria muito proximo do robo " + r.nome);
                     r.exibirPosicao();
@@ -22,8 +26,12 @@ class RoboAereoConsciente extends RoboAereo{
     }
 
     public void descer(int deltaZ, Ambiente amb){
+
+        //para cada robo, ver se e aereo e comparar pra ver se a diferenca de posicao em z que fica se mover e menor que a distancia minima
         for(Robo r : amb.getRobos()){
             if(r instanceof RoboAereo){
+
+                //ve o valor em modulo da diferenca de posicoes se for mover
                 if(Math.abs(posicaoZ - deltaZ - ((RoboAereo) r).posicaoZ) < distanciaMin){
                     System.out.println("Robo " + nome + " nao moveu: ficaria muito proximo do robo " + r.nome);
                     r.exibirPosicao();
@@ -40,7 +48,7 @@ class RoboAereoConsciente extends RoboAereo{
             distanciaMin += deltaDist;
         }
         else{
-            System.out.println("Erro: tentativa de tornar distancia 0 ou negativa");
+            System.out.println("Erro: tentativa de tornar distancia minima 0 ou negativa");
         }
     }
 }

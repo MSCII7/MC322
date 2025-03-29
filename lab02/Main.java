@@ -16,9 +16,16 @@ public class Main{
         imprimirLimites(meuRobo, meuAmbiente);
 
         meuRobo.exibirPosicao();
-        //funcoes de teste para cada subclasse de robo
-        //Teste RoboAereoDevagar
-        testeTerrestre();
+
+        //funcoes de teste para cada subclasse de robo, retornam o robo e o adicionam ao ambiente.
+        RoboTerrestre terrestre = testeTerrestre();
+        meuAmbiente.adicionarRobo(terrestre);
+
+        RoboTerrestreEletrico eletrico = testeEletrico();
+        meuAmbiente.adicionarRobo(eletrico);
+
+        RoboTerrestreTeletransporte teletransporte = testeTeletransporte(); 
+        meuAmbiente.adicionarRobo(teletransporte);
 
         RoboAereo aereo = testeAereo(meuAmbiente);
         meuAmbiente.adicionarRobo(aereo);
@@ -28,9 +35,6 @@ public class Main{
 
         RoboAereoConsciente consciente = testeConsciente(meuAmbiente);
         meuAmbiente.adicionarRobo(consciente);
-
-        testeEletrico();
-        testeTeletransporte(); 
         
     }
 
@@ -44,7 +48,7 @@ public class Main{
         }
     }
 
-    private static void testeEletrico(){
+    private static RoboTerrestreEletrico testeEletrico(){
         RoboTerrestreEletrico eletrico = new RoboTerrestreEletrico("SHOCK", 5, 5, 101);
         System.out.println("\n-----------\nTESTE RoboTerrestreEletrico:\n");
 
@@ -78,9 +82,31 @@ public class Main{
 
         System.out.print("ESPERADO: 100% \nOBTIDO: ");
         eletrico.getNivel_bateria();
+
+        return eletrico;
     }
+
+     //testa o robo terrestre, excedendo a velocidade maxima em um dos deslocamentos
+     private static RoboTerrestre testeTerrestre(){
+        RoboTerrestre terrestre = new RoboTerrestre("Carro", 10, 10, 30);
+
+        System.out.println("\n-----------\nTESTE RoboTerrestre:\n");
+        terrestre.exibirPosicao();
+
+        terrestre.mover(10, 20);
+        terrestre.exibirPosicao();
+
+        terrestre.mover(20, 10);
+        terrestre.exibirPosicao();
+
+        terrestre.mover(20, 25);
+        terrestre.exibirPosicao();
+
+        return terrestre;
+    }
+
     //Teste RoboTerrestreTeletransporte 
-    private static void testeTeletransporte(){
+    private static RoboTerrestreTeletransporte testeTeletransporte(){
         RoboTerrestreTeletransporte tele = new RoboTerrestreTeletransporte("TP", 10, 10, 100);
         //Testar as mudanças da posição e da barra de teletransporte após o seu movimento
         System.out.println("\n-----------\nTESTE RoboTerrestreTeletransporte:\n");
@@ -111,6 +137,8 @@ public class Main{
 
         System.out.print("ESPERADO: 0% \nOBTIDO: ");
         tele.getBarra_teletransporte();
+
+        return tele;
     }
     //Testa o Robo refletor, subindo e descendo ate uma hora que ele bate nas bordas e fica indo e voltando batendo nas bordas
     private static RoboAereoRefletor testeRefletor(int passoZ, int altMax, int altMin){
@@ -139,6 +167,8 @@ public class Main{
         return refletor;
     }
 
+    //Testa o movimento do consciente, incluindo os momentos em que ele nao move por estar perto de outros aereos no eixo Z
+    //testa a variacao da distancia minima, incluindo tentar torna-la negativa
     private static RoboAereoConsciente testeConsciente(Ambiente amb){
         RoboAereoConsciente consciente = new RoboAereoConsciente("Seguro", 20, 20, 10, 100, 4);
         System.out.println("\n-----------\nTESTE RoboAereoConsciente:\n");
@@ -153,6 +183,8 @@ public class Main{
         consciente.subir(20, amb);
         
         consciente.exibirPosicao();
+
+        consciente.mudarDistancia(-40);
 
         return consciente;
     }
@@ -188,21 +220,5 @@ public class Main{
         System.out.println("");
     }
 
-    //testa o robo terrestre, excedendo a velocidade maxima em um dos deslocamentos
-    private static void testeTerrestre(){
-        RoboTerrestre terrestre = new RoboTerrestre("Carro", 10, 10, 30);
-
-        System.out.println("\n-----------\nTESTE RoboTerrestre:\n");
-        terrestre.exibirPosicao();
-
-        terrestre.mover(10, 20);
-        terrestre.exibirPosicao();
-
-        terrestre.mover(20, 10);
-        terrestre.exibirPosicao();
-
-        terrestre.mover(20, 25);
-        terrestre.exibirPosicao();
-    }
 
 }
