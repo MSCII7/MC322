@@ -12,7 +12,8 @@ class RoboAereoConsciente extends RoboAereo{
         for(Robo r : amb.getRobos()){
             if(r instanceof RoboAereo){
                 if(Math.abs(posicaoZ + deltaZ - ((RoboAereo) r).posicaoZ) < distanciaMin){
-                    System.out.println("Robo " + nome + " nao moveu: ficaria muito proximo de outros robos");
+                    System.out.println("Robo " + nome + " nao moveu: ficaria muito proximo do robo " + r.nome);
+                    r.exibirPosicao();
                     return;
                 }
             }
@@ -24,7 +25,8 @@ class RoboAereoConsciente extends RoboAereo{
         for(Robo r : amb.getRobos()){
             if(r instanceof RoboAereo){
                 if(Math.abs(posicaoZ - deltaZ - ((RoboAereo) r).posicaoZ) < distanciaMin){
-                    System.out.println("Robo " + nome + " nao moveu: ficaria muito proximo de outros robos");
+                    System.out.println("Robo " + nome + " nao moveu: ficaria muito proximo do robo " + r.nome);
+                    r.exibirPosicao();
                     return;
                 }
             }
@@ -32,6 +34,7 @@ class RoboAereoConsciente extends RoboAereo{
         this.posicaoZ -= deltaZ;
     }
 
+    //incrementa/subtrai da distancia minima que ele pode ficar de outros robos aereos no eixo z
     public void mudarDistancia(int deltaDist){
         if(distanciaMin + deltaDist > 0){
             distanciaMin += deltaDist;

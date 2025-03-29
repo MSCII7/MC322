@@ -11,14 +11,24 @@ public class Main{
         //Testar movimentar o robo
         meuRobo.mover(20, 40);
 
+        meuAmbiente.adicionarRobo(meuRobo);
+
         imprimirLimites(meuRobo, meuAmbiente);
 
         meuRobo.exibirPosicao();
         //funcoes de teste para cada subclasse de robo
         //Teste RoboAereoDevagar
         testeTerrestre();
-        testeRefletor(30, 132, 0);
-        testeAereo(meuAmbiente);
+
+        RoboAereo aereo = testeAereo(meuAmbiente);
+        meuAmbiente.adicionarRobo(aereo);
+
+        RoboAereoRefletor refletor = testeRefletor(30, 132, 0);
+        meuAmbiente.adicionarRobo(refletor);
+
+        RoboAereoConsciente consciente = testeConsciente(meuAmbiente);
+        meuAmbiente.adicionarRobo(consciente);
+
         testeEletrico();
         testeTeletransporte(); 
         
@@ -103,7 +113,7 @@ public class Main{
         tele.getBarra_teletransporte();
     }
     //Testa o Robo refletor, subindo e descendo ate uma hora que ele bate nas bordas e fica indo e voltando batendo nas bordas
-    private static void testeRefletor(int passoZ, int altMax, int altMin){
+    private static RoboAereoRefletor testeRefletor(int passoZ, int altMax, int altMin){
         RoboAereoRefletor refletor = new RoboAereoRefletor("REFRED", 10, 10, (altMax - altMin)/2, altMax, altMin);
         
         System.out.println("\n-----------\nTESTE RoboAereoRefletor:\n");
@@ -126,10 +136,29 @@ public class Main{
             refletor.exibirPosicao();
         }
 
+        return refletor;
+    }
+
+    private static RoboAereoConsciente testeConsciente(Ambiente amb){
+        RoboAereoConsciente consciente = new RoboAereoConsciente("Seguro", 20, 20, 10, 100, 4);
+        System.out.println("\n-----------\nTESTE RoboAereoConsciente:\n");
+
+        consciente.exibirPosicao();
+        consciente.descer(5, amb);
+
+        consciente.exibirPosicao();
+
+        consciente.mudarDistancia(20);
+
+        consciente.subir(20, amb);
+        
+        consciente.exibirPosicao();
+
+        return consciente;
     }
 
     //testa o robo aereo, subindo e descendo e vendo se passa da altura maxima(a altura maxima e testada dentro do imprimirLimites do ambiente)
-    private static void testeAereo(Ambiente amb){
+    private static RoboAereo testeAereo(Ambiente amb){
        int altMax = 40;
        
        RoboAereo aereo = new RoboAereo("AGUIA", 10,10, 20, altMax);
@@ -145,6 +174,8 @@ public class Main{
 
        aereo.subir(25);
        exibirAereo(aereo, amb, altMax);
+
+       return aereo;
 
     }
 
