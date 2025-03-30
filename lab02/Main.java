@@ -34,6 +34,7 @@ public class Main{
         RoboAereoConsciente consciente = testeConsciente(meuAmbiente);
         meuAmbiente.adicionarRobo(consciente);
 
+        //imprimir posicoes finais dos robos
         imprimir_robos(meuAmbiente); 
     }
 
