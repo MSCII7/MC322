@@ -1,5 +1,3 @@
-
-
 public class Main{
     public static void main(String[] args){
         //Criar um novo robô genérico
@@ -35,7 +33,8 @@ public class Main{
 
         RoboAereoConsciente consciente = testeConsciente(meuAmbiente);
         meuAmbiente.adicionarRobo(consciente);
-        
+
+        imprimir_robos(meuAmbiente); 
     }
 
     private static void imprimirLimites(Robo r1, Ambiente amb1){
@@ -47,16 +46,14 @@ public class Main{
             System.out.println("fora dos limites do ambiente!");
         }
     }
-
+    
+    /*Testa se as funcoes do robo eletrico funcionam e comparam com 
+    o resultado esperado*/
     private static RoboTerrestreEletrico testeEletrico(){
         RoboTerrestreEletrico eletrico = new RoboTerrestreEletrico("SHOCK", 5, 5, 101);
         System.out.println("\n-----------\nTESTE RoboTerrestreEletrico:\n");
 
         eletrico.mover(100,0);
-
-        System.out.print("ESPERADO: 105\nOBTIDO: ");
-        System.out.println(eletrico.getPosX());
-        System.out.println("");
 
         System.out.print("ESPERADO: posicao do Robo SHOCK: 105, 5\nOBTIDO: ");
         eletrico.exibirPosicao();
@@ -110,6 +107,7 @@ public class Main{
         RoboTerrestreTeletransporte tele = new RoboTerrestreTeletransporte("TP", 10, 10, 100);
         //Testar as mudanças da posição e da barra de teletransporte após o seu movimento
         System.out.println("\n-----------\nTESTE RoboTerrestreTeletransporte:\n");
+
         System.out.print("ESPERADO: 0% \nOBTIDO: ");
         tele.getBarra_teletransporte();
         System.out.println("");
@@ -137,9 +135,9 @@ public class Main{
 
         System.out.print("ESPERADO: 0% \nOBTIDO: ");
         tele.getBarra_teletransporte();
-
         return tele;
     }
+
     //Testa o Robo refletor, subindo e descendo ate uma hora que ele bate nas bordas e fica indo e voltando batendo nas bordas
     private static RoboAereoRefletor testeRefletor(int passoZ, int altMax, int altMin){
         RoboAereoRefletor refletor = new RoboAereoRefletor("REFRED", 10, 10, (altMax - altMin)/2, altMax, altMin);
@@ -220,5 +218,11 @@ public class Main{
         System.out.println("");
     }
 
-
+    //Imprimir os robos adicionados no ambiente
+    private static void imprimir_robos(Ambiente amb){
+        System.out.println("\n-----------\nIMPRIMIR POSICOES FINAIS:");
+        for(Robo robo : amb.getRobos()){
+            robo.exibirPosicao();
+        }
+    }
 }
