@@ -1,14 +1,17 @@
+import java.util.ArrayList;
 
 public class Robo{
     protected String nome;
     protected int posicaoX;
     protected int posicaoY;
     protected String direcao;
+    protected ArrayList<Sensor> sensores;
 
     public Robo(String nomeIn, int posXIn, int posYIn){
         nome = nomeIn;
         posicaoX = posXIn;
         posicaoY = posYIn;
+        this.sensores = new ArrayList<>();
     }
 
     public int getPosX(){

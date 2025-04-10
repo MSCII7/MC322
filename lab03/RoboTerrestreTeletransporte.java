@@ -30,7 +30,7 @@ public class RoboTerrestreTeletransporte extends RoboTerrestre{
             System.out.println("Barra de telestransporte não está carregada! Faltam "+(100-this.barra_teletransporte)+" passos");
     }
     //Imprimi a barra em porcentagem
-    public void getBarra_teletransporte(){
-        System.out.println(this.barra_teletransporte+"%");
+    public int getBarra_teletransporte(){
+        return this.barra_teletransporte;
     }
 }

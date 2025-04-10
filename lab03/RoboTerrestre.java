@@ -17,5 +17,8 @@ public class RoboTerrestre extends Robo{
             System.out.println("Velocidade total do robo " + nome + " excedeu maximo: movimento impedido");
         }
     }
+    public int getVelocidadeMaxima() {
+        return velocidadeMaxima;
+    }
 }
 

@@ -24,7 +24,7 @@ public class RoboTerrestreEletrico extends RoboTerrestre{
         this.nivel_bateria = 100;
     }
     //Imprimir a bateria por "%"
-    public void getNivel_bateria(){
-        System.out.println(this.nivel_bateria+"%");
+    public int getNivel_bateria(){
+        return this.nivel_bateria;
     }
 }
