@@ -5,13 +5,14 @@ public class Robo{
     protected int posicaoX;
     protected int posicaoY;
     protected String direcao;
-    protected ArrayList<Sensor> sensores;
-
-    public Robo(String nomeIn, int posXIn, int posYIn){
+    protected ArrayList<Sensor> sensores; //Por padrão iremos adicionar os sensores de Robos e os de Obstáculos em todos os robos
+    
+    public Robo(String nomeIn, int posXIn, int posYIn, Ambiente amb){
         nome = nomeIn;
         posicaoX = posXIn;
         posicaoY = posYIn;
         this.sensores = new ArrayList<>();
+        adicionaSensores(sensores, amb);
     }
 
     public int getPosX(){
@@ -40,5 +41,12 @@ public class Robo{
                 System.out.println("Robo " + robo.nome + " esta no raio " + raio);
             }
         }
+    }
+
+    public void adicionaSensores(ArrayList<Sensor> sensores, Ambiente amb){
+        SensorObstaculos so = new SensorObstaculos(10, amb);
+        SensorRobos sb = new SensorRobos(10, amb);
+        sensores.add(so);
+        sensores.add(sb);
     }
 }
