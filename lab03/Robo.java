@@ -11,8 +11,8 @@ public class Robo{
         nome = nomeIn;
         posicaoX = posXIn;
         posicaoY = posYIn;
-        this.sensores = new ArrayList<>();
-        adicionaSensores(sensores, amb);
+        sensores = new ArrayList<Sensor>();
+        adicionaSensores(amb);
     }
 
     public int getPosX(){
@@ -24,14 +24,14 @@ public class Robo{
     }
 
     public void mover(int deltaX, int deltaY){
-        novo_x = posicaoX + deltaX;
-        novo_y = posicaoY + deltaY;
-        if (!colisao_robo && !colisao_obs)
-
-        if(posicaoX + deltaX > 0) //para nao ir para negativo
-            this.posicaoX += deltaX;
-        if(posicaoY + deltaY > 0) //para nao ir para negativo
-            this.posicaoY += deltaY;
+        int novo_x = posicaoX + deltaX;
+        int novo_y = posicaoY + deltaY;
+        if (!colisao_robo(identificarRobos(), novo_x, novo_y) && !colisao_obs(identificarObstaculos(), novo_x, novo_y)){
+            if(posicaoX + deltaX > 0) //para nao ir para negativo
+                this.posicaoX += deltaX;
+            if(posicaoY + deltaY > 0) //para nao ir para negativo
+                this.posicaoY += deltaY;
+        }
     }
 
     public void exibirPosicao(){
@@ -58,7 +58,7 @@ public class Robo{
     }
     public boolean colisao_obs(ArrayList<Obstaculo> obs_dentro, int nova_x, int nova_y){
         for (Obstaculo obs : obs_dentro){
-            if ((obs.getPosicaoX1() > nova_x) && (nova_x > obs.getPosicaoX2()) && (obs.getPosicaoY1() > nova_y) && (nova_y > obs.getPosicaoY2()))
+            if ((obs.getPosicaoX1() < nova_x) && (nova_x < obs.getPosicaoX2()) && (obs.getPosicaoY1() < nova_y) && (nova_y < obs.getPosicaoY2()))
                 return true;
         }
         return false;
@@ -74,8 +74,6 @@ public class Robo{
         }
         return false;
     }
-        return false;
-    }
     /* public void identificarObstaculos(Ambiente amb1, int raio){
 
         for (Robo robo : amb1.getRobos()){
@@ -84,10 +82,10 @@ public class Robo{
             }
         }
     }*/
-    private void adicionaSensores(ArrayList<Sensor> sensores, Ambiente amb){
+    protected void adicionaSensores(Ambiente amb){
         SensorObstaculos so = new SensorObstaculos(10, amb);
         SensorRobos sb = new SensorRobos(10, amb);
-        sensores.add(so);
-        sensores.add(sb);
+        this.sensores.add(so);
+        this.sensores.add(sb);
     }
 }
