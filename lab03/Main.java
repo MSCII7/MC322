@@ -41,11 +41,11 @@ public class Main{
         imprimirRobos(meuAmbiente); 
 
 
-        /* O que colocar no menu interativo:
+        /* O que colocar no menu interativo: (o '+' indica que a base ja esta feita)
             -Mensagem falando os comandos
             -Imprimir todos os robos +
             -Imprimir todos os obstaculos +
-         *  -Imprimir status do ambiente(dimensoes, numero de robos e obstaculos)
+         *  -Imprimir status do ambiente(dimensoes, numero de robos e obstaculos) +
          *  -Utilizar movimentacao basica(mover(), subir(), descer())
          *  -Selecionar robo a partir do nome ou indice: +
             *  -Relatar sensores de um robo selecionado
@@ -253,6 +253,12 @@ public class Main{
         }
     }
 
+    private static void imprimirAmbiente(Ambiente amb){
+        amb.imprimirDimensoes();
+        System.out.println("O ambiente tem " + amb.getRobos().size() + " robos.");
+        System.err.println("O ambiente tem " + amb.getObstaculos().size + "obstaculos.");
+    }
+
     
     //escolhe um robo a partir do indice ou nome. Podemos utilizar depois para imprimir o robo ou analisar sensores
     private static Robo escolherRoboEspecifico(String identificador, Ambiente amb){
@@ -284,7 +290,7 @@ public class Main{
             }
         }
         else{
-            System.out.println("A string idenficador esta vazia!");
+            System.out.println("A string idenficadora esta vazia!");
             return null;
         }
         
