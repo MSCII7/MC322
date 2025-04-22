@@ -112,28 +112,24 @@ class Obstaculo {
     +getTipo(): TipoObstaculo
 }
 enum TipoObstaculo {
-    MURO(10, 2, 3),
-    MEGAMURO(30, 2, 3),
-    ARVORE(2, 2, 8),
-    PREDIO(10, 10, 20);
-    -final int largura
-    -final int comprimento
-    -final int altura
-    +getLargura(): int
-    +getComprimento(): int
-    +getAltura(): int
+    MURO,
+    MEGAMURO,
+    ARVORE,
+    PREDIO;
 }
 
 SensorObstaculos <|-- SensorObstaculosAereo
 Sensor <|-- SensorObstaculos
 Sensor <|-- SensorRobos
 Ambiente --> Sensor
-Ambiente --> Robo
-Sensor <--> Robo
+Ambiente o-- "*" Robo
+Ambiente o-- "*" Obstaculo
+Robo o-- "*" Sensor
 RoboAereo <|-- RoboAereoRefletor
 RoboAereo <|-- RoboAereoConsciente
 RoboTerrestre <|-- RoboTerrestreTeletransporte
 RoboTerrestre <|-- RoboTerrestreEletrico
 Robo <|-- RoboAereo
 Robo <|-- RoboTerrestre
+Obstaculo ..> TipoObstaculo
 @enduml
