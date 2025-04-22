@@ -1,0 +1,139 @@
+@startuml
+class Robo {
+  #String nome
+  #int posicaoX
+  #int posicaoY
+  #String direcao
+  #ArrayList<Sensor> sensores
+  +getPosX():int
+  +getPosY():int
+  +getNome():String
+  +mover(deltaX: int, deltaY: int): void
+  +exibirPosicao(): void
+  +identidicarObstaculo(): ArrayList<Obstaculo>  
+  +identificarRobos(): ArrayList<Robos>
+  +colisao_obs(ArrayList<Obstaculo>, int, int): boolean
+  +colisao_robo(ArrayList<Robo>, int, int): boolean
+  #adicionaSensores(Ambiente): void
+
+}
+class RoboTerrestre {
+    #int velocidadeMaxima
+    +mover(int, int): void
+    +getVelocidadeMaxima(): void
+}
+class RoboTerrestreEletrico {
+    -int nivel_bateria
+    +mover(int, int): void
+    +carregar(): void
+    +getNivel_bateria(): int
+}
+class RoboTerrestreTeletransporte {
+    -int barra_teletransporte
+    +mover(int, int): void
+    +teletransportar(posX: int, posY: int): void
+    +getBarra_teletransporte(): int
+}
+class RoboAereo {
+    #int posicaoZ
+    #int altitudeMaxima
+    +subir(deltaZ: int): void
+    +descer(deltaZ: int): void
+    +exibirPosicao(): void
+    #adicionaSensores(amb: Ambiente): void
+    +identidicarObstaculo(): ArrayList<Obstaculo>
+    +getPosZ(): int
+    +getAltiduteMaxima(): int
+}
+class RoboAereoConsciente {
+    #int distaciaMin
+    +subir(deltaZ: int, amb: Ambiente): void
+    +descer(deltaZ: int, amb: Ambiente): void
+    +mudarDistancia(deltaDist: int): void
+}
+class RoboAereoRefletor {
+    #int altitudeMinima
+    +subir(deltaZ: int): void
+    +descer(deltaZ: int): void
+}
+abstract class Sensor {
+    #double raio
+    #Ambiente amb
+    +{abstract} monitorar(amb: Ambiente, posX: int, posY: int, posZ: int): void
+    +getRaio(): double
+}
+class SensorRobos {
+    #ArrayList<Robo> robos_dentro
+    +monitorar(amb: Ambiente, posX: int, posY: int, posZ: int): void
+    +dentro_do_raio(posX: int, posY: int, posZ: int, robo: Robo, raio: double): boolean
+    +getRobos_dentro(): ArrayList<Robo>
+}
+class SensorObstaculos {
+    #ArrayList<Obstaculo> obstaculos_dentro
+    +monitorar(Ambiente amb, int posX, int posY, int posZ): void
+    #dentro_do_raio(Obstaculo obs, int posX, int posY, int posZ): boolean
+    #menor_dist(posX: int, posY: int, obs: Obstaculo): double
+    +getObstaculos_dentro(): ArrayList<Obstaculo>
+}
+class SensorObstaculosAereo {
+    #dentro_do_raio(Obstaculo obs, int posX, int posY, int posZ): boolean
+    #menor_dist(int posX, int posY, int posZ, Obstaculo obs): double
+}
+class Ambiente {
+   -int largura
+   -int comprimento
+   -int altura
+   -ArrayList<Robo> robos
+   -ArrayList<Obstaculo> obstaculos
+   +dentroDosLimites(r: Robo): boolean 
+   +adicionarRobo(r: Robo): void
+   +removerRobo(r: Robo): void
+   +getRobos(): ArrayList<Robo>
+   +adicionarObstaculo(ob: Obstaculo): void
+   +removerObstaculo(ob: Obstaculo): void
+   +getObstaculos(): ArrayList<Obstaculo>
+   +imprimirDimensoes(): void
+}
+class Obstaculo {
+    -int posicaoX1
+    -int posicaoX2
+    -int posicaoY1
+    -int posicaoY2
+    -int altura
+    -int centroX
+    -int centroY 
+    -TipoObstaculo tipo
+    +exibirObstaculo(): void
+    +getPosicaoX1(): int
+    +getPosicaoX2(): int
+    +getPosicaoY1(): int
+    +getPosicaoY2(): int
+    +getAltura(): int
+    +getTipo(): TipoObstaculo
+}
+enum TipoObstaculo {
+    MURO(10, 2, 3),
+    MEGAMURO(30, 2, 3),
+    ARVORE(2, 2, 8),
+    PREDIO(10, 10, 20);
+    -final int largura
+    -final int comprimento
+    -final int altura
+    +getLargura(): int
+    +getComprimento(): int
+    +getAltura(): int
+}
+
+SensorObstaculos <|-- SensorObstaculosAereo
+Sensor <|-- SensorObstaculos
+Sensor <|-- SensorRobos
+Ambiente --> Sensor
+Ambiente --> Robo
+Sensor <--> Robo
+RoboAereo <|-- RoboAereoRefletor
+RoboAereo <|-- RoboAereoConsciente
+RoboTerrestre <|-- RoboTerrestreTeletransporte
+RoboTerrestre <|-- RoboTerrestreEletrico
+Robo <|-- RoboAereo
+Robo <|-- RoboTerrestre
+@enduml
