@@ -23,6 +23,10 @@ public class Robo{
         return this.posicaoY;
     }
 
+    public String getNome(){
+        return this.nome;
+    }
+
     public void mover(int deltaX, int deltaY){
         int novo_x = posicaoX + deltaX;
         int novo_y = posicaoY + deltaY;

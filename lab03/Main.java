@@ -38,17 +38,18 @@ public class Main{
         meuAmbiente.adicionarRobo(consciente);
 
         //imprimir posicoes finais dos robos
-        imprimir_robos(meuAmbiente); 
+        imprimirRobos(meuAmbiente); 
 
 
         /* O que colocar no menu interativo:
             -Mensagem falando os comandos
-            -Imprimir todos os robos
-            -Imprimir todos os obstaculos
-         *  -Imprimir posicao/status do robo(por nome ou por indice)
+            -Imprimir todos os robos +
+            -Imprimir todos os obstaculos +
          *  -Imprimir status do ambiente(dimensoes, numero de robos e obstaculos)
          *  -Utilizar movimentacao basica(mover(), subir(), descer())
-         *  -Relatar sensores de um robo selecionado
+         *  -Selecionar robo a partir do nome ou indice: +
+            *  -Relatar sensores de um robo selecionado
+            *  -Imprimir posicao/status do robo selecionado
          *  
          * 
          */
@@ -236,7 +237,7 @@ public class Main{
     }
 
     //Imprimir os robos do ambiente, com seu indice na lista de robos na frente
-    private static void imprimir_robos(Ambiente amb){
+    private static void imprimirRobos(Ambiente amb){
         ArrayList<Robo> robos = amb.getRobos();
         for(int i = 0; i < robos.size(); i++){
             System.out.printf(i + ": ");
@@ -245,6 +246,47 @@ public class Main{
     }
 
     private static void imprimirObstaculos(Ambiente amb){
+        ArrayList<Obstaculo> obstaculos = amb.getObstaculos();
+        for(int i = 0; i < obstaculos.size(); i++){
+            System.out.printf(i +  ": ");
+            obstaculos.get(i).exibirObstaculo();
+        }
+    }
 
+    
+    //escolhe um robo a partir do indice ou nome. Podemos utilizar depois para imprimir o robo ou analisar sensores
+    private static Robo escolherRoboEspecifico(String identificador, Ambiente amb){
+        ArrayList<Robo> robos = amb.getRobos();
+
+        //ver se string nao eh vazia
+        if(identificador.length() > 0){
+
+            //verifica os valores ascii: so eh numero se estiver entre esses valores
+            //Obs: considera que o nome nao comeca com numero
+            if(identificador.charAt(0) > '0' && identificador.charAt(0) < '9'){
+                int indice = Integer.parseInt(identificador);
+                Robo r = robos.get(indice);
+                System.out.println("Foi escolhido o robo " + r.getNome());
+                return r;
+            }
+
+            //para utilizacao de nome para identificar robo
+            else{
+                for(Robo r : robos){
+                    if(identificador.equals(r.getNome())){
+                        System.out.println("Foi escolhido o robo " + r.getNome());
+                        return r;
+                    }
+                }
+                //se nao retornou ainda, nenhum tem o nome
+                System.out.println("Nenhum robo tem o nome dado!");
+                return null;
+            }
+        }
+        else{
+            System.out.println("A string idenficador esta vazia!");
+            return null;
+        }
+        
     }
 }
