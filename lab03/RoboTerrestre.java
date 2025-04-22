@@ -1,8 +1,8 @@
 public class RoboTerrestre extends Robo{
     protected int velocidadeMaxima;
     //Adicionar o atributo velocidadeMaxima no construtor
-    public RoboTerrestre(String nomeIn, int posXIn, int posYIn, int vMax){
-        super(nomeIn, posXIn, posYIn);
+    public RoboTerrestre(String nomeIn, int posXIn, int posYIn, Ambiente amb, int vMax){
+        super(nomeIn, posXIn, posYIn, amb);
         velocidadeMaxima = vMax;       
     }
     //Adicionar a verificação da velocidade para a locomoção do robo

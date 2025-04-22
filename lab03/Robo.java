@@ -66,8 +66,8 @@ public class Robo{
     
     public boolean colisao_robo(ArrayList<Robo> robos_dentro, int nova_x, int nova_y){
         for (Robo robo : robos_dentro){
-            if (robo instanceof RoboAereo){
-                if (nova_x == robo.getPosY() && nova_y == robo.getPosY() && (RoboAereo)robo.getPosZ() == 0)
+            if (robo instanceof RoboAereo ra){
+                if (nova_x == ra.getPosX() && nova_y == ra.getPosY() && ra.getPosZ() == 0)
                     return true;
             } else if (nova_x == robo.getPosX() && nova_y == robo.getPosY())
                 return true;

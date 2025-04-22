@@ -50,6 +50,6 @@ public class Ambiente
     }
 
     public void imprimirDimensoes(){
-        System.out.println("O ambiente tem largura " + largura + " e comprimento " + comprimento);
+        System.out.println("O ambiente tem largura " + largura + " e comprimento " + comprimento + " e altura " + altura);
     }
 }

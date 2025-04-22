@@ -1,6 +1,7 @@
 public class Sensor {
     protected double raio;
     protected  Ambiente amb;
+        
     public Sensor(double raio, Ambiente amb){
         this.raio = raio;
         this.amb = amb;

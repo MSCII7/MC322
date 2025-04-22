@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 public class Main{
     public static void main(String[] args){
         //Criar um novo robô genérico
@@ -36,6 +39,19 @@ public class Main{
 
         //imprimir posicoes finais dos robos
         imprimir_robos(meuAmbiente); 
+
+
+        /* O que colocar no menu interativo:
+            -Mensagem falando os comandos
+            -Imprimir todos os robos
+            -Imprimir todos os obstaculos
+         *  -Imprimir posicao/status do robo(por nome ou por indice)
+         *  -Imprimir status do ambiente(dimensoes, numero de robos e obstaculos)
+         *  -Utilizar movimentacao basica(mover(), subir(), descer())
+         *  -Relatar sensores de um robo selecionado
+         *  
+         * 
+         */
     }
 
     private static void imprimirLimites(Robo r1, Ambiente amb1){
@@ -219,11 +235,16 @@ public class Main{
         System.out.println("");
     }
 
-    //Imprimir os robos adicionados no ambiente
+    //Imprimir os robos do ambiente, com seu indice na lista de robos na frente
     private static void imprimir_robos(Ambiente amb){
-        System.out.println("\n-----------\nIMPRIMIR POSICOES FINAIS:");
-        for(Robo robo : amb.getRobos()){
-            robo.exibirPosicao();
+        ArrayList<Robo> robos = amb.getRobos();
+        for(int i = 0; i < robos.size(); i++){
+            System.out.printf(i + ": ");
+            robos.get(i).exibirPosicao();
         }
+    }
+
+    private static void imprimirObstaculos(Ambiente amb){
+
     }
 }

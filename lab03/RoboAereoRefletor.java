@@ -2,8 +2,8 @@
 class RoboAereoRefletor extends RoboAereo{
     protected int altitudeMinima;
 
-    public RoboAereoRefletor(String nomeIn, int posXIn, int posYIn, int posZIn, int altMax, int altMin){
-        super(nomeIn, posXIn, posYIn, posZIn, altMax);
+    public RoboAereoRefletor(String nomeIn, int posXIn, int posYIn, Ambiente amb, int posZIn, int altMax, int altMin){
+        super(nomeIn, posXIn, posYIn, amb, posZIn, altMax);
         altitudeMinima = altMin;
     }
 

@@ -3,8 +3,8 @@
 class RoboAereoConsciente extends RoboAereo{
     protected int distanciaMin;
 
-    public RoboAereoConsciente(String nomeIn, int posXIn, int posYIn, int posZIn, int altMax, int distMin){
-        super(nomeIn, posXIn, posYIn, posZIn, altMax);
+    public RoboAereoConsciente(String nomeIn, int posXIn, int posYIn, Ambiente amb, int posZIn, int altMax, int distMin){
+        super(nomeIn, posXIn, posYIn, amb, posZIn, altMax);
         distanciaMin = distMin;
     }
 

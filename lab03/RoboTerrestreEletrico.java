@@ -1,7 +1,7 @@
 public class RoboTerrestreEletrico extends RoboTerrestre{
     private int nivel_bateria; //determina a bateria restante do robo
-    public RoboTerrestreEletrico(String nomeIn, int posXIn, int posYIn, int vMax){
-        super(nomeIn, posXIn, posYIn, vMax);
+    public RoboTerrestreEletrico(String nomeIn, int posXIn, int posYIn, Ambiente amb, int vMax){
+        super(nomeIn, posXIn, posYIn, amb, vMax);
         nivel_bateria = 100;
     }
     //Alterar o mover() para que o robo nao se mmova quando novel_bateria = 0    

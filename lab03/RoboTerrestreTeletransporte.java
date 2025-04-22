@@ -1,7 +1,7 @@
 public class RoboTerrestreTeletransporte extends RoboTerrestre{
     private int barra_teletransporte;
-    public RoboTerrestreTeletransporte(String nomeIn, int posXIn, int posYIn, int vMax){
-        super(nomeIn, posXIn, posYIn, vMax);
+    public RoboTerrestreTeletransporte(String nomeIn, int posXIn, int posYIn, Ambiente amb, int vMax){
+        super(nomeIn, posXIn, posYIn, amb, vMax);
         barra_teletransporte = 0;
     }
     //Adiciona o aumento da barra_teletransporte ao andar
