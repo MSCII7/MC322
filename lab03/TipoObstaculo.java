@@ -3,7 +3,9 @@ public enum TipoObstaculo {
     MURO(10, 2, 3),
     MEGAMURO(30, 2, 3),
     ARVORE(2, 2, 8),
-    PREDIO(10, 10, 20);
+    PREDIO(10, 10, 20),
+    LIXEIRA(1, 1, 1),
+    CASA(10, 10, 10);
 
     private final int largura, comprimento, altura;
 

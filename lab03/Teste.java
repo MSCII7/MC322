@@ -168,4 +168,14 @@ public class Teste {
         imprimirLimites(aereo, amb);
         System.out.println("");
     }
+
+    public static void imprimirLimites(Robo r1, Ambiente amb){
+
+        if(amb1.dentroDosLimites(r1)){
+            System.out.println("dentro dos limites do ambiente!");
+        }
+        else{
+            System.out.println("fora dos limites do ambiente!");
+        }
+    }
 }
