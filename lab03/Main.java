@@ -6,7 +6,9 @@ public class Main{
     public static void main(String[] args){
         //Criar um novo robô genérico
         //Criar um ambiente
-        Ambiente meuAmbiente = new Ambiente(40, 40);
+        Ambiente meuAmbiente = new Ambiente(400, 400, 200);
+        criarObstaculos(meuAmbiente);
+
         Robo meuRobo = new Robo("FRED",10, 24, meuAmbiente);
         //Testar reconhecimento dos limites
         Teste.imprimirLimites(meuRobo, meuAmbiente);
@@ -41,20 +43,59 @@ public class Main{
         //imprimir posicoes finais dos robos
         imprimirRobos(meuAmbiente); 
 
+        System.out.println("");
+        System.out.println("---Bem vindo ao menu de interacao---");
+        System.err.println("Utilize 'itr' para imprimir todos os robos, 'ito' para imprimir todos os obstaculos, "+
+        "'ia' para imprimir dados do ambiente, 'r <identificador>' para selecionar um robo,"+
+        "sendo <identificador> o nome ou indice do robo no ambiente, ou utilize 's' para sair");
+
         Scanner scanner = new Scanner(System.in);
+        String comando = scanner.nextLine();
+
+        Robo roboEscolhido = null;
+
+        while(!comando.equals("s")){
+            String[] divisor = comando.split(" ");
+
+            if(comando.equals("itr"))
+                imprimirRobos(meuAmbiente);
+            else if(comando.equals("ito"))
+                imprimirObstaculos(meuAmbiente);
+            else if(comando.equals("ia"))
+                imprimirAmbiente(meuAmbiente);
+
+            else if(divisor[0].equals("r")){
+                roboEscolhido = escolherRoboEspecifico(divisor[1], meuAmbiente);
+            }
+            else if(comando.equals("rs")){
+                if(roboEscolhido == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+            }
+
+            else if(comando.equals("rp")){
+                if(roboEscolhido == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+                else{
+                    roboEscolhido.exibirPosicao();
+                }
+            }
 
 
+            comando = scanner.nextLine();
+        }
+
+        scanner.close();
 
 
         /* O que colocar no menu interativo: (o '+' indica que a base ja esta feita)
             -Mensagem falando os comandos
-            -Imprimir todos os robos(pr) +
-            -Imprimir todos os obstaculos(po) +
-         *  -Imprimir status do ambiente(dimensoes, numero de robos e obstaculos)(pa) +
+            -Imprimir todos os robos(itr) +
+            -Imprimir todos os obstaculos(ito) +
+         *  -Imprimir status do ambiente(dimensoes, numero de robos e obstaculos)(ia) +
          *  -Utilizar movimentacao basica(mover(), subir(), descer())
          *  -Selecionar robo a partir do nome ou indice: (r <identificador>) +
-            *  -Relatar sensores de um robo selecionado
-            *  -Imprimir posicao/status do robo selecionado
+            *  -Relatar sensores de um robo selecionado (rs)
+            *  -Imprimir posicao/status do robo selecionado (rp)
          *  
          * 
          */
@@ -81,7 +122,7 @@ public class Main{
     private static void imprimirAmbiente(Ambiente amb){
         amb.imprimirDimensoes();
         System.out.println("O ambiente tem " + amb.getRobos().size() + " robos.");
-        System.err.println("O ambiente tem " + amb.getObstaculos().size() + "obstaculos.");
+        System.err.println("O ambiente tem " + amb.getObstaculos().size() + " obstaculos.");
     }
 
     
@@ -118,6 +159,15 @@ public class Main{
             System.out.println("A string idenficadora esta vazia!");
             return null;
         }
+        
+    }
+
+    private static void criarObstaculos(Ambiente amb){
+        amb.adicionarObstaculo(new Obstaculo(100, 100, TipoObstaculo.CASA));
+        amb.adicionarObstaculo(new Obstaculo(10, 10, TipoObstaculo.PREDIO));
+        amb.adicionarObstaculo(new Obstaculo(20, 90, TipoObstaculo.MEGAMURO));
+        amb.adicionarObstaculo(new Obstaculo(90, 20, TipoObstaculo.MURO));
+        amb.adicionarObstaculo(new Obstaculo(120, 30, TipoObstaculo.ARVORE));
         
     }
 }

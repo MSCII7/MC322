@@ -8,11 +8,13 @@ public class Ambiente
     private ArrayList<Robo> robos;
     private ArrayList<Obstaculo> obstaculos;
 
-    public Ambiente(int l, int c)
+    public Ambiente(int l, int c, int a)
     {
         largura = l;
         comprimento = c;
+        altura = a;
         robos = new ArrayList<>();
+        obstaculos = new ArrayList<>();
     }
 
     public boolean dentroDosLimites(Robo r)
@@ -50,6 +52,6 @@ public class Ambiente
     }
 
     public void imprimirDimensoes(){
-        System.out.println("O ambiente tem largura " + largura + " e comprimento " + comprimento + " e altura " + altura);
+        System.out.println("O ambiente tem largura " + largura + ", comprimento " + comprimento + " e altura " + altura);
     }
 }

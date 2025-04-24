@@ -18,12 +18,14 @@ public class Obstaculo {
 
         this.altura = tipo.getAltura();
 
+        this.tipo = tipo;
+
     }
 
     public void exibirObstaculo(){
         System.out.printf("Obstaculo do tipo " + tipo.name());
-        System.out.printf(", com largura(x)" + tipo.getLargura());
-        System.out.printf(", comprimento(y)" + tipo.getComprimento());
+        System.out.printf(", com largura(x) " + tipo.getLargura());
+        System.out.printf(", comprimento(y) " + tipo.getComprimento());
         System.out.printf(" e altura(z) " + tipo.getAltura());
         System.err.println(", com centro: " + this.centroX + ", " + this.centroY);
 
