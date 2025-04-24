@@ -1,8 +1,8 @@
 public class Teste {
     /*Testa se as funcoes do robo eletrico funcionam e comparam com 
     o resultado esperado*/
-    public static RoboTerrestreEletrico testeEletrico(){
-        RoboTerrestreEletrico eletrico = new RoboTerrestreEletrico("SHOCK", 5, 5, 101);
+    public static RoboTerrestreEletrico testeEletrico(Ambiente amb){
+        RoboTerrestreEletrico eletrico = new RoboTerrestreEletrico("SHOCK", 5, 5, amb, 101);
         System.out.println("\n-----------\nTESTE RoboTerrestreEletrico:\n");
 
         eletrico.mover(100,0);
@@ -36,8 +36,8 @@ public class Teste {
     }
 
      //testa o robo terrestre, excedendo a velocidade maxima em um dos deslocamentos
-     public static RoboTerrestre testeTerrestre(){
-        RoboTerrestre terrestre = new RoboTerrestre("Carro", 10, 10, 30);
+     public static RoboTerrestre testeTerrestre(Ambiente amb){
+        RoboTerrestre terrestre = new RoboTerrestre("Carro", 10, 10, amb, 30);
 
         System.out.println("\n-----------\nTESTE RoboTerrestre:\n");
         terrestre.exibirPosicao();
@@ -55,8 +55,8 @@ public class Teste {
     }
 
     //Teste RoboTerrestreTeletransporte 
-    public static RoboTerrestreTeletransporte testeTeletransporte(){
-        RoboTerrestreTeletransporte tele = new RoboTerrestreTeletransporte("TP", 10, 10, 100);
+    public static RoboTerrestreTeletransporte testeTeletransporte(Ambiente amb){
+        RoboTerrestreTeletransporte tele = new RoboTerrestreTeletransporte("TP", 10, 10, amb, 100);
         //Testar as mudanças da posição e da barra de teletransporte após o seu movimento
         System.out.println("\n-----------\nTESTE RoboTerrestreTeletransporte:\n");
 
@@ -91,8 +91,8 @@ public class Teste {
     }
 
     //Testa o Robo refletor, subindo e descendo ate uma hora que ele bate nas bordas e fica indo e voltando batendo nas bordas
-    public static RoboAereoRefletor testeRefletor(int passoZ, int altMax, int altMin){
-        RoboAereoRefletor refletor = new RoboAereoRefletor("REFRED", 10, 10, (altMax - altMin)/2, altMax, altMin);
+    public static RoboAereoRefletor testeRefletor(int passoZ, int altMax, int altMin, Ambiente amb){
+        RoboAereoRefletor refletor = new RoboAereoRefletor("REFRED", 10, 10, amb, (altMax - altMin)/2, altMax, altMin);
         
         System.out.println("\n-----------\nTESTE RoboAereoRefletor:\n");
         refletor.exibirPosicao();
@@ -120,7 +120,7 @@ public class Teste {
     //Testa o movimento do consciente, incluindo os momentos em que ele nao move por estar perto de outros aereos no eixo Z
     //testa a variacao da distancia minima, incluindo tentar torna-la negativa
     public static RoboAereoConsciente testeConsciente(Ambiente amb){
-        RoboAereoConsciente consciente = new RoboAereoConsciente("Seguro", 20, 20, 10, 100, 4);
+        RoboAereoConsciente consciente = new RoboAereoConsciente("Seguro", 20, 20, amb, 10, 100, 4);
         System.out.println("\n-----------\nTESTE RoboAereoConsciente:\n");
 
         consciente.exibirPosicao();
@@ -143,7 +143,7 @@ public class Teste {
     public static RoboAereo testeAereo(Ambiente amb){
        int altMax = 40;
        
-       RoboAereo aereo = new RoboAereo("AGUIA", 10,10, 20, altMax);
+       RoboAereo aereo = new RoboAereo("AGUIA", 10,10, amb, 20, altMax);
        System.out.println("\n-----------\nTESTE RoboAereo:\n");
 
        exibirAereo(aereo, amb, altMax);
@@ -171,7 +171,7 @@ public class Teste {
 
     public static void imprimirLimites(Robo r1, Ambiente amb){
 
-        if(amb1.dentroDosLimites(r1)){
+        if(amb.dentroDosLimites(r1)){
             System.out.println("dentro dos limites do ambiente!");
         }
         else{

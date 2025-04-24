@@ -1,12 +1,13 @@
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main{
     public static void main(String[] args){
         //Criar um novo robô genérico
-        Robo meuRobo = new Robo("FRED",10, 24);
         //Criar um ambiente
         Ambiente meuAmbiente = new Ambiente(40, 40);
+        Robo meuRobo = new Robo("FRED",10, 24, meuAmbiente);
         //Testar reconhecimento dos limites
         Teste.imprimirLimites(meuRobo, meuAmbiente);
         //Testar movimentar o robo
@@ -19,19 +20,19 @@ public class Main{
         meuRobo.exibirPosicao();
 
         //funcoes de teste para cada subclasse de robo, retornam o robo e o adicionam ao ambiente.
-        RoboTerrestre terrestre = Teste.testeTerrestre();
+        RoboTerrestre terrestre = Teste.testeTerrestre(meuAmbiente);
         meuAmbiente.adicionarRobo(terrestre);
 
-        RoboTerrestreEletrico eletrico = Teste.testeEletrico();
+        RoboTerrestreEletrico eletrico = Teste.testeEletrico(meuAmbiente);
         meuAmbiente.adicionarRobo(eletrico);
 
-        RoboTerrestreTeletransporte teletransporte = Teste.testeTeletransporte(); 
+        RoboTerrestreTeletransporte teletransporte = Teste.testeTeletransporte(meuAmbiente); 
         meuAmbiente.adicionarRobo(teletransporte);
 
         RoboAereo aereo = Teste.testeAereo(meuAmbiente);
         meuAmbiente.adicionarRobo(aereo);
 
-        RoboAereoRefletor refletor = Teste.testeRefletor(30, 132, 0);
+        RoboAereoRefletor refletor = Teste.testeRefletor(30, 132, 0, meuAmbiente);
         meuAmbiente.adicionarRobo(refletor);
 
         RoboAereoConsciente consciente = Teste.testeConsciente(meuAmbiente);
@@ -40,14 +41,18 @@ public class Main{
         //imprimir posicoes finais dos robos
         imprimirRobos(meuAmbiente); 
 
+        Scanner scanner = new Scanner(System.in);
+
+
+
 
         /* O que colocar no menu interativo: (o '+' indica que a base ja esta feita)
             -Mensagem falando os comandos
-            -Imprimir todos os robos +
-            -Imprimir todos os obstaculos +
-         *  -Imprimir status do ambiente(dimensoes, numero de robos e obstaculos) +
+            -Imprimir todos os robos(pr) +
+            -Imprimir todos os obstaculos(po) +
+         *  -Imprimir status do ambiente(dimensoes, numero de robos e obstaculos)(pa) +
          *  -Utilizar movimentacao basica(mover(), subir(), descer())
-         *  -Selecionar robo a partir do nome ou indice: +
+         *  -Selecionar robo a partir do nome ou indice: (r <identificador>) +
             *  -Relatar sensores de um robo selecionado
             *  -Imprimir posicao/status do robo selecionado
          *  
@@ -76,7 +81,7 @@ public class Main{
     private static void imprimirAmbiente(Ambiente amb){
         amb.imprimirDimensoes();
         System.out.println("O ambiente tem " + amb.getRobos().size() + " robos.");
-        System.err.println("O ambiente tem " + amb.getObstaculos().size + "obstaculos.");
+        System.err.println("O ambiente tem " + amb.getObstaculos().size() + "obstaculos.");
     }
 
     
