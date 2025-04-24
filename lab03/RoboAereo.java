@@ -34,8 +34,8 @@ public class RoboAereo extends Robo{
     @Override public ArrayList<Obstaculo> identificarObstaculos(){
         //para cada robo do ambiente, utiliza pitagoras da diferenca de posicao para ver se esta dentro do raio
         for (Sensor sensor : this.sensores){
-            if (sensor instanceof SensorObstaculosAereo soa){
-                return (soa.getObstaculos_dentro());
+            if (sensor instanceof SensorObstaculos soa){
+                return (soa.getObstaculos_dentro(this.posicaoX, this.posicaoY, this.posicaoZ));
             }
         }
         return null;

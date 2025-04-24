@@ -4,10 +4,10 @@ public class SensorRobos extends Sensor {
     private ArrayList<Robo> robos_dentro;
     public SensorRobos(double raio, Ambiente amb){
         super(raio, amb);
-        this.robos_dentro = new ArrayList<>();
     } 
     @Override
     public void monitorar(Ambiente amb, int posX, int posY, int posZ){
+        this.robos_dentro = new ArrayList<>();
         for (Robo robo : (this.amb.getRobos())) {
             if (dentro_do_raio(posX, posY, posZ, robo, this.raio)){
                 robos_dentro.add(robo);
@@ -26,7 +26,12 @@ public class SensorRobos extends Sensor {
         return (dist<raio);
     }
 
-    public ArrayList<Robo> getRobos_dentro(){
+    public ArrayList<Robo> getRobos_dentro(int posX, int posY, int posZ){
+        monitorar(amb, posX, posY, posZ);
+        return robos_dentro;
+    }
+    public ArrayList<Robo> getRobos_dentro(int posX, int posY){
+        monitorar(amb, posX, posY, posZ);
         return robos_dentro;
     }
 }

@@ -4,7 +4,7 @@ public enum TipoObstaculo {
     MEGAMURO(30, 2, 3),
     ARVORE(2, 2, 8),
     PREDIO(10, 10, 20),
-    LIXEIRA(1, 1, 1),
+    ARBUSTO(2, 2, 3),
     CASA(10, 10, 10);
 
     private final int largura, comprimento, altura;

@@ -178,4 +178,33 @@ public class Teste {
             System.out.println("fora dos limites do ambiente!");
         }
     }
+    public static void testeSensorObstaculo(Robo r, Ambiente amb){
+        //Criar obstaculos
+        Obstaculo o1 = new Obstaculo((r.getPosX()+3), r.getPosY(), TipoObstaculo.ARVORE);
+        amb.adicionarObstaculo(o1);
+        Obstaculo o2 = new Obstaculo((r.getPosX()+15), r.getPosY(), TipoObstaculo.ARVORE);
+        amb.adicionarObstaculo(o2);
+        //Testar sensor
+        ArrayList<Obstaculo> obs = r.identificarObstaculos();
+        for (Obstaculo o : obs) {
+            o.exibirObstaculo();
+        }
+        //Tentar mover para uma posição ocupada
+        r.mover(3,0);
+        
+    }
+    public static void testeSensorRobo(Robo r, Ambiente amb){
+        //Criar robos
+        Robo r1 = new Robo("r1", (r.getPosX()-3), r.getPosY(), amb);
+        amb.adicionarRobo(r1);
+        Robo r2 = new Robo("r2", r2(r.getPosX()+15), r.getPosY(), amb);
+        amb.adicionarRobo(r2);
+        //Testar sensor
+        ArrayList<Robo> robos = r.identificarRobos();
+        for (Robo ro : robos) {
+            ro.exibirPosicao();
+        }
+        //Tentar mover para uma posição ocupada
+        r.mover(-3,0);
+    }
 }
