@@ -1,8 +1,8 @@
 
 public class SensorObstaculosAereo extends SensorObstaculos {
 
-    public SensorObstaculosAereo(double raio, Ambiente amb){
-        super(raio, amb);
+    public SensorObstaculosAereo(double raio){
+        super(raio);
     } 
 
     @Override protected boolean dentro_do_raio(Obstaculo obs, int posX, int posY, int posZ){

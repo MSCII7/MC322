@@ -123,9 +123,9 @@ SensorObstaculos <|-- SensorObstaculosAereo
 Sensor <|-- SensorObstaculos
 Sensor <|-- SensorRobos
 Ambiente --> Sensor
-Ambiente o-- "*" Robo
-Ambiente o-- "*" Obstaculo
-Robo o-- "*" Sensor
+Ambiente "1" o-- "*" Robo
+Ambiente "1" o-- "*" Obstaculo
+Robo "1" o-- "*" Sensor
 RoboAereo <|-- RoboAereoRefletor
 RoboAereo <|-- RoboAereoConsciente
 RoboTerrestre <|-- RoboTerrestreTeletransporte

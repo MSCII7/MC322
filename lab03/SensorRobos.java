@@ -2,19 +2,22 @@ import java.util.ArrayList;
 
 public class SensorRobos extends Sensor {
     private ArrayList<Robo> robos_dentro;
-    public SensorRobos(double raio, Ambiente amb){
-        super(raio, amb);
+    public SensorRobos(double raio){
+        super(raio);
     } 
     @Override
-    public void monitorar(Ambiente amb, int posX, int posY, int posZ){
+    public void monitorar(int posX, int posY, int posZ, Ambiente amb){
         this.robos_dentro = new ArrayList<>();
-        for (Robo robo : (this.amb.getRobos())) {
+        for (Robo robo : amb.getRobos()) {
             if (dentro_do_raio(posX, posY, posZ, robo, this.raio)){
                 robos_dentro.add(robo);
             }
 
         }
     }
+    
+
+
     private boolean dentro_do_raio(int posX, int posY, int posZ, Robo robo, double raio){
         double dist;
         if (robo instanceof RoboAereo roboaereo){
@@ -27,11 +30,7 @@ public class SensorRobos extends Sensor {
     }
 
     public ArrayList<Robo> getRobos_dentro(int posX, int posY, int posZ){
-        monitorar(amb, posX, posY, posZ);
-        return robos_dentro;
-    }
-    public ArrayList<Robo> getRobos_dentro(int posX, int posY){
-        monitorar(amb, posX, posY, posZ);
+        monitorar(posX, posY, posZ, amb);
         return robos_dentro;
     }
 }

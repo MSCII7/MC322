@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+
 public class Teste {
+
     /*Testa se as funcoes do robo eletrico funcionam e comparam com 
     o resultado esperado*/
     public static RoboTerrestreEletrico testeEletrico(Ambiente amb){

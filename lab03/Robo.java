@@ -46,7 +46,7 @@ public class Robo{
         //para cada robo do ambiente, utiliza pitagoras da diferenca de posicao para ver se esta dentro do raio
         for (Sensor sensor : this.sensores){
             if (sensor instanceof SensorObstaculos){
-                return ((SensorObstaculos)sensor).getObstaculos_dentro(this.posicaoX, this.posicaoY);
+                return ((SensorObstaculos)sensor).getObstaculos_dentro(this.posicaoX, this.posicaoY, 0);
             }
         }
         return null;
