@@ -27,6 +27,8 @@ Esse repositório apresenta os laboratórios de MC322, com o objetivo de gerar u
   Classe que contém objetos que compõe o ambiente
   
 ## Como executar:
-  - Rode no terminal as funções teste de cada uma das classes 
+  - Abre o terminal e navegue para a pasta com o laboratório que você deseja rodar (certifique-se de que você está na pasta correta)
+  - Utilize o comando "javac *.java" para compilar todos os arquivos java dentro da pasta com o laboratório desejado
+  - Rode a classe Main com o comando "java Main"
 
 ## Diagrama de classes:
