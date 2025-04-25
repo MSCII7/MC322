@@ -9,11 +9,11 @@ public class Main{
         Ambiente meuAmbiente = new Ambiente(400, 400, 200);
         criarObstaculos(meuAmbiente);
 
-        Robo meuRobo = new Robo("FRED",10, 24, meuAmbiente);
+        Robo meuRobo = new Robo("FRED",10, 24);
         //Testar reconhecimento dos limites
         Teste.imprimirLimites(meuRobo, meuAmbiente);
         //Testar movimentar o robo
-        meuRobo.mover(20, 40);
+        meuRobo.mover(20, 40, meuAmbiente);
 
         meuAmbiente.adicionarRobo(meuRobo);
 

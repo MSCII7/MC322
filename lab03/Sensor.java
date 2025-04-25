@@ -10,5 +10,8 @@ public abstract class Sensor {
     public double getRaio(){
         return this.raio;
     }
+    public void setRaio(double novo){
+        this.raio = novo;
+    }
 }
 

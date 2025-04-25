@@ -8,7 +8,7 @@ public class SensorObstaculos extends Sensor{
     } 
 
     @Override
-        public void monitorar(int posX, int posY, int posZ, Ambiente amb){
+    public void monitorar(int posX, int posY, int posZ, Ambiente amb){
         this.obstaculos_dentro = new ArrayList<>();
         for (Obstaculo obs : amb.getObstaculos()){
             if (dentro_do_raio(obs, posX, posY, posZ)){
@@ -41,7 +41,7 @@ public class SensorObstaculos extends Sensor{
 
     
   
-    public ArrayList<Obstaculo> getObstaculos_dentro(int posX, int posY, int posZ){
+    public ArrayList<Obstaculo> getObstaculos_dentro(int posX, int posY, int posZ, Ambiente amb){
         monitorar( posX, posY, posZ,amb);
         return obstaculos_dentro;
     }

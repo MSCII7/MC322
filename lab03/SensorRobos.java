@@ -29,7 +29,7 @@ public class SensorRobos extends Sensor {
         return (dist<raio);
     }
 
-    public ArrayList<Robo> getRobos_dentro(int posX, int posY, int posZ){
+    public ArrayList<Robo> getRobos_dentro(int posX, int posY, int posZ, Ambiente amb){
         monitorar(posX, posY, posZ, amb);
         return robos_dentro;
     }

@@ -15,7 +15,7 @@ Esse repositório apresenta os laboratórios de MC322, com o objetivo de gerar u
   * **Robô Terrestre Teletransporte**: Implementa a barra de teletransporte e o método de teletransporte
   ### Robô Aéreo
   Subclasse de robô que implementa o deslocamento no eixo Z e um limite de altura
-  * **Robô Aéreo Consciente**: permite passar da altura máxima
+  * **Robô Aéreo Consciente**: impede que ele se aproxime muito de robos e obstaculos, implementa os sensores de robos e obstaculos 
   * **Robô Aéreo Refletor**: reflete o que ele iria ultrapassar a altura máxima
   ## Sensor
   Classe genérica dos sensores, que contém o raio de monitoramento e a função abstrata monitorar
@@ -32,3 +32,4 @@ Esse repositório apresenta os laboratórios de MC322, com o objetivo de gerar u
   - Rode a classe Main com o comando "java Main"
 
 ## Diagrama de classes:
+![alt text](image.png)

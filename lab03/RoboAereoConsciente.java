@@ -2,44 +2,28 @@
 //robo aereo que nao sobe nem desce se for ficar a uma certa distancia em z de outros robos aereos
 class RoboAereoConsciente extends RoboAereo{
     protected int distanciaMin;
-
-    public RoboAereoConsciente(String nomeIn, int posXIn, int posYIn, Ambiente amb, int posZIn, int altMax, int distMin){
-        super(nomeIn, posXIn, posYIn, amb, posZIn, altMax);
+    public RoboAereoConsciente(String nomeIn, int posXIn, int posYIn, int posZIn, int altMax, int distMin){
+        super(nomeIn, posXIn, posYIn,posZIn, altMax);
         distanciaMin = distMin;
+        so.setRaio(distMin);
+        sr.setRaio(distMin);
     }
 
     public void subir(int deltaZ, Ambiente amb){
-        
-        //para cada robo, ver se e aereo e comparar pra ver se a diferenca de posicao em z que fica se mover e menor que a distancia minima
-        for(Robo r : amb.getRobos()){
-            if(r instanceof RoboAereo ra){
-
-                //ve o valor em modulo da diferenca de posicoes se for mover
-                if(Math.abs(posicaoZ + deltaZ - ra.posicaoZ) < distanciaMin){
-                    System.out.println("Robo " + nome + " nao moveu: ficaria muito proximo do robo " + r.nome);
-                    r.exibirPosicao();
-                    return;
-                }
-            }
-        }
-        this.posicaoZ += deltaZ;
+        //Ver se ha robos ou obstaculos dentro do raio minimo 
+        int nova_z = this.posicaoZ + deltaZ;
+        if ((so.getObstaculos_dentro(posicaoX, posicaoY, nova_z, amb)).isEmpty() && sr.getRobos_dentro(posicaoX, posicaoY, nova_z, amb).isEmpty()) 
+            this.posicaoZ = nova_z;
+        else
+            System.out.println("Robo " + nome + " nao moveu: ficaria muito proximo de obstaculos ou robos");
     }
 
     public void descer(int deltaZ, Ambiente amb){
-
-        //para cada robo, ver se e aereo e comparar pra ver se a diferenca de posicao em z que fica se mover e menor que a distancia minima
-        for(Robo r : amb.getRobos()){
-            if(r instanceof RoboAereo ra){
-
-                //ve o valor em modulo da diferenca de posicoes se for mover
-                if(Math.abs(posicaoZ - deltaZ - ra.posicaoZ) < distanciaMin){
-                    System.out.println("Robo " + nome + " nao moveu: ficaria muito proximo do robo " + r.nome);
-                    r.exibirPosicao();
-                    return;
-                }
-            }
-        }
-        this.posicaoZ -= deltaZ;
+        int nova_z = this.posicaoZ - deltaZ;
+        if ((so.getObstaculos_dentro(posicaoX, posicaoY, nova_z, amb)).isEmpty() && sr.getRobos_dentro(posicaoX, posicaoY, nova_z, amb).isEmpty()) 
+            this.posicaoZ = nova_z;
+        else
+            System.out.println("Robo " + nome + " nao moveu: ficaria muito proximo de obstaculos ou robos");
     }
 
     //incrementa/subtrai da distancia minima que ele pode ficar de outros robos aereos no eixo z
