@@ -13,16 +13,18 @@ public class RoboAereo extends Robo{
 
     public void subir(int deltaZ, Ambiente amb){
         int nova_z = posicaoZ + deltaZ;
-        if (!colisao_robo(identificarRobos(amb), posicaoX, posicaoZ, nova_z) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, nova_z)){
+        if (!colisao_robo(identificarRobos(amb), posicaoX, posicaoY, nova_z) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, nova_z)){
             this.posicaoZ = nova_z;
-        }
+        }else
+            System.err.println("Alerta de colisao: movimento impedido");
     }
 
     public void descer(int deltaZ, Ambiente amb){
         int nova_z = posicaoZ - deltaZ;
-        if (nova_z > 0 && !colisao_robo(identificarRobos(amb), posicaoX, posicaoZ, nova_z) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, nova_z)){
+        if (nova_z > 0 && !colisao_robo(identificarRobos(amb), posicaoX, posicaoY, nova_z) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, nova_z)){
             this.posicaoZ = nova_z;
-        }
+        }else
+            System.err.println("Alerta de colisao: movimento impedido");
     }
 
     public int getPosZ(){
@@ -47,7 +49,8 @@ public class RoboAereo extends Robo{
                 this.posicaoX += deltaX;
             if(posicaoY + deltaY > 0) //para nao ir para negativo
                 this.posicaoY += deltaY;
-        }
+        }else
+            System.err.println("Alerta de colisao: movimento impedido");
     }
 
 

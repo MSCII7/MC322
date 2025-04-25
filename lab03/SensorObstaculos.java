@@ -17,7 +17,7 @@ public class SensorObstaculos extends Sensor{
         }
     }
     protected boolean dentro_do_raio(Obstaculo obs, int posX, int posY, int posZ){
-        return (menor_dist(posX, posY, posZ, obs) < this.raio);
+        return (menor_dist(posX, posY, posZ, obs) <= this.raio);
     }
   
     protected double menor_dist(int posX, int posY, int posZ, Obstaculo obs){

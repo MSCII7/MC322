@@ -22,11 +22,11 @@ public class SensorRobos extends Sensor {
         double dist;
         if (robo instanceof RoboAereo roboaereo){
             dist = Math.sqrt(Math.pow(posX - roboaereo.getPosX(), 2) + Math.pow(posY - roboaereo.getPosY(), 2) + Math.pow(posZ - roboaereo.getPosZ(), 2));
-            return (dist<raio);
+            return (dist<=raio);
         }
         dist = Math.sqrt(Math.pow(posX - robo.getPosX(), 2) + Math.pow(posY - robo.getPosY(), 2));
 
-        return (dist<raio);
+        return (dist<=raio);
     }
 
     public ArrayList<Robo> getRobos_dentro(int posX, int posY, int posZ, Ambiente amb){

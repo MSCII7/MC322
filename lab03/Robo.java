@@ -15,8 +15,8 @@ public class Robo{
         posicaoY = posYIn;
         sensores = new ArrayList<Sensor>();
         //Adicionar sensores essenciais para a movimentacao do robo
-        sr = new SensorRobos(10);
-        so = new SensorObstaculos(10);
+        sr = new SensorRobos(100);
+        so = new SensorObstaculos(100);
     }
 
     public int getPosX(){
@@ -39,7 +39,8 @@ public class Robo{
                 this.posicaoX += deltaX;
             if(posicaoY + deltaY > 0) //para nao ir para negativo
                 this.posicaoY += deltaY;
-        }
+        }else
+            System.err.println("Alerta de colisao: movimento impedido");
     }
 
     public void exibirPosicao(){

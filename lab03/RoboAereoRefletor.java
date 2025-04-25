@@ -15,11 +15,13 @@ class RoboAereoRefletor extends RoboAereo{
         if (nova_z > altitudeMinima)
             if (!colisao_robo(identificarRobos(amb), posicaoX, posicaoZ, nova_z) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, nova_z)){
                 this.posicaoZ = nova_z;
-            }
+            }else
+                System.err.println("Alerta de colisao: movimento impedido");
         else
             if (!colisao_robo(identificarRobos(amb), posicaoX, posicaoZ, z_refletida) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, z_refletida)){
                 this.posicaoZ = z_refletida;
-            }
+            }else
+                System.err.println("Alerta de colisao: movimento impedido");
         }
     
 
@@ -31,10 +33,12 @@ class RoboAereoRefletor extends RoboAereo{
         if (nova_z > altitudeMinima)
             if (!colisao_robo(identificarRobos(amb), posicaoX, posicaoZ, nova_z) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, nova_z)){
                 this.posicaoZ = nova_z;
-            }
+            } else
+                System.err.println("Alerta de colisao: movimento impedido");
         else
             if (!colisao_robo(identificarRobos(amb), posicaoX, posicaoZ, z_refletida) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, z_refletida)){
                 this.posicaoZ = z_refletida;
-            }
+            } else
+                System.err.println("Alerta de colisao: movimento impedido");
         }
 }
