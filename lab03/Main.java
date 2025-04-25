@@ -52,7 +52,7 @@ public class Main{
         Scanner scanner = new Scanner(System.in);
         String comando = scanner.nextLine();
 
-        Robo roboEscolhido = null;
+        Robo roboSelecionado = null;
 
         while(!comando.equals("s")){
             String[] divisor = comando.split(" ");
@@ -65,19 +65,91 @@ public class Main{
                 imprimirAmbiente(meuAmbiente);
 
             else if(divisor[0].equals("r")){
-                roboEscolhido = escolherRoboEspecifico(divisor[1], meuAmbiente);
+                if(divisor.length > 1){
+                    Robo escolha = escolherRoboEspecifico(divisor[1], meuAmbiente);
+                    if(escolha != null) roboSelecionado = escolha;
+                }
             }
             else if(comando.equals("rs")){
-                if(roboEscolhido == null)
+                if(roboSelecionado == null)
                     System.out.println("Nenhum Robo foi selecionado");
             }
 
             else if(comando.equals("rp")){
-                if(roboEscolhido == null)
+                if(roboSelecionado == null)
                     System.out.println("Nenhum Robo foi selecionado");
                 else{
-                    roboEscolhido.exibirPosicao();
+                    roboSelecionado.exibirPosicao();
                 }
+            }
+
+            else if(comando.equals("rsr")){
+                if(roboSelecionado == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+                else{
+                    ArrayList<Robo> robos = roboSelecionado.identificarRobos(meuAmbiente);
+                    System.out.println("----Utilizando sensor de robos, de raio " + roboSelecionado.sr.getRaio() + ": ----");
+
+                    for(Robo robo : robos){
+                        robo.exibirPosicao();
+                    }
+                    System.err.println("--------------------------------------------------");
+                }
+            }
+
+            else if(divisor[0].equals("rmx")){
+                if(roboSelecionado == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+                else{
+                    if(divisor.length > 1){
+                        if(ehInt(divisor[1])){
+                            roboSelecionado.mover(Integer.parseInt(divisor[1]), 0, meuAmbiente);
+                        }
+                        else{
+                            System.out.println("Nao foi fornecido numero valido");
+                        }
+                    }
+               }
+            }
+
+            else if(divisor[0].equals("rmy")){
+                if(roboSelecionado == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+                else{
+                    if(divisor.length > 1){
+                        if(ehInt(divisor[1])){
+                            roboSelecionado.mover(0, Integer.parseInt(divisor[1]), meuAmbiente);
+                        }
+                        else{
+                            System.out.println("Nao foi fornecido numero valido");
+                        }
+                    }
+               }
+            }
+
+            else if(divisor[0].equals("rmz")){
+                if(roboSelecionado == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+                else{
+                    if(roboSelecionado instanceof RoboAereo ra){
+                        if(divisor.length > 1){
+                            if(ehInt(divisor[1])){
+                                int deltaZ = Integer.parseInt(divisor[1]);
+
+                                if(deltaZ >= 0)
+                                    ra.subir(deltaZ, meuAmbiente);
+                                else
+                                    ra.descer(Math.abs(deltaZ), meuAmbiente);
+                            }
+                            else{
+                                System.out.println("Nao foi fornecido numero valido");
+                            }
+                        }
+                    }
+                    else{
+                        System.out.println("Robo selecionado nao eh aereo");
+                    }
+               }
             }
 
 
@@ -133,13 +205,19 @@ public class Main{
         //ver se string nao eh vazia
         if(identificador.length() > 0){
 
-            //verifica os valores ascii: so eh numero se estiver entre esses valores
-            //Obs: considera que o nome nao comeca com numero
-            if(identificador.charAt(0) > '0' && identificador.charAt(0) < '9'){
+            //para utilizacao de numero para identificar robo
+            if(ehInt(identificador)){
                 int indice = Integer.parseInt(identificador);
-                Robo r = robos.get(indice);
-                System.out.println("Foi escolhido o robo " + r.getNome());
-                return r;
+
+                if(indice > robos.size() - 1){
+                    System.out.println("Indice invalido");
+                    return null;
+                }
+                else{
+                    Robo r = robos.get(indice);
+                    System.out.println("Foi escolhido o robo " + r.getNome());
+                    return r;
+                }
             }
 
             //para utilizacao de nome para identificar robo
@@ -169,5 +247,15 @@ public class Main{
         amb.adicionarObstaculo(new Obstaculo(90, 20, TipoObstaculo.MURO));
         amb.adicionarObstaculo(new Obstaculo(120, 30, TipoObstaculo.ARVORE));
         
+    }
+
+    private static boolean ehInt(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        }
+        catch(NumberFormatException e) {
+            return false;
+        }
     }
 }

@@ -47,14 +47,16 @@ public class Robo{
     }
 
     public ArrayList<Obstaculo> identificarObstaculos(Ambiente amb){
-        //para cada robo do ambiente, utiliza pitagoras da diferenca de posicao para ver se esta dentro do raio
+        //Pegar obstaculos captados pelo sensor essencial SensorObstaculo
         return so.getObstaculos_dentro(this.posicaoX, this.posicaoY, 0, amb);
 
     }
 
     public ArrayList<Robo> identificarRobos(Ambiente amb){
-        //para cada robo do ambiente, utiliza pitagoras da diferenca de posicao para ver se esta dentro do raio
-        return sr.getRobos_dentro(this.posicaoX, this.posicaoY, 0, amb);
+        //Pegar os robos captados pelo sensor essencial SensorRobo
+        ArrayList<Robo> robos = sr.getRobos_dentro(this.posicaoX, this.posicaoY, 0, amb);
+        robos.remove(this); //remove o proprio robo que contem o sensor
+        return robos;
     }
 
     public boolean colisao_obs(ArrayList<Obstaculo> obs_dentro, int nova_x, int nova_y){

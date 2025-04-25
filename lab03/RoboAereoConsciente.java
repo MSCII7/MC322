@@ -9,7 +9,7 @@ class RoboAereoConsciente extends RoboAereo{
         sr.setRaio(distMin);
     }
 
-    public void subir(int deltaZ, Ambiente amb){
+    @Override public void subir(int deltaZ, Ambiente amb){
         //Ver se ha robos ou obstaculos dentro do raio minimo 
         int nova_z = this.posicaoZ + deltaZ;
         if ((so.getObstaculos_dentro(posicaoX, posicaoY, nova_z, amb)).isEmpty() && sr.getRobos_dentro(posicaoX, posicaoY, nova_z, amb).isEmpty()) 
@@ -18,7 +18,7 @@ class RoboAereoConsciente extends RoboAereo{
             System.out.println("Robo " + nome + " nao moveu: ficaria muito proximo de obstaculos ou robos");
     }
 
-    public void descer(int deltaZ, Ambiente amb){
+    @Override public void descer(int deltaZ, Ambiente amb){
         int nova_z = this.posicaoZ - deltaZ;
         if ((so.getObstaculos_dentro(posicaoX, posicaoY, nova_z, amb)).isEmpty() && sr.getRobos_dentro(posicaoX, posicaoY, nova_z, amb).isEmpty()) 
             this.posicaoZ = nova_z;
