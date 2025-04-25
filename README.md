@@ -32,4 +32,4 @@ Esse repositório apresenta os laboratórios de MC322, com o objetivo de gerar u
   - Rode a classe Main com o comando "java Main"
 
 ## Diagrama de classes:
-![alt text](image.png)
+![image](https://github.com/user-attachments/assets/0aeed0dd-6c4c-4a6e-8b0a-848751acdade)
