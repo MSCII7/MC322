@@ -43,121 +43,7 @@ public class Main{
         //imprimir posicoes finais dos robos
         imprimirRobos(meuAmbiente); 
 
-        System.out.println("");
-        System.out.println("---Bem vindo ao menu de interacao---");
-        System.err.println("Utilize 'itr' para imprimir todos os robos, 'ito' para imprimir todos os obstaculos, "+
-        "'ia' para imprimir dados do ambiente, 'r <identificador>' para selecionar um robo,"+
-        "sendo <identificador> o nome ou indice do robo no ambiente, ou utilize 's' para sair");
-
-        Scanner scanner = new Scanner(System.in);
-        String comando = scanner.nextLine();
-
-        Robo roboSelecionado = null;
-
-        while(!comando.equals("s")){
-            String[] divisor = comando.split(" ");
-
-            if(comando.equals("itr"))
-                imprimirRobos(meuAmbiente);
-            else if(comando.equals("ito"))
-                imprimirObstaculos(meuAmbiente);
-            else if(comando.equals("ia"))
-                imprimirAmbiente(meuAmbiente);
-
-            else if(divisor[0].equals("r")){
-                if(divisor.length > 1){
-                    Robo escolha = escolherRoboEspecifico(divisor[1], meuAmbiente);
-                    if(escolha != null) roboSelecionado = escolha;
-                }
-            }
-            else if(comando.equals("rs")){
-                if(roboSelecionado == null)
-                    System.out.println("Nenhum Robo foi selecionado");
-            }
-
-            else if(comando.equals("rp")){
-                if(roboSelecionado == null)
-                    System.out.println("Nenhum Robo foi selecionado");
-                else{
-                    roboSelecionado.exibirPosicao();
-                }
-            }
-
-            else if(comando.equals("rsr")){
-                if(roboSelecionado == null)
-                    System.out.println("Nenhum Robo foi selecionado");
-                else{
-                    ArrayList<Robo> robos = roboSelecionado.identificarRobos(meuAmbiente);
-                    System.out.println("----Utilizando sensor de robos, de raio " + roboSelecionado.sr.getRaio() + ": ----");
-
-                    for(Robo robo : robos){
-                        robo.exibirPosicao();
-                    }
-                    System.err.println("--------------------------------------------------");
-                }
-            }
-
-            else if(divisor[0].equals("rmx")){
-                if(roboSelecionado == null)
-                    System.out.println("Nenhum Robo foi selecionado");
-                else{
-                    if(divisor.length > 1){
-                        if(ehInt(divisor[1])){
-                            roboSelecionado.mover(Integer.parseInt(divisor[1]), 0, meuAmbiente);
-                        }
-                        else{
-                            System.out.println("Nao foi fornecido numero valido");
-                        }
-                    }
-               }
-            }
-
-            else if(divisor[0].equals("rmy")){
-                if(roboSelecionado == null)
-                    System.out.println("Nenhum Robo foi selecionado");
-                else{
-                    if(divisor.length > 1){
-                        if(ehInt(divisor[1])){
-                            roboSelecionado.mover(0, Integer.parseInt(divisor[1]), meuAmbiente);
-                        }
-                        else{
-                            System.out.println("Nao foi fornecido numero valido");
-                        }
-                    }
-               }
-            }
-
-            else if(divisor[0].equals("rmz")){
-                if(roboSelecionado == null)
-                    System.out.println("Nenhum Robo foi selecionado");
-                else{
-                    if(roboSelecionado instanceof RoboAereo ra){
-                        if(divisor.length > 1){
-                            if(ehInt(divisor[1])){
-                                int deltaZ = Integer.parseInt(divisor[1]);
-
-                                if(deltaZ >= 0)
-                                    ra.subir(deltaZ, meuAmbiente);
-                                else
-                                    ra.descer(Math.abs(deltaZ), meuAmbiente);
-                            }
-                            else{
-                                System.out.println("Nao foi fornecido numero valido");
-                            }
-                        }
-                    }
-                    else{
-                        System.out.println("Robo selecionado nao eh aereo");
-                    }
-               }
-            }
-
-
-            comando = scanner.nextLine();
-        }
-
-        scanner.close();
-
+        entrarMenuInterativo(meuAmbiente);
 
         /* O que colocar no menu interativo: (o '+' indica que a base ja esta feita)
             -Mensagem falando os comandos
@@ -183,6 +69,7 @@ public class Main{
         }
     }
 
+    //Imprimir os obstaculos do ambiente, com seu indice na lista de obstaculos na frente
     private static void imprimirObstaculos(Ambiente amb){
         ArrayList<Obstaculo> obstaculos = amb.getObstaculos();
         for(int i = 0; i < obstaculos.size(); i++){
@@ -240,6 +127,7 @@ public class Main{
         
     }
 
+
     private static void criarObstaculos(Ambiente amb){
         amb.adicionarObstaculo(new Obstaculo(100, 100, TipoObstaculo.CASA));
         amb.adicionarObstaculo(new Obstaculo(10, 10, TipoObstaculo.PREDIO));
@@ -249,6 +137,7 @@ public class Main{
         
     }
 
+    //ver se pode converter a string para int
     private static boolean ehInt(String str) {
         try {
             Integer.parseInt(str);
@@ -257,5 +146,153 @@ public class Main{
         catch(NumberFormatException e) {
             return false;
         }
+    }
+
+    private static void entrarMenuInterativo(Ambiente meuAmbiente){
+        //comandos do menu interativo
+        String comImprimirRobos = "itr";
+        String comImprimirObstaculos = "ito";
+        String comImprimirAmbiente = "ia";
+        String comSelecionarRobo = "r";
+        String comPosRobo = "rp";
+        String comSensorRobos = "rsr";
+        String comSensorObst = "rso";
+        String comSair = "s";
+        String comHelp = "h";
+
+        int maxMover = 20;
+
+        //mensagem de comandos do menu interativo
+        String msgComandos = "Utilize " + comImprimirRobos +" para imprimir todos os robos, " + 
+        comImprimirObstaculos + " para imprimir todos os obstaculos, " +
+        comImprimirAmbiente + " para imprimir dados do ambiente ou " + comSelecionarRobo + " <identificador> para selecionar um robo, "
+        +"sendo <identificador> o nome ou indice do robo no ambiente. \n" +
+        "Com um robo selecionado, utilize " + comPosRobo + " para imprimir "+
+        "sua posicao, " + comSensorRobos + " para imprimir status do seu sensor de robos, " +
+        comSensorObst +  " para imprimir o status do seu sensor de obstaculos. " +
+        "Utilize rmx, rmy, rmz <delta> para mover o robo selecionado na direcao escolhida uma quantidade <delta> "+
+        "(rmz so pode ser usado para o aereo). O valor maximo para o modulo de delta eh " + maxMover + " unidades"+
+        ". Utlize " + comSair + " para sair do programa, ou " + comHelp + " para imprimir essa mensagem novamente.";
+
+        System.out.println("");
+        System.out.println("---Bem vindo ao menu de interacao---");
+
+        System.err.println(msgComandos);
+
+        //scanner utilizado para a entrada
+        Scanner scanner = new Scanner(System.in);
+        String comando = scanner.nextLine();
+
+        Robo roboSelecionado = null;
+
+        while(!comando.equals(comSair)){
+            String[] divisor = comando.split(" ");
+
+            if(comando.equals(comImprimirRobos))
+                imprimirRobos(meuAmbiente);
+            else if(comando.equals(comImprimirObstaculos))
+                imprimirObstaculos(meuAmbiente);
+            else if(comando.equals(comImprimirAmbiente))
+                imprimirAmbiente(meuAmbiente);
+            
+            else if(comando.equals(comHelp))
+                System.out.println(msgComandos);
+
+            else if(divisor[0].equals(comSelecionarRobo)){
+                if(divisor.length > 1){
+                    Robo escolha = escolherRoboEspecifico(divisor[1], meuAmbiente);
+                    if(escolha != null) roboSelecionado = escolha;
+                }
+            }
+            else if(comando.equals("rs")){
+                if(roboSelecionado == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+            }
+
+            else if(comando.equals(comPosRobo)){
+                if(roboSelecionado == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+                else{
+                    roboSelecionado.exibirPosicao();
+                }
+            }
+
+            else if(comando.equals(comSensorRobos)){
+                if(roboSelecionado == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+                else{
+                    ArrayList<Robo> robos = roboSelecionado.identificarRobos(meuAmbiente);
+                    System.out.println("----Utilizando sensor de robos, de raio " + roboSelecionado.sr.getRaio() + ": ----");
+
+                    for(Robo robo : robos){
+                        robo.exibirPosicao();
+                    }
+                    System.err.println("--------------------------------------------------");
+                }
+            }
+
+            else if(divisor[0].equals("rmx")){
+                if(roboSelecionado == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+                else{
+                    if(divisor.length > 1){
+                        //move se for int e menor que o maximo
+                        if(ehInt(divisor[1]) && Math.abs(Integer.parseInt(divisor[1])) <= maxMover){
+                            roboSelecionado.mover(Integer.parseInt(divisor[1]), 0, meuAmbiente);
+                        }
+                        else{
+                            System.out.println("Nao foi fornecido numero valido");
+                        }
+                    }
+            }
+            }
+
+            else if(divisor[0].equals("rmy")){
+                if(roboSelecionado == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+                else{
+                    if(divisor.length > 1){
+                        //move se for int e menor que o maximo
+                        if(ehInt(divisor[1]) && Math.abs(Integer.parseInt(divisor[1])) <= maxMover){
+                            roboSelecionado.mover(0, Integer.parseInt(divisor[1]), meuAmbiente);
+                        }
+                        else{
+                            System.out.println("Nao foi fornecido numero valido");
+                        }
+                    }
+            }
+            }
+
+            else if(divisor[0].equals("rmz")){
+                if(roboSelecionado == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+                else{
+                    if(roboSelecionado instanceof RoboAereo ra){
+                        if(divisor.length > 1){
+                            if(ehInt(divisor[1]) && Math.abs(Integer.parseInt(divisor[1])) < maxMover){
+                                int deltaZ = Integer.parseInt(divisor[1]);
+
+                                if(deltaZ >= 0)
+                                    ra.subir(deltaZ, meuAmbiente);
+                                else
+                                    ra.descer(Math.abs(deltaZ), meuAmbiente);
+                            }
+                            else{
+                                System.out.println("Nao foi fornecido numero valido");
+                            }
+                        }
+                    }
+                    else{
+                        System.out.println("Robo selecionado nao eh aereo");
+                    }
+            }
+            }
+
+
+            comando = scanner.nextLine();
+        }
+
+        scanner.close();
+
     }
 }
