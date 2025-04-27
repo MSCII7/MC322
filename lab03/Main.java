@@ -34,7 +34,7 @@ public class Main{
         RoboAereo aereo = Teste.testeAereo(meuAmbiente);
         meuAmbiente.adicionarRobo(aereo);
 
-        RoboAereoRefletor refletor = Teste.testeRefletor(30, 132, 0, meuAmbiente);
+        RoboAereoRefletor refletor = Teste.testeRefletor(30, meuAmbiente.getAltura(), 0, meuAmbiente);
         meuAmbiente.adicionarRobo(refletor);
 
         RoboAereoConsciente consciente = Teste.testeConsciente(meuAmbiente);
@@ -45,18 +45,6 @@ public class Main{
 
         entrarMenuInterativo(meuAmbiente);
 
-        /* O que colocar no menu interativo: (o '+' indica que a base ja esta feita)
-            -Mensagem falando os comandos
-            -Imprimir todos os robos(itr) +
-            -Imprimir todos os obstaculos(ito) +
-         *  -Imprimir status do ambiente(dimensoes, numero de robos e obstaculos)(ia) +
-         *  -Utilizar movimentacao basica(mover(), subir(), descer())
-         *  -Selecionar robo a partir do nome ou indice: (r <identificador>) +
-            *  -Relatar sensores de um robo selecionado (rs)
-            *  -Imprimir posicao/status do robo selecionado (rp)
-         *  
-         * 
-         */
     }
     
 
@@ -133,8 +121,7 @@ public class Main{
         amb.adicionarObstaculo(new Obstaculo(10, 10, TipoObstaculo.PREDIO));
         amb.adicionarObstaculo(new Obstaculo(20, 90, TipoObstaculo.MEGAMURO));
         amb.adicionarObstaculo(new Obstaculo(90, 20, TipoObstaculo.MURO));
-        amb.adicionarObstaculo(new Obstaculo(120, 30, TipoObstaculo.ARVORE));
-        
+        amb.adicionarObstaculo(new Obstaculo(120, 30, TipoObstaculo.ARVORE));    
     }
 
     //ver se pode converter a string para int
@@ -173,7 +160,7 @@ public class Main{
         "Utilize rmx, rmy, rmz <delta> para mover o robo selecionado na direcao escolhida uma quantidade <delta> "+
         "(delta pode ser negativo, rmz so pode ser usado para o aereo). O valor maximo para o modulo de delta eh " + 
         maxMover + " unidades"+
-        ". Utlize " + comSair + " para sair do programa, ou " + comHelp + " para imprimir essa mensagem novamente.";
+        ". Utlize " + comSair + " para sair do programa, ou " + comHelp + " para imprimir essa mensagem novamente.\n";
 
         System.out.println("");
         System.out.println("---Bem vindo ao menu de interacao---");

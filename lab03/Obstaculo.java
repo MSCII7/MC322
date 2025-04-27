@@ -1,10 +1,10 @@
 
 public class Obstaculo {
-    private int posicaoX1, posicaoY1, altura;
-    private int posicaoX2, posicaoY2;
-    private int centroX, centroY;
+    private final int posicaoX1, posicaoY1, altura;
+    private final int posicaoX2, posicaoY2;
+    private final int centroX, centroY;
 
-    private TipoObstaculo tipo;
+    private final TipoObstaculo tipo;
 
     public Obstaculo(int centroX, int centroY, TipoObstaculo tipo){
         this.centroX = centroX;

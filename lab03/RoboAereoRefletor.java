@@ -12,7 +12,7 @@ class RoboAereoRefletor extends RoboAereo{
     @Override public void subir(int deltaZ, Ambiente amb){
         int nova_z = posicaoZ + deltaZ;
         int z_refletida = posicaoZ - Math.abs(deltaZ - (altitudeMaxima - posicaoZ));
-        if (nova_z > altitudeMinima)
+        if (nova_z < altitudeMaxima)
             if (!colisao_robo(identificarRobos(amb), posicaoX, posicaoZ, nova_z) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, nova_z)){
                 this.posicaoZ = nova_z;
             }else

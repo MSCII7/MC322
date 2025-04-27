@@ -2,9 +2,9 @@
 import java.util.ArrayList;
 public class Ambiente
 {
-    private int largura;
-    private int comprimento;
-    private int altura;
+    private final int largura;
+    private final int comprimento;
+    private final int altura;
     private ArrayList<Robo> robos;
     private ArrayList<Obstaculo> obstaculos;
 
@@ -53,5 +53,9 @@ public class Ambiente
 
     public void imprimirDimensoes(){
         System.out.println("O ambiente tem largura " + largura + ", comprimento " + comprimento + " e altura " + altura);
+    }
+
+    public int getAltura(){
+        return this.altura;
     }
 }

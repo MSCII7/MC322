@@ -15,8 +15,8 @@ public class Robo{
         posicaoY = posYIn;
         sensores = new ArrayList<Sensor>();
         //Adicionar sensores essenciais para a movimentacao do robo
-        sr = new SensorRobos(100);
-        so = new SensorObstaculos(100);
+        sr = new SensorRobos(50);
+        so = new SensorObstaculos(50);
     }
 
     public int getPosX(){
