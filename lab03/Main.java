@@ -40,6 +40,9 @@ public class Main{
         RoboAereoConsciente consciente = Teste.testeConsciente(meuAmbiente);
         meuAmbiente.adicionarRobo(consciente);
 
+        //Testar os sensores
+        Teste.testeSensorObstaculo(meuRobo, meuAmbiente);
+        Teste.testeSensorRobo(meuRobo, meuAmbiente);
         //imprimir posicoes finais dos robos
         imprimirRobos(meuAmbiente); 
 

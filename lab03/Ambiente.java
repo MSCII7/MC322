@@ -5,8 +5,8 @@ public class Ambiente
     private final int largura;
     private final int comprimento;
     private final int altura;
-    private ArrayList<Robo> robos;
-    private ArrayList<Obstaculo> obstaculos;
+    private final ArrayList<Robo> robos;
+    private final ArrayList<Obstaculo> obstaculos;
 
     public Ambiente(int l, int c, int a)
     {
