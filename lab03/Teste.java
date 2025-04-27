@@ -123,7 +123,7 @@ public class Teste {
     //Testa o movimento do consciente, incluindo os momentos em que ele nao move por estar perto de outros aereos no eixo Z
     //testa a variacao da distancia minima, incluindo tentar torna-la negativa
     public static RoboAereoConsciente testeConsciente(Ambiente amb){
-        RoboAereoConsciente consciente = new RoboAereoConsciente("Seguro", 20, 20, 10, 100, 4);
+        RoboAereoConsciente consciente = new RoboAereoConsciente("Seguro", 20, 20, 10, 100, 20);
         System.out.println("\n-----------\nTESTE RoboAereoConsciente:\n");
 
         consciente.exibirPosicao();

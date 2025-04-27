@@ -214,7 +214,7 @@ public class Main{
                     for(Obstaculo obs : obstaculos){
                         obs.exibirObstaculo();
                     }
-                    System.err.println("--------------------------------------------------");
+                    System.err.println("-------------------------------------------------------");
 
                 }
             }
@@ -272,7 +272,7 @@ public class Main{
                     if(roboSelecionado instanceof RoboAereo ra){
                         if(divisor.length > 1){
                             //ve se eh menor que maximo deslocamento
-                            if(ehInt(divisor[1]) && Math.abs(Integer.parseInt(divisor[1])) < maxMover){
+                            if(ehInt(divisor[1]) && Math.abs(Integer.parseInt(divisor[1])) <= maxMover){
                                 int deltaZ = Integer.parseInt(divisor[1]);
 
                                 if(deltaZ >= 0)

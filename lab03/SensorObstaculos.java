@@ -32,9 +32,9 @@ public class SensorObstaculos extends Sensor{
         double dist;
 
         //Calculando as distâncias mínimas
-        dx = Math.max(x1, Math.min(posX, x2));
-        dy = Math.max(y1, Math.min(posY, y2));
-        dz = Math.max(z1, Math.min(posZ, z2));
+        dx = Math.max(x1 - posX, Math.max(0, posX - x2));
+        dy = Math.max(y1 - posY, Math.max(0, posY - y2));
+        dz = Math.max(z1 - posZ, Math.max(0, posZ - z2));
         dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
         return dist;
     }
