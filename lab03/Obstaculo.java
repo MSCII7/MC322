@@ -13,8 +13,8 @@ public class Obstaculo {
         this.posicaoX1 = centroX - tipo.getLargura()/2;
         this.posicaoX2 = centroX + tipo.getLargura()/2;
 
-        this.posicaoY1 = centroY - tipo.getAltura()/2;
-        this.posicaoY2 = centroY + tipo.getAltura()/2;
+        this.posicaoY1 = centroY - tipo.getComprimento()/2;
+        this.posicaoY2 = centroY + tipo.getComprimento()/2;
 
         this.altura = tipo.getAltura();
 
