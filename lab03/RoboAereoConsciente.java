@@ -7,6 +7,7 @@ class RoboAereoConsciente extends RoboAereo{
         distanciaMin = distMin;
         so.setRaio(distMin);
         sr.setRaio(distMin);
+        tipo  = "Consciente";
     }
 
     @Override public void subir(int deltaZ, Ambiente amb){
@@ -35,4 +36,10 @@ class RoboAereoConsciente extends RoboAereo{
             System.out.println("Erro: tentativa de tornar distancia minima 0 ou negativa");
         }
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ". distMin = " + this.distanciaMin;
+    }
+    
 }

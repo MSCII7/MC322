@@ -9,6 +9,7 @@ public class RoboAereo extends Robo{
         super(nomeIn, posXIn, posYIn);
         posicaoZ = posZIn;
         altitudeMaxima = altMax;
+        tipo = "Aereo";
     }
 
     public void subir(int deltaZ, Ambiente amb){
@@ -87,4 +88,10 @@ public class RoboAereo extends Robo{
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return getNome() + "("+ this.tipo+"): " + getPosX() + ", " + getPosY()+ ", " + getPosZ() + ". altMax = "+ getAltitudeMaxima();
+    }
+
 }

@@ -55,8 +55,9 @@ public class Main{
     private static void imprimirRobos(Ambiente amb){
         ArrayList<Robo> robos = amb.getRobos();
         for(int i = 0; i < robos.size(); i++){
-            System.out.printf(i + ": ");
-            robos.get(i).exibirPosicao();
+            System.out.printf(i + "-> ");
+            //robos.get(i).exibirPosicao();
+            System.out.println(robos.get(i).toString());
         }
     }
 
@@ -147,6 +148,7 @@ public class Main{
         String comPosRobo = "rp";
         String comSensorRobos = "rsr";
         String comSensorObst = "rso";
+        String comCarregarEletrico = "ce";
         String comSair = "s";
         String comHelp = "h";
 
@@ -162,7 +164,7 @@ public class Main{
         comSensorObst +  " para imprimir o status do seu sensor de obstaculos. " +
         "Utilize rmx, rmy, rmz <delta> para mover o robo selecionado na direcao escolhida uma quantidade <delta> "+
         "(delta pode ser negativo, rmz so pode ser usado para o aereo). O valor maximo para o modulo de delta eh " + 
-        maxMover + " unidades"+
+        maxMover + " unidades"+". Use "+ comCarregarEletrico +" para carregar o robo eletrico"+
         ". Utlize " + comSair + " para sair do programa, ou " + comHelp + " para imprimir essa mensagem novamente.\n";
 
         System.out.println("");
@@ -202,7 +204,7 @@ public class Main{
                 if(roboSelecionado == null)
                     System.out.println("Nenhum Robo foi selecionado");
                 else{
-                    roboSelecionado.exibirPosicao();
+                    System.out.println(roboSelecionado.toString());
                 }
             }
 
@@ -289,6 +291,15 @@ public class Main{
                     }
                     else
                         System.out.println("Robo selecionado nao eh aereo");
+                }
+            } else if(comando.equals(comCarregarEletrico)){
+                if(roboSelecionado == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+                else{
+                    if (roboSelecionado instanceof RoboTerrestreEletrico re){
+                        re.carregar();
+                    } else
+                        System.out.println("O robo nao e do tipo eletrico.");
                 }
             }
 

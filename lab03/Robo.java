@@ -5,6 +5,7 @@ public class Robo{
     protected int posicaoX;
     protected int posicaoY;
     protected String direcao;
+    protected String tipo;
     protected SensorRobos sr;
     protected SensorObstaculos so;
     protected ArrayList<Sensor> sensores; //Por padrão iremos adicionar os sensores de Robos e os de Obstáculos em todos os robos
@@ -14,6 +15,7 @@ public class Robo{
         posicaoX = posXIn;
         posicaoY = posYIn;
         sensores = new ArrayList<Sensor>();
+        tipo = "Simples";
         //Adicionar sensores essenciais para a movimentacao do robo
         sr = new SensorRobos(50);
         so = new SensorObstaculos(50);
@@ -89,4 +91,10 @@ public class Robo{
     protected void adicionaSensores(Ambiente amb, Sensor s){
         this.sensores.add(s);
     }
+    
+    @Override
+    public String toString() {
+        return getNome() + "("+ this.tipo +"): " + getPosX() + ", " + getPosY();
+    }
+
 }

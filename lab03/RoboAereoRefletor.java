@@ -5,6 +5,7 @@ class RoboAereoRefletor extends RoboAereo{
     public RoboAereoRefletor(String nomeIn, int posXIn, int posYIn, int posZIn, int altMax, int altMin){
         super(nomeIn, posXIn, posYIn, posZIn, altMax);
         altitudeMinima = altMin;
+        tipo = "Refletor";
     }
 
     //se o deslocamento deltaZ for colocar o robo acima do limite superior, ele sobe ate o limite e desce a 
@@ -41,4 +42,13 @@ class RoboAereoRefletor extends RoboAereo{
             } else
                 System.err.println("Alerta de colisao: movimento impedido");
         }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    
+    
+    
 }

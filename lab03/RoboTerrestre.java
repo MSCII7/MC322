@@ -6,6 +6,7 @@ public class RoboTerrestre extends Robo{
         velocidadeMaxima = vMax;       
         this.so.setRaio(vMax);
         this.sr.setRaio(vMax);
+        tipo = "Terrestre";
     }
     //Adicionar a verificação da velocidade para a locomoção do robo
     @Override public void mover(int deltaX, int deltaY, Ambiente amb){
@@ -28,5 +29,10 @@ public class RoboTerrestre extends Robo{
     public int getVelocidadeMaxima() {
         return velocidadeMaxima;
     }
+    @Override
+    public String toString() {
+        return super.toString() + ". vMax = "+ getVelocidadeMaxima();
+    }
+
 }
 

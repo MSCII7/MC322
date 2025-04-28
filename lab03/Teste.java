@@ -25,7 +25,7 @@ public class Teste {
 
         System.out.print("ESPERADO: 0% \nOBTIDO: ");
         //Testar o carregamento
-        eletrico.getNivel_bateria();
+        System.out.println(eletrico.getNivel_bateria());
         System.out.println("");
 
         System.out.print("ESPERADO: SHOCK foi carregado! \nOBTIDO: ");
@@ -33,7 +33,7 @@ public class Teste {
         System.out.println("");
 
         System.out.print("ESPERADO: 100% \nOBTIDO: ");
-        eletrico.getNivel_bateria();
+        System.out.println(eletrico.getNivel_bateria());
 
         return eletrico;
     }
@@ -64,12 +64,12 @@ public class Teste {
         System.out.println("\n-----------\nTESTE RoboTerrestreTeletransporte:\n");
 
         System.out.print("ESPERADO: 0% \nOBTIDO: ");
-        tele.getBarra_teletransporte();
+        System.out.println(tele.getBarra_teletransporte());
         System.out.println("");
         tele.mover(98,0, amb);
 
         System.out.print("ESPERADO: 98% \nOBTIDO: ");
-        tele.getBarra_teletransporte();
+        System.out.println(tele.getBarra_teletransporte());
         System.out.println("");
 
         System.out.print("ESPERADO: Barra de telestransporte não está carregada! Faltam 2 passos \nOBTIDO: ");
@@ -79,7 +79,7 @@ public class Teste {
         tele.mover(3,0, amb);
 
         System.out.print("ESPERADO: 100% \nOBTIDO: ");
-        tele.getBarra_teletransporte();
+        System.out.println(tele.getBarra_teletransporte());
         System.out.println("");
 
         tele.teletransportar(0,0);
@@ -89,7 +89,7 @@ public class Teste {
         System.out.println("");
 
         System.out.print("ESPERADO: 0% \nOBTIDO: ");
-        tele.getBarra_teletransporte();
+        System.out.println(tele.getBarra_teletransporte());
         return tele;
     }
 

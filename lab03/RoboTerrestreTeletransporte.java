@@ -3,6 +3,7 @@ public class RoboTerrestreTeletransporte extends RoboTerrestre{
     public RoboTerrestreTeletransporte(String nomeIn, int posXIn, int posYIn, int vMax){
         super(nomeIn, posXIn, posYIn, vMax);
         barra_teletransporte = 0;
+        tipo = "Teletransporte";
     }
     //Adiciona o aumento da barra_teletransporte ao andar
     @Override public void mover(int deltaX, int deltaY, Ambiente amb){
@@ -15,11 +16,11 @@ public class RoboTerrestreTeletransporte extends RoboTerrestre{
                 int deslocamento = 0;
                 if(posicaoX + deltaX > 0){ //para nao ir para negativo
                     this.posicaoX += deltaX;
-                    deslocamento += deltaX;
+                    deslocamento += Math.abs(deltaX);
                 }
                 if(posicaoY + deltaY > 0){ //para nao ir para negativo
                     this.posicaoY += deltaY;
-                    deslocamento += deltaY;
+                    deslocamento += Math.abs(deltaY);
                 }
                 //Ate 100, a barra aumente de acordo com a distancia andada
                 if (this.barra_teletransporte < 100){
@@ -47,5 +48,9 @@ public class RoboTerrestreTeletransporte extends RoboTerrestre{
     //Imprimi a barra em porcentagem
     public int getBarra_teletransporte(){
         return this.barra_teletransporte;
+    }
+    @Override
+    public String toString() {
+        return super.toString() + ". Barra_tp = "+ getBarra_teletransporte() + "%";
     }
 }

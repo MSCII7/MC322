@@ -54,7 +54,19 @@ public class Obstaculo {
     public TipoObstaculo getTipo() {
         return tipo;
     }
-
     
+    public int getCentroX() {
+        return this.centroX;
+    }
+
+    public int getCentroY() {
+        return this.centroY;
+    }
+   
+    @Override
+    public String toString() {
+        return "Obstaculo do tipo " + tipo.name()+", com largura(x) " + tipo.getLargura()+", comprimento(y) " + tipo.getComprimento()+
+        " e altura(z) " + tipo.getAltura()+", com centro: " + this.centroX + ", " + this.centroY;
+    }
 
 }

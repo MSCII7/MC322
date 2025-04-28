@@ -3,6 +3,7 @@ public class RoboTerrestreEletrico extends RoboTerrestre{
     public RoboTerrestreEletrico(String nomeIn, int posXIn, int posYIn, int vMax){
         super(nomeIn, posXIn, posYIn, vMax);
         nivel_bateria = 100;
+        tipo = "Eletrico";
     }
     //Alterar o mover() para que o robo nao se mmova quando novel_bateria = 0    
     @Override public void mover(int deltaX, int deltaY, Ambiente amb){
@@ -14,16 +15,20 @@ public class RoboTerrestreEletrico extends RoboTerrestre{
             if(moduloQuadrado < velocidadeMaxima*velocidadeMaxima){
                 if(!colisao_robo(identificarRobos(amb), novo_x, novo_y) 
                 && !colisao_obs(identificarObstaculos(amb), novo_x, novo_y)){
-                    if(posicaoX + deltaX > 0) //para nao ir para negativo
+                    if(posicaoX + deltaX > 0){ //para nao ir para negativo
                         this.posicaoX += deltaX;
-                    if(posicaoY + deltaY > 0) //para nao ir para negativo
+                        this.nivel_bateria -= Math.abs(deltaX);
+                    }
+                    if(posicaoY + deltaY > 0){ //para nao ir para negativo
                         this.posicaoY += deltaY;
+                        this.nivel_bateria -= Math.abs(deltaY);
+                    }
                 } else
                     System.out.println("Alerta de colisao: movimento impedido");
             } else
                 System.out.println("Velocidade total do robo " + nome + " excedeu maximo: movimento impedido");
         } else
-            System.err.println("Sem bateria, recarregue o robo com o comando XXX");
+            System.err.println("Sem bateria, recarregue o robo com o comando \"ce\"");
     }
 
     //Carregar o robo, imprimindo o seu status e colocar seu nivel para 100
@@ -34,5 +39,9 @@ public class RoboTerrestreEletrico extends RoboTerrestre{
     //Imprimir a bateria por "%"
     public int getNivel_bateria(){
         return this.nivel_bateria;
+    }
+    @Override
+    public String toString() {
+        return super.toString() + ". Bateria = "+ getNivel_bateria() + "%";
     }
 }
