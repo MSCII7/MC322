@@ -32,4 +32,6 @@ Esse repositório apresenta os laboratórios de MC322, com o objetivo de gerar u
   - Rode a classe Main com o comando "java Main"
 
 ## Diagrama de classes:
+O diagrama foi feito em puml. A conexão entre os elementos do diagrama foi feita considerando as relações entre as classes no código (Ex: Cada ambiente tem muitos robôs, então foi feita uma relação de composição de um para muitos). As relações de herança foram representadas com setas. A classe abstrata Sensor foi destacada com um "A", enquanto as classes concretas foram marcadas com um "C". Para o enum não ficar completamente desconexo das outras classes, ele foi conectado à classe Obstáculo no diagrama. 
+
 ![image](https://github.com/user-attachments/assets/0aeed0dd-6c4c-4a6e-8b0a-848751acdade)
