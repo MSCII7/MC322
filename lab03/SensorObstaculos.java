@@ -31,7 +31,13 @@ public class SensorObstaculos extends Sensor{
         int z2 = 0;
         double dist;
 
-        //Calculando as distâncias mínimas
+        /*Calculando as distâncias mínimas
+        A forma como esse calculo funciona eh analogo para cada direcao, entao podemos escolher uma para analisar. Vamos escolher dx.
+        Se posX < x1, (x1 - posX) vai ser o unico positivo, logo ele eh o max e eh retornado, e representa a distancia ate a borda inferior dessa direcao
+        Se x1 < posX < x2, os dois calculos serao negativos, entao eh retornado 0 (esta dentro, logo distancia nessa direcao eh 0)
+        Se posX > x2, (posX - x2) eh o unico positivo, logo ele eh retornado, e representa a distancia ate a borda superior dessa direcao
+        Depois, so fazemos pitagoras das distancias em cada direcao para calcular a distancia total
+        */
         dx = Math.max(x1 - posX, Math.max(0, posX - x2));
         dy = Math.max(y1 - posY, Math.max(0, posY - y2));
         dz = Math.max(z1 - posZ, Math.max(0, posZ - z2));
