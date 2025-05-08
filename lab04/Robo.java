@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Robo implements Entidade{
+public abstract class Robo implements Entidade{
     protected String nome;
     protected int posicaoX;
     protected int posicaoY;
@@ -56,6 +56,16 @@ public class Robo implements Entidade{
     public String getNome(){
         return this.nome;
     }
+
+    public void ligar(){
+        this.ligado = true;
+    }
+
+    public void desligar(){
+        this.ligado = false;
+    }
+
+    public abstract void executarTarefa();
 
     public void mover(int deltaX, int deltaY, Ambiente amb){
         int novo_x = posicaoX + deltaX;
