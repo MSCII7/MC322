@@ -28,7 +28,7 @@ public class RoboAereo extends Robo{
             System.err.println("Alerta de colisao: movimento impedido");
     }
 
-    public int getPosZ(){
+    @Override public int getZ(){
         return this.posicaoZ;
     }
 
@@ -81,9 +81,9 @@ public class RoboAereo extends Robo{
     public boolean colisao_robo(ArrayList<Robo> robos_dentro, int nova_x, int nova_y, int nova_z){
         for (Robo robo : robos_dentro){
             if (robo instanceof RoboAereo ra){
-                if (nova_x == ra.getPosX() && nova_y == ra.getPosY() && ra.getPosZ() == nova_z)
+                if (nova_x == ra.getX() && nova_y == ra.getY() && ra.getZ() == nova_z)
                     return true;
-            } else if (nova_x == robo.getPosX() && nova_y == robo.getPosY() && nova_z == 0)
+            } else if (nova_x == robo.getX() && nova_y == robo.getY() && nova_z == 0)
                 return true;
         }
         return false;
@@ -91,7 +91,7 @@ public class RoboAereo extends Robo{
 
     @Override
     public String toString() {
-        return getNome() + "("+ this.tipo+"): " + getPosX() + ", " + getPosY()+ ", " + getPosZ() + ". altMax = "+ getAltitudeMaxima();
+        return getNome() + "("+ this.tipo+"): " + getX() + ", " + getY()+ ", " + getZ() + ". altMax = "+ getAltitudeMaxima();
     }
 
 }

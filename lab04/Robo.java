@@ -1,11 +1,15 @@
 import java.util.ArrayList;
 
-public class Robo{
+public class Robo implements Entidade{
     protected String nome;
     protected int posicaoX;
     protected int posicaoY;
-    protected String direcao;
+
     protected String tipo;
+    protected String id;
+    protected boolean ligado;
+    TipoEntidade tipoEntidade;
+
     protected SensorRobos sr;
     protected SensorObstaculos so;
     protected ArrayList<Sensor> sensores; //Por padrão iremos adicionar os sensores de Robos e os de Obstáculos em todos os robos
@@ -14,19 +18,39 @@ public class Robo{
         nome = nomeIn;
         posicaoX = posXIn;
         posicaoY = posYIn;
-        sensores = new ArrayList<Sensor>();
+
         tipo = "Simples";
+        ligado = true;
+        tipoEntidade = TipoEntidade.ROBO;
+
         //Adicionar sensores essenciais para a movimentacao do robo
+        sensores = new ArrayList<Sensor>();
         sr = new SensorRobos(50);
         so = new SensorObstaculos(50);
     }
 
-    public int getPosX(){
+    @Override public int getX(){
         return this.posicaoX;
     }
 
-    public int getPosY(){
+    @Override public int getY(){
         return this.posicaoY;
+    }
+
+    @Override public int getZ(){
+        return 0;
+    }
+
+    @Override public TipoEntidade getTipo(){
+        return tipoEntidade;
+    }
+
+    @Override public char getRepresentacao(){
+        return tipoEntidade.getRepresentacao();
+    }
+
+    @Override public String getDescricao(){
+        return "Robo -_-";
     }
 
     public String getNome(){
@@ -73,9 +97,9 @@ public class Robo{
     public boolean colisao_robo(ArrayList<Robo> robos_dentro, int nova_x, int nova_y){
         for (Robo robo : robos_dentro){
             if (robo instanceof RoboAereo ra){
-                if (nova_x == ra.getPosX() && nova_y == ra.getPosY() && ra.getPosZ() == 0)
+                if (nova_x == ra.getX() && nova_y == ra.getY() && ra.getZ() == 0)
                     return true;
-            } else if (nova_x == robo.getPosX() && nova_y == robo.getPosY())
+            } else if (nova_x == robo.getX() && nova_y == robo.getY())
                 return true;
         }
         return false;
@@ -94,7 +118,7 @@ public class Robo{
     
     @Override
     public String toString() {
-        return getNome() + "("+ this.tipo +"): " + getPosX() + ", " + getPosY();
+        return getNome() + "("+ this.tipo +"): " + getX() + ", " + getY();
     }
 
 }

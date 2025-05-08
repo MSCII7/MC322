@@ -185,9 +185,9 @@ public class Teste {
     public static void testeSensorObstaculo(Robo r, Ambiente amb){
         System.out.println("---------\nTESTE SENSOR OBSTACULO");
         //Criar obstaculos
-        Obstaculo o1 = new Obstaculo((r.getPosX()+3), r.getPosY(), TipoObstaculo.ARVORE);
+        Obstaculo o1 = new Obstaculo((r.getX()+3), r.getY(), TipoObstaculo.ARVORE);
         amb.adicionarObstaculo(o1);
-        Obstaculo o2 = new Obstaculo((r.getPosX()+15), r.getPosY(), TipoObstaculo.ARVORE);
+        Obstaculo o2 = new Obstaculo((r.getX()+15), r.getY(), TipoObstaculo.ARVORE);
         amb.adicionarObstaculo(o2);
         //Testar sensor
         ArrayList<Obstaculo> obs = r.identificarObstaculos(amb);
@@ -202,9 +202,9 @@ public class Teste {
     public static void testeSensorRobo(Robo r, Ambiente amb){
         System.out.println("---------\nTESTE SENSOR ROBO");
         //Criar robos
-        Robo r1 = new Robo("r1", (r.getPosX()-3), r.getPosY());
+        Robo r1 = new Robo("r1", (r.getX()-3), r.getY());
         amb.adicionarRobo(r1);
-        Robo r2 = new Robo("r2", (r.getPosX()+15), r.getPosY());
+        Robo r2 = new Robo("r2", (r.getX()+15), r.getY());
         amb.adicionarRobo(r2);
         //Testar sensor
         ArrayList<Robo> robos = r.identificarRobos(amb);
