@@ -51,7 +51,7 @@ public class Obstaculo {
         return posicaoY2;
     }
 
-    public TipoObstaculo getTipo() {
+    public TipoObstaculo getTipoObstaculo() {
         return tipo;
     }
     
