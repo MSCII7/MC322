@@ -59,16 +59,22 @@ public class Ambiente
     public int getAltura(){
         return this.altura;
     }
+
     public void inicializarmapa(){
         //Alocação dinâmica para a matrix do mapa
         mapa = new TipoEntidade[this.largura][this.comprimento][this.altura];
     }
+
     public void adicionarEntidade(Entidade e){
-
+        this.entidades.add(e);
+        this.mapa[e.getX()][e.getY()][e.getZ()] = e.getTipo();
     }
+
     public void removerEntidade(Entidade e){
-
+        this.entidades.remove(e);
+        this.mapa[e.getX()][e.getY()][e.getZ()] = null;
     }
+
     public boolean dentroDosLimites(int x, int y, int z){
         return (x <= this.largura && y <= this.comprimento && z <= this.altura); //IMPLEMENTAR CONLISION ECXEPTION
     }
@@ -89,6 +95,14 @@ public class Ambiente
     }
     public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ){
         e.mover(novoX, novoY, novoZ);        
+      //if (e isnstanceof Robo r){
+      //    if (dentroDosLimites(novoX, novoY, novoZ)){
+      //        if (!estaOcupado(novoX, novoY, novoZ)){
+      //            this.mapa[e.getX()][e.getY()][e.getZ()] = null;
+      //            this.mapa[novoX][novoY][novoZ] = e.getTipo();
+      //        }
+      //    }
+      //}
     }
     public void executarSensores(){
         for (Entidade ent : entidades){
@@ -97,12 +111,20 @@ public class Ambiente
             }
         }
     }
+
     public void verificarColisoes(){
+        for (Entidade ent : entidades){
+            if (ent instanceof Obstaculo obs){
+               
+            }
+        }
 
     }
     public void visualizarAmbiente(){
         for (Entidade ent: entidades){ 
-
+            if (ent instanceof Obstaculo obs){
+                
+            }
         }
     }
 }
