@@ -104,8 +104,7 @@ public class RoboAereo extends Robo implements Comunicavel{
         System.out.println("Mensagens recebidas:");
         for(GrupoMensagemRobo grupoMensagem : CentralComunicacao.getGrupos()){
             if(grupoMensagem.destinatario == this){
-                System.out.println(grupoMensagem.mensagem);
-                CentralComunicacao.removerMensagem(grupoMensagem);
+                System.out.println("Do robo " + grupoMensagem.remetente + ": " + grupoMensagem.mensagem);
             }
         }
     }
