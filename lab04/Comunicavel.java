@@ -1,4 +1,4 @@
 public interface Comunicavel {
-    enviarMensagem(Comunicavel destinatario, String mensagem);
-    receberMensagem(String mensagem);
+    void enviarMensagem(Comunicavel destinatario, String mensagem);
+    void receberMensagem();
 }
