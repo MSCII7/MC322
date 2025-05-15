@@ -68,11 +68,43 @@ public class Ambiente
     public void adicionarEntidade(Entidade e){
         this.entidades.add(e);
         this.mapa[e.getX()][e.getY()][e.getZ()] = e.getTipo();
+        if (e.getTipo() == TipoEntidade.OBSTACULO){
+            int iniX = ((Obstaculo) e).getPosicaoX1();
+            int distX = ((Obstaculo) e).getPosicaoX2() - iniX;
+            int iniY = ((Obstaculo) e).getPosicaoY1();
+            int distY = ((Obstaculo) e).getPosicaoY2() - iniY;
+            int z = ((Obstaculo) e).getAltura();
+            for (int i = iniX; i < distX; i++) {
+               for (int j = iniY; j < distY; j++) {
+                   for (int k = 0;k < z;k++) {
+                      this.mapa[i][j][k] = TipoEntidade.OBSTACULO; 
+                   }
+               } 
+            }
+        } else{
+            this.mapa[e.getX()][e.getY()][e.getZ()] = e.getTipo();
+        }
+        this.entidades.add(e);
     }
 
     public void removerEntidade(Entidade e){
+        if (e.getTipo() == TipoEntidade.OBSTACULO){
+            int iniX = ((Obstaculo) e).getPosicaoX1();
+            int distX = ((Obstaculo) e).getPosicaoX2() - iniX;
+            int iniY = ((Obstaculo) e).getPosicaoY1();
+            int distY = ((Obstaculo) e).getPosicaoY2() - iniY;
+            int z = ((Obstaculo) e).getAltura();
+            for (int i = iniX; i < distX; i++) {
+               for (int j = iniY; j < distY; j++) {
+                   for (int k = 0;k < z;k++) {
+                      this.mapa[i][j][k] = TipoEntidade.VAZIO; 
+                   }
+               } 
+            }
+        } else{
+            this.mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
+        }
         this.entidades.remove(e);
-        this.mapa[e.getX()][e.getY()][e.getZ()] = null;
     }
 
     public boolean dentroDosLimites(int x, int y, int z){
@@ -92,9 +124,18 @@ public class Ambiente
             }
         }
         return false;
+        //return (this.mapa[x][y][z] =! TipoEntidade.VAZIO);
     }
     public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ){
-        e.mover(novoX, novoY, novoZ);        
+        try{
+            verificarColisoes(novoX, novoY, novoZ);
+            this.mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
+            e.mover(novoX, novoY, novoZ);       
+            this.mapa[e.getX()][e.getY()][e.getZ()]  = e.getTipo();
+            adicionarEntidade(e);
+        } catch (colisaoException exception){
+            System.out.println("colisaoException, entidade não pode se mover para"+novoX+novoY+novoZ);
+        }
       //if (e isnstanceof Robo r){
       //    if (dentroDosLimites(novoX, novoY, novoZ)){
       //        if (!estaOcupado(novoX, novoY, novoZ)){
@@ -104,21 +145,32 @@ public class Ambiente
       //    }
       //}
     }
-    public void executarSensores(){
-        for (Entidade ent : entidades){
-            if (ent instanceof Robo r){
-                r.usarSensores();
-            }
+    public void executarSensores(Robo r){
+                r.usarSensores(this);
+        
+    }
+    public void verificarColisoes(int x, int y, int z) throws colisaoException{ 
+        if (estaOcupado(x, y, z)){
+            throw new colisaoException();
         }
     }
-
-    public void verificarColisoes(){
-        for (Entidade ent : entidades){
-            if (ent instanceof Obstaculo obs){
-               
+    public void verificarColisoes_1(int x, int y, int z) throws colisaoException{ 
+        for (Entidade ent : this.entidades){
+            if (ent.getTipo() == TipoEntidade.OBSTACULO){
+                if (((Obstaculo) ent).getPosicaoX1() < x && x < ((Obstaculo) ent).getPosicaoX2()
+                    && ((Obstaculo) ent).getPosicaoY1() < y && y < ((Obstaculo) ent).getPosicaoY2()
+                    && z < ((Obstaculo) ent).getAltura()){
+                        throw new colisaoException();
+                    }
+            else if (ent.getTipo() == TipoEntidade.ROBO){
+                if (ent instanceof RoboAereo ra){
+                    if (x == ra.getX() && y == ra.getY() && ra.getZ() == z)
+                        throw new colisaoException();
+                } else if (z == 0 && x == ((Robo) ent).getX() && y == ((Robo) ent).getY())
+                    throw new colisaoException();
             }
-        }
-
+            }
+        }   
     }
     public void visualizarAmbiente(){
         for (Entidade ent: entidades){ 
@@ -127,4 +179,5 @@ public class Ambiente
             }
         }
     }
+
 }

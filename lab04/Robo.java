@@ -130,5 +130,9 @@ public abstract class Robo implements Entidade{
     public String toString() {
         return getNome() + "("+ this.tipo +"): " + getX() + ", " + getY();
     }
-
+    public void usarSensores(Ambiente amb) {
+        for (Sensor sensor : sensores){
+            sensor.monitorar(this.posicaoX, this.posicaoY, 0, amb);
+        }
+    }
 }
