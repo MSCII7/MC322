@@ -67,7 +67,22 @@ public abstract class Robo implements Entidade{
 
     public abstract void executarTarefa();
 
-    public void mover(int deltaX, int deltaY, Ambiente amb){
+    void moverPara(int novoX, int novoY, int novoZ, Ambiente amb) throws NaoAereoException{
+        //Robo nao eh aereo, logo nao pode ir para Z diferente de 0. No aereo, esse metodo sera sobrescrito e a excecao removida
+        if(novoZ != 0){
+            throw new NaoAereoException();
+        }
+        else{
+            try{
+                mover(novoX - posicaoX, novoY - posicaoY, amb);
+            } catch(ColisaoException colException){
+                System.err.println("Houve colisao!");
+            }
+        }
+
+    }
+
+    public void mover(int deltaX, int deltaY, Ambiente amb) throws ColisaoException{
         int novo_x = posicaoX + deltaX;
         int novo_y = posicaoY + deltaY;
         if (!colisao_robo(identificarRobos(amb), novo_x, novo_y) && !colisao_obs(identificarObstaculos(amb), novo_x, novo_y)){
@@ -76,7 +91,7 @@ public abstract class Robo implements Entidade{
             if(posicaoY + deltaY > 0) //para nao ir para negativo
                 this.posicaoY += deltaY;
         }else
-            System.err.println("Alerta de colisao: movimento impedido");
+            throw new ColisaoException();
     }
 
     public void exibirPosicao(){

@@ -1,6 +1,8 @@
 
 import java.util.ArrayList;
 
+// Mensagens ficam armezenadas como um conjunto contendo o destinatario, o remetente e a mensagem em si
+
 public class CentralComunicacao{
     private static ArrayList<GrupoMensagemRobo> gruposMensagem;
 

@@ -41,8 +41,24 @@ public class RoboAereo extends Robo implements Comunicavel{
         System.out.println("posicao do Robo " + this.nome + ": " + posicaoX + ", " + posicaoY + ", " + posicaoZ);
     }
 
+    @Override
+    public void moverPara(int novoX, int novoY, int novoZ, Ambiente amb){
+        try{
+            mover(novoX - posicaoX, novoY - posicaoY, amb);
+            
+            int deltaZ = novoZ - posicaoZ;
+            if(deltaZ >= 0) 
+                subir(deltaZ, amb);
+            else 
+                descer(deltaZ, amb);
+
+        } catch(ColisaoException colException){
+            System.err.println("Houve colisao!");
+        }
+    }
+
     @Override 
-    public void mover(int deltaX, int deltaY, Ambiente amb) {
+    public void mover(int deltaX, int deltaY, Ambiente amb) throws ColisaoException{
         int novo_x = posicaoX + deltaX;
         int novo_y = posicaoY + deltaY;
         if (!colisao_robo(identificarRobos(amb), novo_x, novo_y, posicaoZ) && !colisao_obs(identificarObstaculos(amb), novo_x, novo_y, posicaoZ)){
@@ -51,7 +67,7 @@ public class RoboAereo extends Robo implements Comunicavel{
             if(posicaoY + deltaY > 0) //para nao ir para negativo
                 this.posicaoY += deltaY;
         }else
-            System.err.println("Alerta de colisao: movimento impedido");
+            throw new ColisaoException();
     }
 
 
@@ -107,5 +123,10 @@ public class RoboAereo extends Robo implements Comunicavel{
                 System.out.println("Do robo " + grupoMensagem.remetente + ": " + grupoMensagem.mensagem);
             }
         }
+    }
+
+    @Override
+    public void executarTarefa(){
+        
     }
 }
