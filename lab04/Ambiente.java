@@ -76,11 +76,11 @@ public class Ambiente
 
     public void adicionarEntidade(Entidade e) throws ObstaculoInvalidoException{
         if (e.getTipo() == TipoEntidade.OBSTACULO){
-            int iniX = ((Obstaculo) e).getPosicaoX1();
+            int iniX = ((Obstaculo) e).getX();
             int distX = ((Obstaculo) e).getPosicaoX2() - iniX;
-            int iniY = ((Obstaculo) e).getPosicaoY1();
+            int iniY = ((Obstaculo) e).getY();
             int distY = ((Obstaculo) e).getPosicaoY2() - iniY;
-            int z = ((Obstaculo) e).getAltura();
+            int z = ((Obstaculo) e).getZ();
             for (int i = iniX; i < distX; i++) {
                for (int j = iniY; j < distY; j++) {
                    for (int k = 0;k < z;k++) {
@@ -99,11 +99,11 @@ public class Ambiente
 
     public void removerEntidade(Entidade e){
         if (e.getTipo() == TipoEntidade.OBSTACULO){
-            int iniX = ((Obstaculo) e).getPosicaoX1();
+            int iniX = ((Obstaculo) e).getX();
             int distX = ((Obstaculo) e).getPosicaoX2() - iniX;
-            int iniY = ((Obstaculo) e).getPosicaoY1();
+            int iniY = ((Obstaculo) e).getY();
             int distY = ((Obstaculo) e).getPosicaoY2() - iniY;
-            int z = ((Obstaculo) e).getAltura();
+            int z = ((Obstaculo) e).getZ();
             for (int i = iniX; i < distX; i++) {
                for (int j = iniY; j < distY; j++) {
                    for (int k = 0;k < z;k++) {
@@ -124,7 +124,7 @@ public class Ambiente
         //Percorrer a lista de entidades e verificar se suas dimensões contém a coordenada desejada
         for (Entidade ent : entidades) {
             if (ent instanceof Obstaculo obs){
-                if ((obs.getPosicaoX1() < x) && (x < obs.getPosicaoX2()) && (obs.getPosicaoY1() < y) && (z < obs.getAltura())){
+                if ((obs.getX() < x) && (x < obs.getPosicaoX2()) && (obs.getY() < y) && (z < obs.getZ())){
                     return true;
                 }
             } else {
@@ -166,9 +166,9 @@ public class Ambiente
     public void verificarColisoes_1(int x, int y, int z) throws ColisaoException{ 
         for (Entidade ent : this.entidades){
             if (ent.getTipo() == TipoEntidade.OBSTACULO){
-                if (((Obstaculo) ent).getPosicaoX1() < x && x < ((Obstaculo) ent).getPosicaoX2()
-                    && ((Obstaculo) ent).getPosicaoY1() < y && y < ((Obstaculo) ent).getPosicaoY2()
-                    && z < ((Obstaculo) ent).getAltura()){
+                if (((Obstaculo) ent).getX() < x && x < ((Obstaculo) ent).getPosicaoX2()
+                    && ((Obstaculo) ent).getY() < y && y < ((Obstaculo) ent).getPosicaoY2()
+                    && z < ((Obstaculo) ent).getZ()){
                         throw new ColisaoException();
                     }
             else if (ent.getTipo() == TipoEntidade.ROBO){

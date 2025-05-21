@@ -113,7 +113,7 @@ public abstract class Robo implements Entidade{
 
     public boolean colisao_obs(ArrayList<Obstaculo> obs_dentro, int nova_x, int nova_y){
         for (Obstaculo obs : obs_dentro){
-            if ((obs.getPosicaoX1() < nova_x) && (nova_x < obs.getPosicaoX2()) && (obs.getPosicaoY1() < nova_y) && (nova_y < obs.getPosicaoY2()))
+            if ((obs.getX() < nova_x) && (nova_x < obs.getPosicaoX2()) && (obs.getY() < nova_y) && (nova_y < obs.getPosicaoY2()))
                 return true;
         }
         return false;
