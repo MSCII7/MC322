@@ -21,10 +21,10 @@ public class SensorRobos extends Sensor {
     private boolean dentro_do_raio(int posX, int posY, int posZ, Robo robo, double raio){
         double dist;
         if (robo instanceof RoboAereo roboaereo){
-            dist = Math.sqrt(Math.pow(posX - roboaereo.getPosX(), 2) + Math.pow(posY - roboaereo.getPosY(), 2) + Math.pow(posZ - roboaereo.getPosZ(), 2));
+            dist = Math.sqrt(Math.pow(posX - roboaereo.getX(), 2) + Math.pow(posY - roboaereo.getY(), 2) + Math.pow(posZ - roboaereo.getZ(), 2));
             return (dist<=raio);
         }
-        dist = Math.sqrt(Math.pow(posX - robo.getPosX(), 2) + Math.pow(posY - robo.getPosY(), 2));
+        dist = Math.sqrt(Math.pow(posX - robo.getX(), 2) + Math.pow(posY - robo.getY(), 2));
 
         return (dist<=raio);
     }

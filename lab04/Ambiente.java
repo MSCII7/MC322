@@ -63,6 +63,15 @@ public class Ambiente
     public void inicializarmapa(){
         //Alocação dinâmica para a matrix do mapa
         mapa = new TipoEntidade[this.largura][this.comprimento][this.altura];
+
+       //preenche com vazio 
+        for(int x = 0; x < this.largura; x++){
+            for(int y = 0; y < this.comprimento; y++){
+                for(int z = 0; z < this.altura; z++){
+                    mapa[x][y][z] = TipoEntidade.VAZIO;
+                }
+            }
+        }
     }
 
     public void adicionarEntidade(Entidade e) throws ObstaculoInvalidoException{

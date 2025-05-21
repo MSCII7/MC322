@@ -23,11 +23,11 @@ public class SensorObstaculos extends Sensor{
     protected double menor_dist(int posX, int posY, int posZ, Obstaculo obs){
         //Declarando as variáveis
         int dx, dy, dz;
-        int x1 = obs.getPosicaoX1();
+        int x1 = obs.getX();
         int x2 = obs.getPosicaoX2();
-        int y1 = obs.getPosicaoY1();
+        int y1 = obs.getY();
         int y2 = obs.getPosicaoY2();
-        int z1 = obs.getAltura();
+        int z1 = obs.getZ();
         int z2 = 0;
         double dist;
 

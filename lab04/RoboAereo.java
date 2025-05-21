@@ -86,9 +86,9 @@ public class RoboAereo extends Robo implements Comunicavel{
     }
     public boolean colisao_obs(ArrayList<Obstaculo> obs_dentro, int nova_x, int nova_y, int nova_z){
         for (Obstaculo obs : obs_dentro){
-            if ((obs.getPosicaoX1() < nova_x) && (nova_x < obs.getPosicaoX2()) 
-            && (obs.getPosicaoY1() < nova_y) && (nova_y < obs.getPosicaoY2())
-            && (0 < nova_z) && (nova_z < obs.getAltura()))
+            if ((obs.getX() < nova_x) && (nova_x < obs.getPosicaoX2()) 
+            && (obs.getY() < nova_y) && (nova_y < obs.getPosicaoY2())
+            && (0 < nova_z) && (nova_z < obs.getZ()))
                 return true;
         }
         return false;

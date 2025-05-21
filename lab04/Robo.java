@@ -76,7 +76,7 @@ public abstract class Robo implements Entidade{
             try{
                 mover(novoX - posicaoX, novoY - posicaoY, amb);
             } catch(ColisaoException colException){
-                System.err.println("Houve colisao!");
+                System.err.println("Colisao detectada na posicao destino! Robo nao moveu");
             }
         }
 
