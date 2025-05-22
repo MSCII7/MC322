@@ -9,19 +9,17 @@ public class RoboTerrestre extends Robo{
         tipo = "Terrestre";
     }
     //Adicionar a verificação da velocidade para a locomoção do robo
-    @Override public void mover(int deltaX, int deltaY, Ambiente amb){
+    @Override public void mover(int deltaX, int deltaY){
         int moduloQuadrado = deltaX*deltaX + deltaY*deltaY;
-        int novo_y = posicaoY + deltaY;
-        int novo_x = posicaoX + deltaX;
-        if(moduloQuadrado <= velocidadeMaxima*velocidadeMaxima)
-            if (!colisao_robo(identificarRobos(amb), novo_x, novo_y) 
-            && !colisao_obs(identificarObstaculos(amb), novo_x, novo_y)){
-                if(posicaoX + deltaX > 0) //para nao ir para negativo
-                    this.posicaoX += deltaX;
-                if(posicaoY + deltaY > 0) //para nao ir para negativo
-                    this.posicaoY += deltaY;
-            else
-                System.out.println("Alerta de colisao: movimento impedido");
+
+        if(moduloQuadrado <= velocidadeMaxima*velocidadeMaxima){
+
+            if(posicaoX + deltaX > 0) //para nao ir para negativo
+                this.posicaoX += deltaX;
+
+            if(posicaoY + deltaY > 0) //para nao ir para negativo
+                this.posicaoY += deltaY;
+                
         } else{
             System.out.println("Velocidade total do robo " + nome + " excedeu maximo: movimento impedido");
         }

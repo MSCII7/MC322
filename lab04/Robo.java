@@ -73,25 +73,19 @@ public abstract class Robo implements Entidade{
             throw new NaoAereoException();
         }
         else{
-            try{
-                mover(novoX - posicaoX, novoY - posicaoY, amb);
-            } catch(ColisaoException colException){
-                System.err.println("Colisao detectada na posicao destino! Robo nao moveu");
-            }
+            mover(novoX - posicaoX, novoY - posicaoY);
         }
 
     }
 
-    public void mover(int deltaX, int deltaY, Ambiente amb) throws ColisaoException{
+    public void mover(int deltaX, int deltaY){
         int novo_x = posicaoX + deltaX;
         int novo_y = posicaoY + deltaY;
-        if (!colisao_robo(identificarRobos(amb), novo_x, novo_y) && !colisao_obs(identificarObstaculos(amb), novo_x, novo_y)){
-            if(posicaoX + deltaX > 0) //para nao ir para negativo
-                this.posicaoX += deltaX;
-            if(posicaoY + deltaY > 0) //para nao ir para negativo
-                this.posicaoY += deltaY;
-        }else
-            throw new ColisaoException();
+
+        if(novo_x > 0) //para nao ir para negativo
+            this.posicaoX += deltaX;
+        if(novo_y > 0) //para nao ir para negativo
+            this.posicaoY += deltaY;
     }
 
     public void exibirPosicao(){

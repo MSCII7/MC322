@@ -1,3 +1,3 @@
 public interface Sensoreavel{
-    void adicionarSensores();
+    void acionarSensores();
 }
