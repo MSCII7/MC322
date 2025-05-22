@@ -6,25 +6,20 @@ public class RoboTerrestreEletrico extends RoboTerrestre{
         tipo = "Eletrico";
     }
     //Alterar o mover() para que o robo nao se mmova quando novel_bateria = 0    
-    @Override public void mover(int deltaX, int deltaY, Ambiente amb){
+    @Override public void mover(int deltaX, int deltaY){
         int moduloQuadrado = deltaX*deltaX + deltaY*deltaY;
-        int novo_y = posicaoY + deltaY;
-        int novo_x = posicaoX + deltaX;
+        
         //Adicionar o fator do nível da bateria como um limitante do deslocamento
         if (this.nivel_bateria >= (deltaX + deltaY)){
             if(moduloQuadrado < velocidadeMaxima*velocidadeMaxima){
-                if(!colisao_robo(identificarRobos(amb), novo_x, novo_y) 
-                && !colisao_obs(identificarObstaculos(amb), novo_x, novo_y)){
-                    if(posicaoX + deltaX > 0){ //para nao ir para negativo
-                        this.posicaoX += deltaX;
-                        this.nivel_bateria -= Math.abs(deltaX);
-                    }
-                    if(posicaoY + deltaY > 0){ //para nao ir para negativo
-                        this.posicaoY += deltaY;
-                        this.nivel_bateria -= Math.abs(deltaY);
-                    }
-                } else
-                    System.out.println("Alerta de colisao: movimento impedido");
+                if(posicaoX + deltaX > 0){ //para nao ir para negativo
+                    this.posicaoX += deltaX;
+                    this.nivel_bateria -= Math.abs(deltaX);
+                }
+                if(posicaoY + deltaY > 0){ //para nao ir para negativo
+                    this.posicaoY += deltaY;
+                    this.nivel_bateria -= Math.abs(deltaY);
+                }
             } else
                 System.out.println("Velocidade total do robo " + nome + " excedeu maximo: movimento impedido");
         } else

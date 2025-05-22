@@ -10,37 +10,25 @@ class RoboAereoRefletor extends RoboAereo{
 
     //se o deslocamento deltaZ for colocar o robo acima do limite superior, ele sobe ate o limite e desce a 
     //quantia restante do deltaZ
-    @Override public void subir(int deltaZ, Ambiente amb){
+    @Override public void subir(int deltaZ){
         int nova_z = posicaoZ + deltaZ;
         int z_refletida = posicaoZ - Math.abs(deltaZ - (altitudeMaxima - posicaoZ));
         if (nova_z < altitudeMaxima)
-            if (!colisao_robo(identificarRobos(amb), posicaoX, posicaoZ, nova_z) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, nova_z)){
-                this.posicaoZ = nova_z;
-            }else
-                System.err.println("Alerta de colisao: movimento impedido");
+            this.posicaoZ = nova_z;
         else
-            if (!colisao_robo(identificarRobos(amb), posicaoX, posicaoZ, z_refletida) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, z_refletida)){
-                this.posicaoZ = z_refletida;
-            }else
-                System.err.println("Alerta de colisao: movimento impedido");
+            this.posicaoZ = z_refletida;
         }
     
 
     //se o deslocamento deltaZ for colocar o robo fora do limite inferior, ele desce ate o limite e sobe a 
     //quantia restante do deltaZ
-    @Override public void descer(int deltaZ, Ambiente amb){
+    @Override public void descer(int deltaZ){
         int nova_z = posicaoZ - deltaZ;
         int z_refletida = altitudeMinima + Math.abs(deltaZ - (posicaoZ - altitudeMinima));
         if (nova_z > altitudeMinima)
-            if (!colisao_robo(identificarRobos(amb), posicaoX, posicaoZ, nova_z) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, nova_z)){
-                this.posicaoZ = nova_z;
-            } else
-                System.err.println("Alerta de colisao: movimento impedido");
+            this.posicaoZ = nova_z;
         else
-            if (!colisao_robo(identificarRobos(amb), posicaoX, posicaoZ, z_refletida) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, z_refletida)){
-                this.posicaoZ = z_refletida;
-            } else
-                System.err.println("Alerta de colisao: movimento impedido");
+            this.posicaoZ = z_refletida;
         }
 
     @Override

@@ -12,20 +12,14 @@ public class RoboAereo extends Robo implements Comunicavel{
         tipo = "Aereo";
     }
 
-    public void subir(int deltaZ, Ambiente amb){
-        int nova_z = posicaoZ + deltaZ;
-        if (!colisao_robo(identificarRobos(amb), posicaoX, posicaoY, nova_z) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, nova_z)){
-            this.posicaoZ = nova_z;
-        }else
-            System.err.println("Alerta de colisao: movimento impedido");
+    public void subir(int deltaZ){
+        int nova_z = posicaoZ + Math.abs(deltaZ);
+        this.posicaoZ = nova_z;
     }
 
-    public void descer(int deltaZ, Ambiente amb){
-        int nova_z = posicaoZ - deltaZ;
-        if (nova_z > 0 && !colisao_robo(identificarRobos(amb), posicaoX, posicaoY, nova_z) && !colisao_obs(identificarObstaculos(amb), posicaoX, posicaoY, nova_z)){
-            this.posicaoZ = nova_z;
-        }else
-            System.err.println("Alerta de colisao: movimento impedido");
+    public void descer(int deltaZ){
+        int nova_z = posicaoZ - Math.abs(deltaZ);
+        this.posicaoZ = nova_z;
     }
 
     @Override public int getZ(){
@@ -42,32 +36,25 @@ public class RoboAereo extends Robo implements Comunicavel{
     }
 
     @Override
-    public void moverPara(int novoX, int novoY, int novoZ, Ambiente amb){
-        try{
-            mover(novoX - posicaoX, novoY - posicaoY, amb);
-            
-            int deltaZ = novoZ - posicaoZ;
-            if(deltaZ >= 0) 
-                subir(deltaZ, amb);
-            else 
-                descer(deltaZ, amb);
+    public void moverPara(int novoX, int novoY, int novoZ){
+        mover(novoX - posicaoX, novoY - posicaoY);
+        int deltaZ = novoZ - posicaoZ;
 
-        } catch(ColisaoException colException){
-            System.err.println("Houve colisao!");
-        }
+        if(deltaZ >= 0) 
+            subir(deltaZ);
+        else 
+            descer(deltaZ);
     }
 
     @Override 
-    public void mover(int deltaX, int deltaY, Ambiente amb) throws ColisaoException{
+    public void mover(int deltaX, int deltaY){
         int novo_x = posicaoX + deltaX;
         int novo_y = posicaoY + deltaY;
-        if (!colisao_robo(identificarRobos(amb), novo_x, novo_y, posicaoZ) && !colisao_obs(identificarObstaculos(amb), novo_x, novo_y, posicaoZ)){
-            if(posicaoX + deltaX > 0) //para nao ir para negativo
-                this.posicaoX += deltaX;
-            if(posicaoY + deltaY > 0) //para nao ir para negativo
-                this.posicaoY += deltaY;
-        }else
-            throw new ColisaoException();
+
+        if(novo_x > 0) //para nao ir para negativo
+            this.posicaoX += deltaX;
+        if(novo_y > 0) //para nao ir para negativo
+            this.posicaoY += deltaY;
     }
 
 
