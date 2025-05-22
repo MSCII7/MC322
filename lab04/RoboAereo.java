@@ -78,18 +78,25 @@ public class RoboAereo extends Robo implements Comunicavel{
     }
 
     @Override
-    public void enviarMensagem(Comunicavel destinatario, String mensagem) {
-        CentralComunicacao.registrarMensagem(this, destinatario, "Estou voando na altura " + posicaoZ);
+    public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException{
+        if(ligado)
+            CentralComunicacao.registrarMensagem(this, destinatario, "Estou voando na altura " + posicaoZ);
+        else
+            throw new RoboDesligadoException();
     }
 
     @Override
-    public void receberMensagem(){
-        System.out.println("Mensagens recebidas:");
-        for(GrupoMensagemRobo grupoMensagem : CentralComunicacao.getGrupos()){
-            if(grupoMensagem.destinatario == this){
-                System.out.println("Do robo " + grupoMensagem.remetente + ": " + grupoMensagem.mensagem);
+    public void receberMensagem() throws RoboDesligadoException{
+        if(ligado){
+            System.out.println("Mensagens recebidas:");
+            for(GrupoMensagemRobo grupoMensagem : CentralComunicacao.getGrupos()){
+                if(grupoMensagem.destinatario == this){
+                    System.out.println("Do robo " + grupoMensagem.remetente + ": " + grupoMensagem.mensagem);
+                }
             }
         }
+        else
+            throw new RoboDesligadoException();
     }
 
     @Override

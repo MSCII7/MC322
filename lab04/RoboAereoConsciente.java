@@ -1,5 +1,4 @@
 //robo aereo que nao sobe nem desce se for ficar a uma certa distancia em z de outros robos aereos
-
 import java.util.ArrayList;
 
 class RoboAereoConsciente extends RoboAereo implements Sensoreavel{
