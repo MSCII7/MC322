@@ -12,7 +12,6 @@ public abstract class Robo implements Entidade{
 
     protected SensorRobos sr;
     protected SensorObstaculos so;
-    protected ArrayList<Sensor> sensores; //Por padrão iremos adicionar os sensores de Robos e os de Obstáculos em todos os robos
     
     public Robo(String nomeIn, int posXIn, int posYIn){
         nome = nomeIn;
@@ -24,7 +23,6 @@ public abstract class Robo implements Entidade{
         tipoEntidade = TipoEntidade.ROBO;
 
         //Adicionar sensores essenciais para a movimentacao do robo
-        sensores = new ArrayList<Sensor>();
         sr = new SensorRobos(50);
         so = new SensorObstaculos(50);
     }
@@ -65,9 +63,14 @@ public abstract class Robo implements Entidade{
         this.ligado = false;
     }
 
+    public boolean getEstado(){
+        return this.ligado;
+    }
+
     public abstract void executarTarefa();
 
-    void moverPara(int novoX, int novoY, int novoZ, Ambiente amb) throws NaoAereoException{
+    @Override
+    public void moverPara(int novoX, int novoY, int novoZ) throws NaoAereoException{
         //Robo nao eh aereo, logo nao pode ir para Z diferente de 0. No aereo, esse metodo sera sobrescrito e a excecao removida
         if(novoZ != 0){
             throw new NaoAereoException();
@@ -104,44 +107,9 @@ public abstract class Robo implements Entidade{
         robos.remove(this); //remove o proprio robo que contem o sensor
         return robos;
     }
-
-    public boolean colisao_obs(ArrayList<Obstaculo> obs_dentro, int nova_x, int nova_y){
-        for (Obstaculo obs : obs_dentro){
-            if ((obs.getX() < nova_x) && (nova_x < obs.getPosicaoX2()) && (obs.getY() < nova_y) && (nova_y < obs.getPosicaoY2()))
-                return true;
-        }
-        return false;
-    }
-    
-    public boolean colisao_robo(ArrayList<Robo> robos_dentro, int nova_x, int nova_y){
-        for (Robo robo : robos_dentro){
-            if (robo instanceof RoboAereo ra){
-                if (nova_x == ra.getX() && nova_y == ra.getY() && ra.getZ() == 0)
-                    return true;
-            } else if (nova_x == robo.getX() && nova_y == robo.getY())
-                return true;
-        }
-        return false;
-    }
-    /* public void identificarObstaculos(Ambiente amb1, int raio){
-
-        for (Robo robo : amb1.getRobos()){
-            if(Math.pow(this.posicaoX - robo.posicaoX, 2) + Math.pow(this.posicaoY - robo.posicaoY, 2) < raio*raio){
-                System.out.println("Robo " + robo.nome + " esta no raio " + raio);
-            }
-        }
-    }*/
-    protected void adicionaSensores(Ambiente amb, Sensor s){
-        this.sensores.add(s);
-    }
     
     @Override
     public String toString() {
         return getNome() + "("+ this.tipo +"): " + getX() + ", " + getY();
-    }
-    public void usarSensores(Ambiente amb) {
-        for (Sensor sensor : sensores){
-            sensor.monitorar(this.posicaoX, this.posicaoY, 0, amb);
-        }
     }
 }

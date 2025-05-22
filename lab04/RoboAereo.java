@@ -71,26 +71,6 @@ public class RoboAereo extends Robo implements Comunicavel{
         return robos;
 
     }
-    public boolean colisao_obs(ArrayList<Obstaculo> obs_dentro, int nova_x, int nova_y, int nova_z){
-        for (Obstaculo obs : obs_dentro){
-            if ((obs.getX() < nova_x) && (nova_x < obs.getPosicaoX2()) 
-            && (obs.getY() < nova_y) && (nova_y < obs.getPosicaoY2())
-            && (0 < nova_z) && (nova_z < obs.getZ()))
-                return true;
-        }
-        return false;
-    }
-    
-    public boolean colisao_robo(ArrayList<Robo> robos_dentro, int nova_x, int nova_y, int nova_z){
-        for (Robo robo : robos_dentro){
-            if (robo instanceof RoboAereo ra){
-                if (nova_x == ra.getX() && nova_y == ra.getY() && ra.getZ() == nova_z)
-                    return true;
-            } else if (nova_x == robo.getX() && nova_y == robo.getY() && nova_z == 0)
-                return true;
-        }
-        return false;
-    }
 
     @Override
     public String toString() {
