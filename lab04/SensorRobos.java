@@ -8,11 +8,12 @@ public class SensorRobos extends Sensor {
     @Override
     public void monitorar(int posX, int posY, int posZ, Ambiente amb){
         this.robos_dentro = new ArrayList<>();
-        for (Robo robo : amb.getRobos()) {
-            if (dentro_do_raio(posX, posY, posZ, robo, this.raio)){
-                robos_dentro.add(robo);
+        for (Entidade ent : amb.getEntidades()){
+            if(ent instanceof Robo robo){
+                if (dentro_do_raio(posX, posY, posZ, robo, this.raio)){
+                    robos_dentro.add(robo);
+                }
             }
-
         }
     }
     

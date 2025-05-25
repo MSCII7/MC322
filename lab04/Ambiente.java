@@ -91,6 +91,10 @@ public class Ambiente
         this.entidades.remove(e);
     }
 
+    public ArrayList<Entidade> getEntidades(){
+        return this.entidades;
+    }
+
     public boolean dentroDosLimites(int x, int y, int z){
         return (x <= this.largura && y <= this.comprimento && z <= this.altura); //IMPLEMENTAR CONLISION ECXEPTION
     }

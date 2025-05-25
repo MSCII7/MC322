@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class RoboAereo extends Robo implements Comunicavel{
+public class RoboAereo extends Robo{
     int posicaoZ; //representa altitude(para seguir convecao de posicaoX e posicaoY)
     int altitudeMaxima;
     
@@ -75,28 +75,6 @@ public class RoboAereo extends Robo implements Comunicavel{
     @Override
     public String toString() {
         return getNome() + "("+ this.tipo+"): " + getX() + ", " + getY()+ ", " + getZ() + ". altMax = "+ getAltitudeMaxima();
-    }
-
-    @Override
-    public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException{
-        if(ligado)
-            CentralComunicacao.registrarMensagem(this, destinatario, "Estou voando na altura " + posicaoZ);
-        else
-            throw new RoboDesligadoException();
-    }
-
-    @Override
-    public void receberMensagem() throws RoboDesligadoException{
-        if(ligado){
-            System.out.println("Mensagens recebidas:");
-            for(GrupoMensagemRobo grupoMensagem : CentralComunicacao.getGrupos()){
-                if(grupoMensagem.destinatario == this){
-                    System.out.println("Do robo " + grupoMensagem.remetente + ": " + grupoMensagem.mensagem);
-                }
-            }
-        }
-        else
-            throw new RoboDesligadoException();
     }
 
     @Override

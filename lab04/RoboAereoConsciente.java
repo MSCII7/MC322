@@ -1,7 +1,7 @@
 //robo aereo que nao sobe nem desce se for ficar a uma certa distancia em z de outros robos aereos
 import java.util.ArrayList;
 
-class RoboAereoConsciente extends RoboAereo implements Sensoreavel{
+class RoboAereoConsciente extends RoboAereo implements Sensoreavel, Comunicavel{
     protected int distanciaMin;
     protected int novaZ;
     protected ArrayList<Robo> robosProximos;
@@ -25,16 +25,38 @@ class RoboAereoConsciente extends RoboAereo implements Sensoreavel{
         novaZ = this.posicaoZ + deltaZ;
         if (obstaculosProximos.isEmpty() && robosProximos.isEmpty()) 
             this.posicaoZ = novaZ;
-        else
+        else{
             System.out.println("Robo " + nome + " nao moveu: ficaria muito proximo de obstaculos ou robos");
+            for(Robo r : robosProximos){
+                if(r instanceof Comunicavel comunicavel){
+                    try{
+                        enviarMensagem(comunicavel, "Ei, saia do caminho!");
+                    }
+                    catch(RoboDesligadoException e){
+                        System.err.println("Nao enviou mensagem: Robo desligado");
+                    }
+                }
+            }
+        }
     }
 
     @Override public void descer(int deltaZ){
         novaZ = this.posicaoZ - deltaZ;
         if (obstaculosProximos.isEmpty() && robosProximos.isEmpty()) 
             this.posicaoZ = novaZ;
-        else
+        else{
             System.out.println("Robo " + nome + " nao moveu: ficaria muito proximo de obstaculos ou robos");
+            for(Robo r : robosProximos){
+                if(r instanceof Comunicavel comunicavel){
+                    try{
+                        enviarMensagem(comunicavel, "Ei, saia do caminho!");
+                    }
+                    catch(RoboDesligadoException e){
+                        System.err.println("Nao enviou mensagem: Robo desligado");
+                    }
+                }
+            }
+        }
     }
 
     //incrementa/subtrai da distancia minima que ele pode ficar de outros robos aereos no eixo z
@@ -54,11 +76,37 @@ class RoboAereoConsciente extends RoboAereo implements Sensoreavel{
         if(this.getEstado() == true){
             obstaculosProximos = so.getObstaculos_dentro(posicaoX, posicaoY, novaZ, amb);
             robosProximos = sr.getRobos_dentro(posicaoX, posicaoY, novaZ, amb);
+            //remove ele mesmo da lista de robos proximos
+            robosProximos.remove(this);
         }
         else{
             throw new RoboDesligadoException();
         }
+    } 
+    
+    @Override
+    public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException{
+        if(ligado)
+            CentralComunicacao.registrarMensagem(this, destinatario, mensagem);
+        else
+            throw new RoboDesligadoException();
     }
+
+    @Override
+    public void receberMensagem() throws RoboDesligadoException{
+        if(ligado){
+            System.out.println("Mensagens recebidas:");
+            for(GrupoMensagemRobo grupoMensagem : CentralComunicacao.getGrupos()){
+                if(grupoMensagem.destinatario == this){
+                    System.out.println("Do robo " + grupoMensagem.remetente + ": " + grupoMensagem.mensagem);
+                }
+            }
+        }
+        else
+            throw new RoboDesligadoException();
+    }
+
+
 
     @Override
     public String toString() {
