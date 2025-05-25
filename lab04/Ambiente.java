@@ -120,9 +120,14 @@ public class Ambiente
             this.mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
             e.moverPara(novoX, novoY, novoZ);       
             this.mapa[e.getX()][e.getY()][e.getZ()]  = e.getTipo();
-        } catch (ColisaoException exception){
+        } 
+        catch (ColisaoException colException){
             System.out.println("ColisaoException, entidade não pode se mover para"+novoX+novoY+novoZ);
         }
+        catch (NaoAereoException naoAereo){
+            System.err.println("Erro: tentativa de mover verticalmente robo nao aereo");
+        }
+
     }
       //if (e isnstanceof Robo r){
       //    if (dentroDosLimites(novoX, novoY, novoZ)){
@@ -132,8 +137,13 @@ public class Ambiente
       //        }
       //    }
       //}
-    public void executarSensores(Robo r){
-                r.usarSensores(this);
+    public void executarSensores(Sensoreavel roboSensoreavel){
+        try{
+            roboSensoreavel.acionarSensores(this);
+        }
+        catch(RoboDesligadoException roboDesligado){
+            System.err.println(roboDesligado.getMessage());
+        }
         
     }
 

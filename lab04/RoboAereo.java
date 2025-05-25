@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 public class RoboAereo extends Robo{
     int posicaoZ; //representa altitude(para seguir convecao de posicaoX e posicaoY)
@@ -57,20 +56,6 @@ public class RoboAereo extends Robo{
             this.posicaoY += deltaY;
     }
 
-
-    @Override public ArrayList<Obstaculo> identificarObstaculos(Ambiente amb){
-        //Pegar obstaculos captados pelo sensor essencial SensorObstaculo
-        return so.getObstaculos_dentro(this.posicaoX, this.posicaoY, this.posicaoZ, amb);
-
-    }
-    
-    @Override public ArrayList<Robo> identificarRobos(Ambiente amb){
-        //Pegar os robos captados pelo sensor essencial SensorRobo
-        ArrayList<Robo> robos = sr.getRobos_dentro(this.posicaoX, this.posicaoY, this.posicaoZ, amb);
-        robos.remove(this); //remove o proprio robo que contem o sensor
-        return robos;
-
-    }
 
     @Override
     public String toString() {
