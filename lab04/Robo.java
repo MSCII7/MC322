@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 public abstract class Robo implements Entidade{
     protected String nome;
@@ -7,6 +6,13 @@ public abstract class Robo implements Entidade{
 
     protected String tipo;
     protected String id;
+
+    //String do comando utilizado para tarefas especificas
+    protected String comandoTarefa;
+    //Quando estiver selecionado robo, comandoTarefa + descricaoTarefa sera impresso para o usuario
+    //saber utilizar o comando de tarefas especificas
+    protected String descricaoTarefa;
+
     protected boolean ligado;
     TipoEntidade tipoEntidade;
 
@@ -19,6 +25,12 @@ public abstract class Robo implements Entidade{
         posicaoY = posYIn;
 
         tipo = "Simples";
+
+        //Ou seja, sera impresso "et executa a tarefa do robo"
+        comandoTarefa = "et";
+        descricaoTarefa = " executa a tarefa do robo";
+
+
         ligado = true;
         tipoEntidade = TipoEntidade.ROBO;
 
@@ -67,6 +79,7 @@ public abstract class Robo implements Entidade{
         return this.ligado;
     }
 
+    //metodo abstrato para tarefas
     public abstract void executarTarefa();
 
     @Override
@@ -93,19 +106,6 @@ public abstract class Robo implements Entidade{
 
     public void exibirPosicao(){
         System.out.println("posicao do Robo " + this.nome + ": " + this.posicaoX + ", " + this.posicaoY);
-    }
-
-    public ArrayList<Obstaculo> identificarObstaculos(Ambiente amb){
-        //Pegar obstaculos captados pelo sensor essencial SensorObstaculo
-        return so.getObstaculos_dentro(this.posicaoX, this.posicaoY, 0, amb);
-
-    }
-
-    public ArrayList<Robo> identificarRobos(Ambiente amb){
-        //Pegar os robos captados pelo sensor essencial SensorRobo
-        ArrayList<Robo> robos = sr.getRobos_dentro(this.posicaoX, this.posicaoY, 0, amb);
-        robos.remove(this); //remove o proprio robo que contem o sensor
-        return robos;
     }
     
     @Override

@@ -94,7 +94,6 @@ public class Main{
                 }
                 else{
                     Robo r = robos.get(indice);
-                    System.out.println("Foi escolhido o robo " + r.getNome());
                     return r;
                 }
             }
@@ -103,7 +102,6 @@ public class Main{
             else{
                 for(Robo r : robos){
                     if(identificador.equals(r.getNome())){
-                        System.out.println("Foi escolhido o robo " + r.getNome());
                         return r;
                     }
                 }
@@ -140,32 +138,40 @@ public class Main{
     }
 
     private static void entrarMenuInterativo(Ambiente meuAmbiente){
-        //comandos do menu interativo
+        //comandos gerais do menu interativo
         String comImprimirRobos = "itr";
         String comImprimirObstaculos = "ito";
         String comImprimirAmbiente = "ia";
         String comSelecionarRobo = "r";
+        String comSair = "s";
+        String comHelp = "h";
+
+        //comandos do robo no menu interativo
+        String comHelpRobo = "cr";
         String comPosRobo = "rp";
         String comSensorRobos = "rsr";
         String comSensorObst = "rso";
         String comCarregarEletrico = "ce";
-        String comSair = "s";
-        String comHelp = "h";
 
         int maxMover = 20;
 
         //mensagem de comandos do menu interativo
-        String msgComandos = "Utilize " + comImprimirRobos +" para imprimir todos os robos, " + 
-        comImprimirObstaculos + " para imprimir todos os obstaculos, " +
-        comImprimirAmbiente + " para imprimir dados do ambiente ou " + comSelecionarRobo + " <identificador> para selecionar um robo, "
+        String msgComandos = comImprimirRobos +" imprime todos os robos \n " + 
+        comImprimirObstaculos + " imprime todos os obstaculos \n " +
+        comImprimirAmbiente + " imprime dados do ambiente \n" + 
+        comSelecionarRobo + " <identificador> seleciona um robo, "
         +"sendo <identificador> o nome ou indice do robo no ambiente. \n" +
-        "Com um robo selecionado, utilize " + comPosRobo + " para imprimir "+
-        "sua posicao, " + comSensorRobos + " para imprimir status do seu sensor de robos, " +
-        comSensorObst +  " para imprimir o status do seu sensor de obstaculos. " +
-        "Utilize rmx, rmy, rmz <delta> para mover o robo selecionado na direcao escolhida uma quantidade <delta> "+
-        "(delta pode ser negativo, rmz so pode ser usado para o aereo). O valor maximo para o modulo de delta eh " + 
-        maxMover + " unidades"+". Use "+ comCarregarEletrico +" para carregar o robo eletrico"+
-        ". Utlize " + comSair + " para sair do programa, ou " + comHelp + " para imprimir essa mensagem novamente.\n";
+        comSair + " sai do programa \n" + 
+        comHelp + " imprime essa mensagem novamente.\n";
+
+        String msgComandosRobo = "Com um robo selecionado: \n" + 
+        comPosRobo + " imprime sua posicao \n"+
+        comSensorRobos + " imprime o status do seu sensor de robos \n " +
+        comSensorObst +  " imprime o status do seu sensor de obstaculos. \n" +
+        "rmx, rmy, rmz <delta> movem o robo selecionado na direcao escolhida uma quantidade <delta> "+
+        "(delta pode ser negativo, rmz so pode ser usado para o aereo). "+
+        "O valor maximo para o modulo de delta eh " + maxMover + " unidades \n"+ 
+        comCarregarEletrico +" carrega o robo eletrico \n";
 
         System.out.println("");
         System.out.println("---Bem vindo ao menu de interacao---");
@@ -195,7 +201,18 @@ public class Main{
             else if(divisor[0].equals(comSelecionarRobo)){
                 if(divisor.length > 1){
                     Robo escolha = escolherRoboEspecifico(divisor[1], meuAmbiente);
-                    if(escolha != null) roboSelecionado = escolha;
+                    if(escolha != null) {
+                        roboSelecionado = escolha;
+                        System.out.println("Foi escolhido o robo " + roboSelecionado.getNome());
+                        System.out.println("Utilize " + comHelpRobo + " para ver os comandos do robo");
+                    }
+                }
+            }
+
+            else if(comando.equals(comHelpRobo)){
+                if(roboSelecionado == null)
+                    System.out.println("Nenhum Robo foi selecionado");
+                else{
                 }
             }
 
