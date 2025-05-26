@@ -26,10 +26,8 @@ public abstract class Robo implements Entidade{
 
         tipo = "Simples";
 
-        //Ou seja, sera impresso "et executa a tarefa do robo"
         comandoTarefa = "et";
-        descricaoTarefa = " executa a tarefa do robo";
-
+        descricaoTarefa = " executa a tarefa do robo \n";
 
         ligado = true;
         tipoEntidade = TipoEntidade.ROBO;
@@ -79,8 +77,17 @@ public abstract class Robo implements Entidade{
         return this.ligado;
     }
 
+    public String getComandoTarefa(){
+        return this.comandoTarefa;
+    }
+
     //metodo abstrato para tarefas
     public abstract void executarTarefa();
+
+    //Ou seja, sera impresso "et executa a tarefa do robo"
+    public void imprimirComandoTarefa(){
+        System.out.println(descricaoTarefa + comandoTarefa);
+    }
 
     @Override
     public void moverPara(int novoX, int novoY, int novoZ) throws NaoAereoException{
