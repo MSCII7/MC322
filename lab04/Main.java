@@ -302,11 +302,23 @@ public class Main{
                         deltaMov[2] = getDeltaRobo(divisor, maxMover);
 
                     else if(comando.equals(roboSelecionado.getComandoTarefa())){
-                        roboSelecionado.executarTarefa();
+                        //pode estar tanto desligado para acionar sensores quanto para executar a tarefa
+                        try{
+                            //assumimos que os robos sensoreaveis precisam de sensores atualizados para suas tarefas
+                            if(roboSelecionado instanceof Sensoreavel rSensoreavel){
+                                rSensoreavel.acionarSensores(meuAmbiente);
+                            }
+                                
+                            roboSelecionado.executarTarefa();
+                        }
+                        catch(RoboDesligadoException e){
+                            System.err.println(e.getMessage());
+                        }
                     }
 
                     try{
-                        roboSelecionado.moverPara(roboSelecionado.getX() + deltaMov[0]
+                        meuAmbiente.moverEntidade(roboSelecionado
+                                                , roboSelecionado.getX() + deltaMov[0]
                                                 , roboSelecionado.getY() + deltaMov[1]
                                                 , roboSelecionado.getZ() + deltaMov[2]);
                     }

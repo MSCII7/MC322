@@ -122,10 +122,13 @@ public class Ambiente
             this.mapa[e.getX()][e.getY()][e.getZ()]  = e.getTipo();
         } 
         catch (ColisaoException colException){
-            System.out.println("ColisaoException, entidade não pode se mover para"+novoX+novoY+novoZ);
+            System.err.println("ColisaoException, entidade não pode se mover para"+novoX+novoY+novoZ);
         }
         catch (NaoAereoException naoAereo){
             System.err.println("Erro: tentativa de mover verticalmente robo nao aereo");
+        }
+        catch(RoboDesligadoException robException){
+            System.err.println(robException.getMessage());
         }
 
     }

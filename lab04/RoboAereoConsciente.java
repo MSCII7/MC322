@@ -63,7 +63,7 @@ class RoboAereoConsciente extends RoboAereo implements Sensoreavel{
     }
 
     @Override 
-    public void executarTarefa(){
+    public void executarTarefa() throws RoboDesligadoException{
         System.out.println("Mandando mensagem e listando robos...");
         System.out.println("----Utilizando sensor de robos, de raio " + sr.getRaio() + ": ----");
 
@@ -74,7 +74,7 @@ class RoboAereoConsciente extends RoboAereo implements Sensoreavel{
                     enviarMensagem(comunicavel, mensagem);
                 }
                 catch(RoboDesligadoException e){
-                    System.err.println("Nao enviou mensagem: Robo desligado");
+                    throw e;
                 }
             }
         }

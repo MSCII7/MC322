@@ -83,7 +83,7 @@ public abstract class Robo implements Entidade{
     }
 
     //metodo abstrato para tarefas
-    public abstract void executarTarefa();
+    public abstract void executarTarefa() throws RoboDesligadoException;
 
 
     public void imprimirDescricaoTarefa(){
@@ -91,13 +91,18 @@ public abstract class Robo implements Entidade{
     }
 
     @Override
-    public void moverPara(int novoX, int novoY, int novoZ) throws NaoAereoException{
+    public void moverPara(int novoX, int novoY, int novoZ) throws NaoAereoException, RoboDesligadoException{
         //Robo nao eh aereo, logo nao pode ir para Z diferente de 0. No aereo, esse metodo sera sobrescrito e a excecao removida
-        if(novoZ != 0){
-            throw new NaoAereoException();
+        if(ligado){
+            if(novoZ != 0){
+                throw new NaoAereoException();
+            }
+            else{
+                mover(novoX - posicaoX, novoY - posicaoY);
+            }
         }
         else{
-            mover(novoX - posicaoX, novoY - posicaoY);
+            throw new RoboDesligadoException();
         }
 
     }

@@ -66,12 +66,12 @@ public class RoboAereo extends Robo implements Comunicavel{
     }
 
     @Override
-    public void executarTarefa(){
+    public void executarTarefa() throws RoboDesligadoException{
         try{
             receberMensagens();
         }
         catch(RoboDesligadoException e){
-            System.err.println(e.getMessage());
+           throw e;
         }
     }
 
