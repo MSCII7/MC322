@@ -1,22 +1,18 @@
-public class RoboTerrestrePanfletario extends RoboTerrestre implements Corretoravel, Comunicavel{
+public class RoboTerrestrePanfletario extends RoboTerrestre implements Comunicavel, Sensoreavel{
     public RoboTerrestrePanfletario(String nome, int posX, int posY, int vMax){
         super(nome, posX, posY, vMax);
     }
+    @Override
     public void enviarMensagem(Comunicavel destinatario, String mensagem){}
-    public void receberMensagem(){}
-    public void acharCasas(){
-
+    @Override
+    public void receberMensagens(){}
+    @Override
+    public void acionarSensores(Ambiente amb) throws RoboDesligadoException {
     }
-    public void acharPredios(){
-
+    @Override
+    public void executarTarefa() throws RoboDesligadoException {
     }
-    public void imprimirCasas(){
-
-    }
-    public void imprimirPredio(){
-
-    }
-    public void imprimirMoradias(){}
+   
 
     
 }

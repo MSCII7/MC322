@@ -70,13 +70,58 @@ public class Main{
             obstaculos.get(i).exibirObstaculo();
         }
     }
-
+    private static void imprimirEntidades(Ambiente amb){
+        ArrayList<Entidade> entidades= amb.getEntidades();
+        for(int i = 0; i < entidades.size(); i++){
+            System.out.printf(i +  ": ");
+            System.out.println(entidades.get(i).toString());
+        }
+    }
     private static void imprimirAmbiente(Ambiente amb){
         amb.imprimirDimensoes();
         System.out.println("O ambiente tem " + amb.getRobos().size() + " robos.");
         System.err.println("O ambiente tem " + amb.getObstaculos().size() + " obstaculos.");
     }
 
+    //escolhe um robo a partir do indice ou nome. Podemos utilizar depois para imprimir o robo ou analisar sensores
+    private static Entidade escolherEntidadeEspecifica(String identificador, Ambiente amb){
+        ArrayList<Entidade> entidades = amb.getEntidades();
+
+        //ver se string nao eh vazia
+        if(identificador.length() > 0){
+
+            //para utilizacao de numero para identificar robo
+            if(ehInt(identificador)){
+                int indice = Integer.parseInt(identificador);
+
+                if(indice > entidades.size() - 1){
+                    System.out.println("Indice invalido");
+                    return null;
+                }
+                else{
+                    Entidade ent = entidades.get(indice);
+                    return ent;
+                }
+            }
+
+            //para utilizacao de nome para identificar robo
+            else{
+                for(Entidade ent : entidades){
+                    if(identificador.equals(((Robo) ent).getNome())){
+                        return ent;
+                    }
+                }
+                //se nao retornou ainda, nenhum tem o nome
+                System.out.println("Nenhum robo tem o nome dado!");
+                return null;
+            }
+        }
+        else{
+            System.out.println("A string idenficadora esta vazia!");
+            return null;
+        }
+        
+    }
     
     //escolhe um robo a partir do indice ou nome. Podemos utilizar depois para imprimir o robo ou analisar sensores
     private static Robo escolherRoboEspecifico(String identificador, Ambiente amb){
@@ -119,12 +164,12 @@ public class Main{
     }
 
 
-    private static void criarObstaculos(Ambiente amb){
-        amb.adicionarObstaculo(new Obstaculo(100, 100, TipoObstaculo.CASA));
-        amb.adicionarObstaculo(new Obstaculo(10, 10, TipoObstaculo.PREDIO));
-        amb.adicionarObstaculo(new Obstaculo(20, 90, TipoObstaculo.MEGAMURO));
-        amb.adicionarObstaculo(new Obstaculo(90, 20, TipoObstaculo.MURO));
-        amb.adicionarObstaculo(new Obstaculo(120, 30, TipoObstaculo.ARVORE));    
+    private static void criarObstaculos(Ambiente amb) throws EntidadeInvalidaException{
+        amb.adicionarEntidade(new Obstaculo(100, 100, TipoObstaculo.CASA));
+        amb.adicionarEntidade(new Obstaculo(10, 10, TipoObstaculo.PREDIO));
+        amb.adicionarEntidade(new Obstaculo(20, 90, TipoObstaculo.MEGAMURO));
+        amb.adicionarEntidade(new Obstaculo(90, 20, TipoObstaculo.MURO));
+        amb.adicionarEntidade(new Obstaculo(120, 30, TipoObstaculo.ARVORE));    
     }
 
     //ver se pode converter a string para int
@@ -307,6 +352,28 @@ public class Main{
                             //assumimos que os robos sensoreaveis precisam de sensores atualizados para suas tarefas
                             if(roboSelecionado instanceof Sensoreavel rSensoreavel){
                                 rSensoreavel.acionarSensores(meuAmbiente);
+                            } else if (roboSelecionado instanceof Referenciavel ref){
+                                System.out.println("Necessario a escolha de um Obstaculo para continuar: ");
+                                imprimirEntidades(meuAmbiente);
+                                Entidade obstaculo = null;
+                                Entidade escolha = escolherEntidadeEspecifica(scanner.nextLine(), meuAmbiente);
+                                if(escolha != null) {
+                                    obstaculo = escolha;
+                                    System.out.println("Foi escolhido o obstaculo " + obstaculo.getTipo());
+                                }
+                                ref.setReferencia((Obstaculo) obstaculo);
+                            } else if (roboSelecionado instanceof Construtor rConstrutor){
+                                System.out.println("Necessario inserir posicoes de construcao (x y):");
+                                String[] coords = scanner.nextLine().split(" ");
+                                
+                                try {
+                                    int x = Integer.parseInt(coords[0]);
+                                    int y = Integer.parseInt(coords[1]);
+                                    rConstrutor.construir(x, y, meuAmbiente);
+                                } catch (NumberFormatException | ArrayIndexOutOfBoundsException | EntidadeInvalidaException e) {
+                                    System.err.println("Formato inválido! Digite dois números separados por espaço. Exemplo: 32 12");
+                                }
+
                             }
                                 
                             roboSelecionado.executarTarefa();

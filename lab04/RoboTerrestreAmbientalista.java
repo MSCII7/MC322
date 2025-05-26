@@ -1,7 +1,9 @@
 public class RoboTerrestreAmbientalista extends RoboTerrestre implements Construtor{
-
+    private int construcaoX, construcaoY;
     public RoboTerrestreAmbientalista(String nomeIn, int posXIn, int posYIn, int vMax) {
             super(nomeIn, posXIn, posYIn, vMax);
+            this.comandoTarefa = "pa";
+            this.descricaoTarefa = " escolhe uma posicao para plantar uma arvore";
         }
     
     @Override
@@ -16,7 +18,6 @@ public class RoboTerrestreAmbientalista extends RoboTerrestre implements Constru
 
     @Override
     public void executarTarefa(){
-        System.out.println("Erro, envie as coordenadas e o ambiente");
     }
     public void executarTarefa(int x, int y, Ambiente amb) {
         try {
@@ -25,5 +26,12 @@ public class RoboTerrestreAmbientalista extends RoboTerrestre implements Constru
             System.out.println("Erro ao adicionar arvore");
         }
     }
-
+    @Override
+    public void setConstrucaoX(int x){
+        this.construcaoX = x;
+    }
+    @Override
+    public void setConstrucaoY(int y){
+        this.construcaoY = y;
+    }
 }
