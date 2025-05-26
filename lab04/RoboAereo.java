@@ -1,6 +1,6 @@
 
-public class RoboAereo extends Robo{
-    int posicaoZ; //representa altitude(para seguir convecao de posicaoX e posicaoY)
+public class RoboAereo extends Robo implements Comunicavel{
+    int posicaoZ; //representa altitude(para seguir convencao de posicaoX e posicaoY)
     int altitudeMaxima;
     
 
@@ -9,6 +9,9 @@ public class RoboAereo extends Robo{
         posicaoZ = posZIn;
         altitudeMaxima = altMax;
         tipo = "Aereo";
+
+        comandoTarefa = "imr"; //imprimir mensagens recebidas
+        descricaoTarefa = " imprime as mensagens recebidas pelo robo";
     }
 
     public void subir(int deltaZ){
@@ -64,6 +67,34 @@ public class RoboAereo extends Robo{
 
     @Override
     public void executarTarefa(){
-        
+        try{
+            receberMensagens();
+        }
+        catch(RoboDesligadoException e){
+            System.err.println(e.getMessage());
+        }
     }
+
+    @Override
+    public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException{
+        if(ligado)
+            CentralComunicacao.registrarMensagem(this, destinatario, mensagem);
+        else
+            throw new RoboDesligadoException();
+    }
+
+    @Override
+    public void receberMensagens() throws RoboDesligadoException{
+        if(ligado){
+            System.out.println("Mensagens recebidas:");
+            for(GrupoMensagemRobo grupoMensagem : CentralComunicacao.getGrupos()){
+                if(grupoMensagem.destinatario == this){
+                    System.out.println("Do robo " + grupoMensagem.remetente + ": " + grupoMensagem.mensagem);
+                }
+            }
+        }
+        else
+            throw new RoboDesligadoException();
+    }
+
 }

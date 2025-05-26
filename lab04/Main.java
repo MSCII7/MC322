@@ -182,18 +182,19 @@ public class Main{
         String msgComandos = comImprimirRobos +" imprime todos os robos \n " + 
         comImprimirObstaculos + " imprime todos os obstaculos \n " +
         comImprimirAmbiente + " imprime dados do ambiente \n" + 
+        comImprimirMapa + " imprime o mapa do ambiente \n" +
         comSelecionarRobo + " <identificador> seleciona um robo, "
         +"sendo <identificador> o nome ou indice do robo no ambiente. \n" +
         comSair + " sai do programa \n" + 
-        comHelp + " imprime essa mensagem novamente.\n";
+        comHelp + " imprime essa mensagem novamente.";
 
-        String msgComandosRobo = "Com um robo selecionado: \n" + 
+        String msgComandosRobo = "Comandos do robo selecionado: \n" + 
         comPosRobo + " imprime sua posicao \n"+
         comSensorRobos + " imprime o status do seu sensor de robos \n " +
         comSensorObst +  " imprime o status do seu sensor de obstaculos. \n" +
         "rmx, rmy, rmz <delta> movem o robo selecionado na direcao escolhida uma quantidade <delta> "+
         "(delta pode ser negativo, rmz so pode ser usado para o aereo). "+
-        "O valor maximo para o modulo de delta eh " + maxMover + " unidades \n";
+        "O valor maximo para o modulo de delta eh " + maxMover + " unidades";
 
         System.out.println("");
         System.out.println("---Bem vindo ao menu de interacao---");
@@ -215,6 +216,8 @@ public class Main{
                 imprimirObstaculos(meuAmbiente);
             else if(comando.equals(comImprimirAmbiente))
                 imprimirAmbiente(meuAmbiente);
+            else if(comando.equals(comImprimirMapa))
+                meuAmbiente.visualizarAmbiente();
             
             else if(comando.equals(comHelp))
                 System.out.println(msgComandos);
@@ -236,7 +239,8 @@ public class Main{
                 if(roboSelecionado != null){
                     if(comando.equals(comHelpRobo)){
                         System.out.println(msgComandosRobo);
-                        roboSelecionado.imprimirComandoTarefa();
+                        System.out.println("Tarefa especifica do robo:");
+                        roboSelecionado.imprimirDescricaoTarefa();
                     }
 
                     //imprimir posicao robo selecionado
@@ -244,15 +248,36 @@ public class Main{
                         System.out.println(roboSelecionado.toString());
                     }
 
-                     //imprimir sensor obstaculos robo selecionado
-                    else if(comando.equals(comSensorObst)){
-                        ArrayList<Obstaculo> obstaculos = roboSelecionado.identificarObstaculos(meuAmbiente);
-                        System.out.println("----Utilizando sensor de obstaculos, de raio " + roboSelecionado.so.getRaio() + ": ----");
+                    else if(comando.equals(comLigarRobo)){
+                        roboSelecionado.ligar();
+                        System.out.println("Robo foi ligado");
+                    }
 
-                        for(Obstaculo obs : obstaculos){
-                            obs.exibirObstaculo();
+                    else if(comando.equals(comDesligarRobo)){
+                        roboSelecionado.desligar();
+                        System.out.println("Robo foi desligado");
+                    }
+
+                     //imprimir sensor obstaculos robo selecionado
+                     //ESSES COMANDOS SERAO ESTABELECIDOS NA FUNCAO IMPRIMIRCOMANDOTAREFA
+                    else if(comando.equals(comSensorObst)){
+                        if(roboSelecionado instanceof Sensoreavel rSensoreavel){
+                            try{
+                                rSensoreavel.acionarSensores(meuAmbiente);
+                                ArrayList<Obstaculo> obstaculos = rSensoreavel.identificarObstaculos(meuAmbiente);
+                                System.out.println("----Utilizando sensor de obstaculos, de raio " + roboSelecionado.so.getRaio() + ": ----");
+
+                                for(Obstaculo obs : obstaculos){
+                                    obs.exibirObstaculo();
+                                }
+                                System.out.println("-------------------------------------------------------");
+                            }
+                            catch(RoboDesligadoException e){
+                                System.err.println(e.getMessage());
+                            }
                         }
-                        System.out.println("-------------------------------------------------------");
+                        else
+                            System.err.println("O robo selecionado nao eh Sensoreavel");
                     }
 
                      //imprimir sensor robos robo selecionado

@@ -26,8 +26,9 @@ public abstract class Robo implements Entidade{
 
         tipo = "Simples";
 
+        //exemplo de comando e descricao base
         comandoTarefa = "et";
-        descricaoTarefa = " executa a tarefa do robo \n";
+        descricaoTarefa = " executa a tarefa do robo";
 
         ligado = true;
         tipoEntidade = TipoEntidade.ROBO;
@@ -84,9 +85,9 @@ public abstract class Robo implements Entidade{
     //metodo abstrato para tarefas
     public abstract void executarTarefa();
 
-    //Ou seja, sera impresso "et executa a tarefa do robo"
-    public void imprimirComandoTarefa(){
-        System.out.println(descricaoTarefa + comandoTarefa);
+
+    public void imprimirDescricaoTarefa(){
+        System.out.println(comandoTarefa + descricaoTarefa);
     }
 
     @Override
