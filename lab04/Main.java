@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.lang.model.util.ElementScanner14;
 
 public class Main{
     public static void main(String[] args){
@@ -137,23 +138,45 @@ public class Main{
         }
     }
 
+
+    //utilizado para obter o delta a partir do comando de movimentacao do robo (com .split ja aplicado)
+    private static int getDeltaRobo(String[] comDividido, int maxMover){
+        //se nao for maior que 1, o comando veio sem valor delta, entao podemos considerar delta = 0
+        if(comDividido.length > 1){
+            //usa o delta se for int e menor que o maximo
+            if(ehInt(comDividido[1]) && Math.abs(Integer.parseInt(comDividido[1])) <= maxMover)
+                return Integer.parseInt(comDividido[1]);
+            else{
+                System.err.println("Nao foi fornecido numero valido");
+                return 0;
+            }
+        }
+        return 0;
+    }
+
     private static void entrarMenuInterativo(Ambiente meuAmbiente){
         //comandos gerais do menu interativo
         String comImprimirRobos = "itr";
         String comImprimirObstaculos = "ito";
         String comImprimirAmbiente = "ia";
+        String comImprimirMapa = "im";
         String comSelecionarRobo = "r";
         String comSair = "s";
         String comHelp = "h";
 
         //comandos do robo no menu interativo
-        String comHelpRobo = "cr";
+        String comHelpRobo = "rh";
         String comPosRobo = "rp";
         String comSensorRobos = "rsr";
         String comSensorObst = "rso";
-        String comCarregarEletrico = "ce";
+        String comLigarRobo = "rl";
+        String comDesligarRobo = "rd";
+
 
         int maxMover = 20;
+        //vetor com as 3 dimensoes do deslocamento, utilizado para tornar o codigo de movimentacao menos repetitivo
+        //o robo ainda se movimenta apenas em uma direcao por comando
+        int deltaMov[] = new int[3];
 
         //mensagem de comandos do menu interativo
         String msgComandos = comImprimirRobos +" imprime todos os robos \n " + 
@@ -170,13 +193,12 @@ public class Main{
         comSensorObst +  " imprime o status do seu sensor de obstaculos. \n" +
         "rmx, rmy, rmz <delta> movem o robo selecionado na direcao escolhida uma quantidade <delta> "+
         "(delta pode ser negativo, rmz so pode ser usado para o aereo). "+
-        "O valor maximo para o modulo de delta eh " + maxMover + " unidades \n"+ 
-        comCarregarEletrico +" carrega o robo eletrico \n";
+        "O valor maximo para o modulo de delta eh " + maxMover + " unidades \n";
 
         System.out.println("");
         System.out.println("---Bem vindo ao menu de interacao---");
 
-        System.err.println(msgComandos);
+        System.out.println(msgComandos);
 
         //scanner utilizado para a entrada
         Scanner scanner = new Scanner(System.in);
@@ -209,117 +231,73 @@ public class Main{
                 }
             }
 
-            else if(comando.equals(comHelpRobo)){
-                if(roboSelecionado == null)
-                    System.out.println("Nenhum Robo foi selecionado");
-                else{
-                }
-            }
-
-            //imprimir posicao robo selecionado
-            else if(comando.equals(comPosRobo)){
-                if(roboSelecionado == null)
-                    System.out.println("Nenhum Robo foi selecionado");
-                else{
-                    System.out.println(roboSelecionado.toString());
-                }
-            }
-
-            //imprimir sensor obstaculos robo selecionado
-            else if(comando.equals(comSensorObst)){
-                if(roboSelecionado == null)
-                    System.out.println("Nenhum Robo foi selecionado");
-                else{
-                    ArrayList<Obstaculo> obstaculos = roboSelecionado.identificarObstaculos(meuAmbiente);
-                    System.out.println("----Utilizando sensor de obstaculos, de raio " + roboSelecionado.so.getRaio() + ": ----");
-
-                    for(Obstaculo obs : obstaculos){
-                        obs.exibirObstaculo();
+            //Se nao eh nenhum dos comandos gerais, eh um comando dos robos
+            else{
+                if(roboSelecionado != null){
+                    if(comando.equals(comHelpRobo)){
+                        System.out.println(msgComandosRobo);
+                        roboSelecionado.imprimirComandoTarefa();
                     }
-                    System.err.println("-------------------------------------------------------");
 
-                }
-            }
-
-            //imprimir sensor robos robo selecionado
-            else if(comando.equals(comSensorRobos)){
-                if(roboSelecionado == null)
-                    System.out.println("Nenhum Robo foi selecionado");
-                else{
-                    ArrayList<Robo> robos = roboSelecionado.identificarRobos(meuAmbiente);
-                    System.out.println("----Utilizando sensor de robos, de raio " + roboSelecionado.sr.getRaio() + ": ----");
-
-                    for(Robo robo : robos){
-                        robo.exibirPosicao();
+                    //imprimir posicao robo selecionado
+                    else if(comando.equals(comPosRobo)){
+                        System.out.println(roboSelecionado.toString());
                     }
-                    System.err.println("--------------------------------------------------");
-                }
-            }
 
-            //comandos de movimentacao
+                     //imprimir sensor obstaculos robo selecionado
+                    else if(comando.equals(comSensorObst)){
+                        ArrayList<Obstaculo> obstaculos = roboSelecionado.identificarObstaculos(meuAmbiente);
+                        System.out.println("----Utilizando sensor de obstaculos, de raio " + roboSelecionado.so.getRaio() + ": ----");
 
-            else if(divisor[0].equals("rmx")){
-                if(roboSelecionado == null)
-                    System.out.println("Nenhum Robo foi selecionado");
-                else{
-                    if(divisor.length > 1){
-                        //move se for int e menor que o maximo
-                        if(ehInt(divisor[1]) && Math.abs(Integer.parseInt(divisor[1])) <= maxMover)
-                            roboSelecionado.mover(Integer.parseInt(divisor[1]), 0, meuAmbiente);
-                        else
-                            System.out.println("Nao foi fornecido numero valido");
-                    }
-                }
-            }
-
-            else if(divisor[0].equals("rmy")){
-                if(roboSelecionado == null)
-                    System.out.println("Nenhum Robo foi selecionado");
-                else{
-                    if(divisor.length > 1){
-                        //move se for int e menor que o maximo
-                        if(ehInt(divisor[1]) && Math.abs(Integer.parseInt(divisor[1])) <= maxMover)
-                            roboSelecionado.mover(0, Integer.parseInt(divisor[1]), meuAmbiente);
-                        else
-                            System.out.println("Nao foi fornecido numero valido");
-                    }
-                }
-            }
-
-            else if(divisor[0].equals("rmz")){
-                if(roboSelecionado == null)
-                    System.out.println("Nenhum Robo foi selecionado");
-                else{
-                    //ve se eh aereo
-                    if(roboSelecionado instanceof RoboAereo ra){
-                        if(divisor.length > 1){
-                            //ve se eh menor que maximo deslocamento
-                            if(ehInt(divisor[1]) && Math.abs(Integer.parseInt(divisor[1])) <= maxMover){
-                                int deltaZ = Integer.parseInt(divisor[1]);
-
-                                if(deltaZ >= 0)
-                                    ra.subir(deltaZ, meuAmbiente);
-                                else
-                                    ra.descer(Math.abs(deltaZ), meuAmbiente);
-                            }
-                            else
-                                System.out.println("Nao foi fornecido numero valido");
+                        for(Obstaculo obs : obstaculos){
+                            obs.exibirObstaculo();
                         }
+                        System.out.println("-------------------------------------------------------");
                     }
-                    else
-                        System.out.println("Robo selecionado nao eh aereo");
-                }
-            } else if(comando.equals(comCarregarEletrico)){
-                if(roboSelecionado == null)
+
+                     //imprimir sensor robos robo selecionado
+                    else if(comando.equals(comSensorRobos)){
+                        ArrayList<Robo> robos = roboSelecionado.identificarRobos(meuAmbiente);
+                        System.out.println("----Utilizando sensor de robos, de raio " + roboSelecionado.sr.getRaio() + ": ----");
+
+                        for(Robo robo : robos){
+                            robo.exibirPosicao();
+                        }
+                        System.out.println("--------------------------------------------------");
+                    }
+
+                     //comandos de movimentacao
+                    else if(divisor[0].equals("rmx"))
+                        deltaMov[0] = getDeltaRobo(divisor, maxMover);
+
+                    else if(divisor[0].equals("rmy"))
+                       deltaMov[1] = getDeltaRobo(divisor, maxMover);
+
+                    else if(divisor[0].equals("rmz"))
+                        deltaMov[2] = getDeltaRobo(divisor, maxMover);
+
+                    else if(comando.equals(roboSelecionado.getComandoTarefa())){
+                        roboSelecionado.executarTarefa();
+                    }
+
+                    try{
+                        roboSelecionado.moverPara(roboSelecionado.getX() + deltaMov[0]
+                                                , roboSelecionado.getY() + deltaMov[1]
+                                                , roboSelecionado.getZ() + deltaMov[2]);
+                    }
+                    catch(NaoAereoException e){
+                        System.err.println(e.getMessage());
+                    }
+                } 
+
+                else
                     System.out.println("Nenhum Robo foi selecionado");
-                else{
-                    if (roboSelecionado instanceof RoboTerrestreEletrico re){
-                        re.carregar();
-                    } else
-                        System.out.println("O robo nao e do tipo eletrico.");
-                }
             }
 
+            //reseta vetor delta de deslocamento
+            deltaMov[0] = 0; 
+            deltaMov[1] = 0; 
+            deltaMov[2] = 0;
 
             comando = scanner.nextLine();
         }
