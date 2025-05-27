@@ -41,9 +41,12 @@ public class Ambiente
     public void adicionarEntidade(Entidade e) throws EntidadeInvalidaException{
         if (e.getTipo() == TipoEntidade.OBSTACULO){
             int iniX = ((Obstaculo) e).getX();
-            int distX = ((Obstaculo) e).getPosicaoX2() - iniX;
+            //essa linha verifica que o obstaculo, se gerado perto da borda X, eh "truncado"
+            int distX = Math.min(((Obstaculo) e).getPosicaoX2() - iniX, largura - iniX);
             int iniY = ((Obstaculo) e).getY();
-            int distY = ((Obstaculo) e).getPosicaoY2() - iniY;
+            //essa linha verifica que o obstaculo, se gerado perto da borda Y, eh "truncado"
+            int distY = Math.min(((Obstaculo) e).getPosicaoY2() - iniY, comprimento - iniY);
+
             int z = ((Obstaculo) e).getZ();
             //Verificar se a posição em que o obstáculo será colocado é válida
             for (int i = iniX; i < distX; i++) {
@@ -74,17 +77,22 @@ public class Ambiente
     public void removerEntidade(Entidade e){
         if (e.getTipo() == TipoEntidade.OBSTACULO){
             int iniX = ((Obstaculo) e).getX();
-            int distX = ((Obstaculo) e).getPosicaoX2() - iniX;
+            //essa linha verifica que o obstaculo, se gerado perto da borda X, eh "truncado"
+            int distX = Math.min(((Obstaculo) e).getPosicaoX2() - iniX, largura - iniX);
             int iniY = ((Obstaculo) e).getY();
-            int distY = ((Obstaculo) e).getPosicaoY2() - iniY;
+            //essa linha verifica que o obstaculo, se gerado perto da borda Y, eh "truncado"
+            int distY = Math.min(((Obstaculo) e).getPosicaoY2() - iniY, comprimento - iniY);
+
             int z = ((Obstaculo) e).getZ();
+
             for (int i = iniX; i < distX; i++) {
-               for (int j = iniY; j < distY; j++) {
-                   for (int k = 0;k < z;k++) {
-                      this.mapa[i][j][k] = TipoEntidade.VAZIO; 
-                   }
-               } 
+                for (int j = iniY; j < distY; j++) {
+                    for (int k = 0;k < z;k++) {
+                        this.mapa[i][j][k] = TipoEntidade.VAZIO; 
+                    }
+                } 
             }
+
         } else{
             this.mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
         }

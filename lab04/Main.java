@@ -386,16 +386,15 @@ public class Main{
                             System.err.println(e.getMessage());
                         }
                     }
-                    else if(comando.equals("moveraereo")) {
-                        try {
-                            meuAmbiente.moverEntidade(roboSelecionado,
-                                    roboSelecionado.getX() + deltaMov[0],
-                                    roboSelecionado.getY() + deltaMov[1],
-                                    roboSelecionado.getZ() + deltaMov[2]);
-                        }
-                        catch(NaoAereoException e) {
-                            System.err.println(e.getMessage());
-                        }
+                    
+                    try {
+                        meuAmbiente.moverEntidade(roboSelecionado,
+                                roboSelecionado.getX() + deltaMov[0],
+                                roboSelecionado.getY() + deltaMov[1],
+                                roboSelecionado.getZ() + deltaMov[2]);
+                    }
+                    catch(NaoAereoException e) {
+                        System.err.println(e.getMessage());
                     }
                 } 
                 else {
