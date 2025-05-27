@@ -261,7 +261,9 @@ public class Main{
 
         String msgComandosRobo = "Comandos do robo selecionado: \n" + 
         comPosRobo + " imprime sua posicao \n"+
-        comSensorRobos + " imprime o status do seu sensor de robos \n " +
+        comLigarRobo+ " liga o robo \n" +
+        comDesligarRobo+ "desliga o robo \n" +
+        comSensorRobos + " imprime o status do seu sensor de robos \n" +
         comSensorObst +  " imprime o status do seu sensor de obstaculos. \n" +
         "rmx, rmy, rmz <delta> movem o robo selecionado na direcao escolhida uma quantidade <delta> "+
         "(delta pode ser negativo, rmz so pode ser usado para o aereo). "+
@@ -334,6 +336,7 @@ public class Main{
                         System.out.println("Robo foi desligado");
                     }
                     //imprimir sensor obstaculos robo selecionado
+                    /* 
                     else if(comando.equals(comSensorObst)) {
                         if(roboSelecionado instanceof Sensoreavel rSensoreavel) {
                             try {
@@ -364,6 +367,7 @@ public class Main{
                         }
                         System.out.println("--------------------------------------------------");
                     }
+                        */
                     //comandos de movimentacao
                     else if(divisor[0].equals("rmx")) {
                         deltaMov[0] = getDeltaRobo(divisor, maxMover);

@@ -5,7 +5,7 @@ public abstract class Robo implements Entidade{
     protected int posicaoY;
 
     protected String tipo;
-    protected String id;
+    protected int id;
 
     //String do comando utilizado para tarefas especificas
     protected String comandoTarefa;
