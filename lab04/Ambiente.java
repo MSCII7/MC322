@@ -163,6 +163,26 @@ public class Ambiente
             throw new ColisaoException();
         }
     }
+
+    public ArrayList<Robo> getRobos(){
+        ArrayList<Robo> robos = new ArrayList<>();
+        for(Entidade e : entidades){
+            if(e instanceof Robo robo){
+                robos.add(robo);
+            }
+        }
+        return robos;
+    }
+
+    public ArrayList<Obstaculo> getObstaculos(){
+        ArrayList<Obstaculo> obstaculos = new ArrayList<>();
+        for(Entidade e : entidades){
+            if(e instanceof Obstaculo obstaculo){
+                obstaculos.add(obstaculo);
+            }
+        }
+        return obstaculos;
+    }
     
   //public void verificarColisoes_1(int x, int y, int z) throws ColisaoException{ 
   //    for (Entidade ent : this.entidades){

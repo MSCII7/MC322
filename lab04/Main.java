@@ -387,15 +387,10 @@ public class Main{
                         }
                     }
                     
-                    try {
-                        meuAmbiente.moverEntidade(roboSelecionado,
-                                roboSelecionado.getX() + deltaMov[0],
-                                roboSelecionado.getY() + deltaMov[1],
-                                roboSelecionado.getZ() + deltaMov[2]);
-                    }
-                    catch(NaoAereoException e) {
-                        System.err.println(e.getMessage());
-                    }
+                    meuAmbiente.moverEntidade(roboSelecionado,
+                            roboSelecionado.getX() + deltaMov[0],
+                            roboSelecionado.getY() + deltaMov[1],
+                            roboSelecionado.getZ() + deltaMov[2]);
                 } 
                 else {
                     System.out.println("Nenhum Robo foi selecionado");
