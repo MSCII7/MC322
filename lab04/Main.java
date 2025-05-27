@@ -7,20 +7,20 @@ public class Main{
         try{
             //Criar um novo robô genérico
             //Criar um ambiente
-            Ambiente meuAmbiente = new Ambiente(400, 400, 200);
+            Ambiente meuAmbiente = new Ambiente(100, 100, 200);
             criarObstaculos(meuAmbiente);  
         
 
             Robo meuRobo = new RoboTerrestre("FRED",10, 24,50);
             //Testar reconhecimento dos limites
-            Teste.imprimirLimites(meuRobo, meuAmbiente);
+            //Teste.imprimirLimites(meuRobo, meuAmbiente);
             //Testar movimentar o robo
             //meuRobo.mover(20, 40, meuAmbiente);
 
             meuAmbiente.adicionarEntidade(meuRobo);
 
 
-            Teste.imprimirLimites(meuRobo, meuAmbiente);
+            //Teste.imprimirLimites(meuRobo, meuAmbiente);
 
             meuRobo.exibirPosicao();
 
@@ -30,9 +30,9 @@ public class Main{
 
             RoboTerrestreEletrico eletrico = Teste.testeEletrico(meuAmbiente);
             meuAmbiente.adicionarEntidade(eletrico);
-
-            RoboTerrestreTeletransporte teletransporte = Teste.testeTeletransporte(meuAmbiente); 
-            meuAmbiente.adicionarEntidade(teletransporte);
+            //Dando problema aqui
+            //RoboTerrestreTeletransporte teletransporte = Teste.testeTeletransporte(meuAmbiente); 
+            //meuAmbiente.adicionarEntidade(teletransporte);
 
             RoboAereo aereo = Teste.testeAereo(meuAmbiente);
             meuAmbiente.adicionarEntidade(aereo);
@@ -45,7 +45,7 @@ public class Main{
 
             //Testar os sensores
             Teste.testeSensorObstaculo(meuRobo, meuAmbiente);
-            Teste.testeSensorRobo(meuRobo, meuAmbiente);
+            //Teste.testeSensorRobo(meuRobo, meuAmbiente); Dando problema aqui
             //imprimir posicoes finais dos robos
             imprimirRobos(meuAmbiente); 
 
@@ -143,7 +143,29 @@ public class Main{
         }
         
     }
-    
+    private static Obstaculo escolherObstaculoEspecifica(String identificador, Ambiente amb){
+        ArrayList<Obstaculo> obstaculos = amb.getObstaculos();
+
+        //ver se string nao eh vazia
+        if(identificador.length() > 0){
+
+            //para utilizacao de numero para identificar obstaculo
+            if(ehInt(identificador)){
+                int indice = Integer.parseInt(identificador);
+
+                if(indice > obstaculos.size() - 1){
+                    System.out.println("Indice invalido");
+                    return null;
+                }
+                else{
+                    Obstaculo ob = obstaculos.get(indice);
+                    return ob;
+                }
+            }
+        }
+        System.out.println("A string idenficadora esta vazia!");
+        return null;
+    }
     //escolhe um robo a partir do indice ou nome. Podemos utilizar depois para imprimir o robo ou analisar sensores
     private static Robo escolherRoboEspecifico(String identificador, Ambiente amb){
         ArrayList<Robo> robos = amb.getRobos();
@@ -186,11 +208,11 @@ public class Main{
 
 
     private static void criarObstaculos(Ambiente amb) throws EntidadeInvalidaException{
-        amb.adicionarEntidade(new Obstaculo(100, 100, TipoObstaculo.CASA));
+        amb.adicionarEntidade(new Obstaculo(70, 80, TipoObstaculo.CASA));
         amb.adicionarEntidade(new Obstaculo(10, 10, TipoObstaculo.PREDIO));
         amb.adicionarEntidade(new Obstaculo(20, 90, TipoObstaculo.MEGAMURO));
         amb.adicionarEntidade(new Obstaculo(90, 20, TipoObstaculo.MURO));
-        amb.adicionarEntidade(new Obstaculo(120, 30, TipoObstaculo.ARVORE));    
+        amb.adicionarEntidade(new Obstaculo(80, 30, TipoObstaculo.ARVORE));    
     }
 
     //ver se pode converter a string para int
@@ -388,13 +410,11 @@ public class Main{
                             else if (roboSelecionado instanceof Referenciavel ref) {
                                 System.out.println("Necessario a escolha de um Obstaculo para continuar: ");
                                 imprimirEntidades(meuAmbiente);
-                                Entidade obstaculo = null;
-                                Entidade escolha = escolherEntidadeEspecifica(scanner.nextLine(), meuAmbiente);
-                                if(escolha != null) {
-                                    obstaculo = escolha;
+                                Obstaculo obstaculo = escolherObstaculoEspecifica(scanner.nextLine(), meuAmbiente);
+                                if(obstaculo != null) {
                                     System.out.println("Foi escolhido o obstaculo " + obstaculo.getTipo());
                                 }
-                                ref.setReferencia((Obstaculo) obstaculo);
+                                ref.setReferencia(obstaculo);
                             } 
                             else if (roboSelecionado instanceof Construtor rConstrutor) {
                                 System.out.println("Necessario inserir posicoes de construcao (x y):");

@@ -14,6 +14,7 @@ public class Ambiente
         comprimento = c;
         altura = a;
         entidades = new ArrayList<>();
+        inicializarmapa();
     }
 
    public void imprimirDimensoes(){
@@ -42,15 +43,17 @@ public class Ambiente
         if (e.getTipo() == TipoEntidade.OBSTACULO){
             int iniX = ((Obstaculo) e).getX();
             //essa linha verifica que o obstaculo, se gerado perto da borda X, eh "truncado"
+            int fimX = Math.min(((Obstaculo) e).getPosicaoX2(), largura);
             int distX = Math.min(((Obstaculo) e).getPosicaoX2() - iniX, largura - iniX);
             int iniY = ((Obstaculo) e).getY();
+            int fimY = Math.min(((Obstaculo) e).getPosicaoY2(), comprimento);
             //essa linha verifica que o obstaculo, se gerado perto da borda Y, eh "truncado"
             int distY = Math.min(((Obstaculo) e).getPosicaoY2() - iniY, comprimento - iniY);
 
             int z = ((Obstaculo) e).getZ();
             //Verificar se a posição em que o obstáculo será colocado é válida
-            for (int i = iniX; i < distX; i++) {
-                for (int j = iniY; j < distY; j++) {
+            for (int i = iniX; i < fimX; i++) {
+                for (int j = iniY; j < fimY; j++) {
                     for (int k = 0;k < z;k++) {
                         if(this.mapa[i][j][k] != TipoEntidade.VAZIO)
                             throw new EntidadeInvalidaException();
@@ -58,8 +61,8 @@ public class Ambiente
                } 
             }
             //Caso passe da verificação, modifique o mapa
-            for (int i = iniX; i < distX; i++) {
-               for (int j = iniY; j < distY; j++) {
+            for (int i = iniX; i < fimX; i++) {
+               for (int j = iniY; j < fimY; j++) {
                    for (int k = 0;k < z;k++) {
                         this.mapa[i][j][k] = TipoEntidade.OBSTACULO; 
                    }
@@ -213,9 +216,13 @@ public class Ambiente
                mapa_aux[ra.getX()][ra.getY()] = ent.getRepresentacao(); 
             }
         }
-        for (int i=0; i< this.comprimento; i++)
-            for (int j = 0; j < this.largura; j++)
+        for (int j = 0; j < this.largura; j++) {   
+            for (int i = 0; i < this.comprimento; i++) {  
                 System.out.print(mapa_aux[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
 }

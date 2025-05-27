@@ -31,6 +31,11 @@ public class RoboTerrestre extends Robo{
     public String toString() {
         return super.toString() + ". vMax = "+ getVelocidadeMaxima();
     }
+    @Override
+    public void executarTarefa() throws RoboDesligadoException {
+        if (this.ligado)
+            throw new RoboDesligadoException();
+    }
 
 }
 
