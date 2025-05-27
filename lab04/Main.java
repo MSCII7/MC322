@@ -1,7 +1,6 @@
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.lang.model.util.ElementScanner14;
 
 public class Main{
     public static void main(String[] args){
@@ -62,7 +61,6 @@ public class Main{
         ArrayList<Robo> robos = amb.getRobos();
         for(int i = 0; i < robos.size(); i++){
             System.out.printf(i + "-> ");
-            //robos.get(i).exibirPosicao();
             System.out.println(robos.get(i).toString());
         }
     }
@@ -75,6 +73,22 @@ public class Main{
             obstaculos.get(i).exibirObstaculo();
         }
     }
+
+    private static void imprimirPorEstado(Ambiente amb, boolean ligado){
+        ArrayList<Robo> robos = amb.getRobos();
+        ArrayList<Robo> robosEstado = new ArrayList<>();
+        for(Robo robo : robos){
+            //exemplo: se queremos os desligados, teremos false == false -> true
+            if(robo.getEstado() == ligado){
+                robosEstado.add(robo);
+            }
+        }
+        for(int i = 0; i < robosEstado.size(); i++){
+            System.out.printf(i + "-> ");
+            System.out.println(robosEstado.get(i).toString());
+        }
+    }
+
     private static void imprimirEntidades(Ambiente amb){
         ArrayList<Entidade> entidades= amb.getEntidades();
         for(int i = 0; i < entidades.size(); i++){
@@ -84,7 +98,7 @@ public class Main{
     }
     private static void imprimirAmbiente(Ambiente amb){
         amb.imprimirDimensoes();
-        System.out.println("O ambiente tem"+amb.getEntidades().size()+"entidades.");
+        System.out.println("O ambiente tem "+amb.getEntidades(). size()+" entidades.");
         //System.out.println("O ambiente tem " + amb.getRobos().size() + " robos.");
         //System.err.println("O ambiente tem " + amb.getObstaculos().size() + " obstaculos.");
     }
@@ -209,6 +223,8 @@ public class Main{
     private static void entrarMenuInterativo(Ambiente meuAmbiente){
         //comandos gerais do menu interativo
         String comImprimirRobos = "itr";
+        String comImprimirLigados = "itl";
+        String comImprimirDesligados = "itd";
         String comImprimirObstaculos = "ito";
         String comImprimirAmbiente = "ia";
         String comImprimirMapa = "im";
@@ -231,8 +247,11 @@ public class Main{
         int deltaMov[] = new int[3];
 
         //mensagem de comandos do menu interativo
-        String msgComandos = comImprimirRobos +" imprime todos os robos \n " + 
-        comImprimirObstaculos + " imprime todos os obstaculos \n " +
+        String msgComandos = "Comandos gerais possiveis: \n" + 
+        comImprimirRobos +" imprime todos os robos \n" + 
+        comImprimirLigados +" imprime todos os robos ligados \n"+
+        comImprimirDesligados + " imprime todos os robos desligados \n"+
+        comImprimirObstaculos + " imprime todos os obstaculos \n" +
         comImprimirAmbiente + " imprime dados do ambiente \n" + 
         comImprimirMapa + " imprime o mapa do ambiente \n" +
         comSelecionarRobo + " <identificador> seleciona um robo, "
@@ -264,6 +283,12 @@ public class Main{
         
             if(comando.equals(comImprimirRobos)) {
                 imprimirRobos(meuAmbiente);
+            }
+            else if(comando.equals(comImprimirLigados)){
+                imprimirPorEstado(meuAmbiente, true);
+            }
+            else if(comando.equals(comImprimirDesligados)){
+                imprimirPorEstado(meuAmbiente, false);
             }
             else if(comando.equals(comImprimirObstaculos)) {
                 imprimirObstaculos(meuAmbiente);
