@@ -34,4 +34,8 @@ public class SensorRobos extends Sensor {
         monitorar(posX, posY, posZ, amb);
         return robos_dentro;
     }
+    
+    public ArrayList<Robo> getRobos_dentro(){
+        return robos_dentro;
+    }
 }

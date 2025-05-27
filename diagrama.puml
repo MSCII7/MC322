@@ -4,20 +4,23 @@ class Robo {
   #int posicaoX
   #int posicaoY
   #String direcao
+  #String tipo
+  #String id
+  #String comandoTarefa
+  #String descricaoTarefa
+  #boolean ligado 
+  #TipoEntidade tipoEntidade
   #SensorObstaculos so 
   #SensorRobos sr
   #ArrayList<Sensor> sensores {genericos}
-  +getPosX():int
-  +getPosY():int
   +getNome():String
-  +mover(deltaX: int, deltaY: int, Ambiente amb): void
+  +ligar()
+  +desligar
+  +getEstado
+  +getComandoTarefa
+  +{abstract} void executarTarefa throws RoboDesligadoException
+  +void imprimirDescricaoTarefa
   +exibirPosicao(): void
-  +identidicarObstaculo(): ArrayList<Obstaculo>  
-  +identificarRobos(): ArrayList<Robos>
-  +colisao_obs(ArrayList<Obstaculo>, int, int): boolean
-  +colisao_robo(ArrayList<Robo>, int, int): boolean
-  #adicionaSensores(Ambiente): void
-
 }
 class RoboTerrestre {
     #int velocidadeMaxima
@@ -35,6 +38,18 @@ class RoboTerrestreTeletransporte {
     +mover(int, int, Ambiente): void
     +teletransportar(posX: int, posY: int): void
     +getBarra_teletransporte(): int
+}
+class RoboTerrestreAmbientalista {
+    -int construcaoX
+    -int construcaoY
+    +@Overload construir(x: int, y:int, amb:Ambiente)
+    +void executarTarefa(int,int,Ambiente)
+}
+class RoboTerrestreMorador {
+    #Obstaculo moradia
+}
+class RoboTerrestrePanfletario {
+
 }
 class RoboAereo {
     #int posicaoZ
@@ -80,16 +95,22 @@ class Ambiente {
    -int largura
    -int comprimento
    -int altura
-   -ArrayList<Robo> robos
+   -ArrayList<Entidades> entidades
+   -TipoEntidade[][][] mapa
    -ArrayList<Obstaculo> obstaculos
-   +dentroDosLimites(r: Robo): boolean 
-   +adicionarRobo(r: Robo): void
-   +removerRobo(r: Robo): void
-   +getRobos(): ArrayList<Robo>
-   +adicionarObstaculo(ob: Obstaculo): void
-   +removerObstaculo(ob: Obstaculo): void
-   +getObstaculos(): ArrayList<Obstaculo>
+   +adicionarEntidade(ent: Entidade) throws EntidadeInvalidaException: void
+   +removerEntidade(e: Entidade): void
+   +getEntidades(): ArrayList<Entidade>
+   +dentroDosLimites(x: int, y: int, z:int):boolean
+   +estaOcupado(x:int,y:int,z:int):boolean
+   +moverEntidade(e:Entidade):void
+   +executarSensore(roboSensoreavel: Sensoreavel):void
+   +verificarColisoes() throws ColisaoException: void
+   +visualizarAmbiente():void
+   +getAltura(): int
    +imprimirDimensoes(): void
+   +inicializarmapa():void
+
 }
 class Obstaculo {
     -int posicaoX1
@@ -108,6 +129,21 @@ class Obstaculo {
     +getAltura(): int
     +getTipo(): TipoObstaculo
 }
+class CentralComunicacao {
+    -static ArrayList<GrupoMensagemRobo> gruposMensagem
+    +static registrarMensagem(Comunicavel remetente,Comunicavel dest, String):void
+    +static exibirMensagens():void 
+    +static  getGrupos():ArrayList<GruposMensagemRobo>
+    +static removerMensagem:void 
+}
+class GrupoMensagemRobo {
+    -Cominicalvel remetente
+    -Comunicavel destinatario
+    +GrupoMensagemRobo(Comunicavel, Comunicavel, String)
+    +getRemetente:Comunicavel 
+    +getDestinatario:Comunicavel 
+    +getMensagem():String 
+}
 enum TipoObstaculo {
     MURO,
     MEGAMURO,
@@ -115,7 +151,61 @@ enum TipoObstaculo {
     ARBUSTO,
     PREDIO;
 }
+enum TipoEntidade{
+    VAZIO('-'),
+    OBSTACULO('#'),
+    ROBO('@'),
+    DESCONHECIDO('?');
+}
+interface Entidade {
+    int getX()
+    int getY()
+    int getZ()
+    void moverPara(int, int,int) throws NaoAereoException, RoboDesligadoException
+}
+interface Comunicavel {
+    void enviarMensagem(Comunicavel dest, String mensagem) throws RoboDesligadoException
+    void receberMensage() throws RoboDesligadoException
+}
+interface Sensoreavel {
+    void acionarSensore(Ambiente amb) throws RoboDesligadoException
+}
+interface Construtor {
+    void construir(int x, int y, Ambiente amb)
+}
+interface Referenciavel {
+    void setReferencia(Obstaculo ref)
+    int getPosXReferencia(int x)
+    int getPosYReferencia(int y)
+    void encontraReferencia()
+    Obstaculo getReferencia()
+}
+exception ColisaoException {
+    +ColisaoException()
+}
+exception RoboDesligadoException {
+    +RoboDesligadoException()
+}
+exception NaoAereoException {
+    +NaoAereoException()
+}
+exception EntidadeInvalidaException {
+    +EntidadeInvalidaException()
+}
 
+Comunicavel "1" o-- "1" CentralComunicacao
+CentralComunicacao o-- GrupoMensagemRobo
+Ambiente ..> ColisaoException : «throws» 
+Ambiente ..> EntidadeInvalidaException : «throws» 
+Robo ..> NaoAereoException : «throws» 
+Robo ..> RoboDesligadoException : «throws» 
+RoboTerrestrePanfletario ..|> Comunicavel
+RoboTerrestrePanfletario..|> Sensoreavel
+RoboAereoConsciente ..|> Sensoreavel
+RoboTerrestreMorador ..|> Referenciavel
+RoboTerrestreMorador ..|> Comunicavel
+RoboTerrestreAmbientalista ..|> Construtor
+Robo ..|> Entidade
 Sensor <|-- SensorObstaculos
 Sensor <|-- SensorRobos
 Ambiente --> Sensor
@@ -126,7 +216,10 @@ RoboAereo <|-- RoboAereoRefletor
 RoboAereo <|-- RoboAereoConsciente
 RoboTerrestre <|-- RoboTerrestreTeletransporte
 RoboTerrestre <|-- RoboTerrestreEletrico
+RoboTerrestre <|-- RoboTerrestreAmbientalista
+RoboTerrestre <|-- RoboTerrestreMorador
 Robo <|-- RoboAereo
 Robo <|-- RoboTerrestre
 Obstaculo ..> TipoObstaculo
+Entidade ..>TipoEntidade
 @enduml

@@ -5,50 +5,55 @@ import javax.lang.model.util.ElementScanner14;
 
 public class Main{
     public static void main(String[] args){
-        //Criar um novo robô genérico
-        //Criar um ambiente
-        Ambiente meuAmbiente = new Ambiente(400, 400, 200);
-        criarObstaculos(meuAmbiente);
+        try{
+            //Criar um novo robô genérico
+            //Criar um ambiente
+            Ambiente meuAmbiente = new Ambiente(400, 400, 200);
+            criarObstaculos(meuAmbiente);  
+        
 
-        Robo meuRobo = new Robo("FRED",10, 24);
-        //Testar reconhecimento dos limites
-        Teste.imprimirLimites(meuRobo, meuAmbiente);
-        //Testar movimentar o robo
-        meuRobo.mover(20, 40, meuAmbiente);
+            Robo meuRobo = new RoboTerrestre("FRED",10, 24,50);
+            //Testar reconhecimento dos limites
+            Teste.imprimirLimites(meuRobo, meuAmbiente);
+            //Testar movimentar o robo
+            //meuRobo.mover(20, 40, meuAmbiente);
 
-        meuAmbiente.adicionarRobo(meuRobo);
+            meuAmbiente.adicionarEntidade(meuRobo);
 
-        Teste.imprimirLimites(meuRobo, meuAmbiente);
 
-        meuRobo.exibirPosicao();
+            Teste.imprimirLimites(meuRobo, meuAmbiente);
 
-        //funcoes de teste para cada subclasse de robo, retornam o robo e o adicionam ao ambiente.
-        RoboTerrestre terrestre = Teste.testeTerrestre(meuAmbiente);
-        meuAmbiente.adicionarRobo(terrestre);
+            meuRobo.exibirPosicao();
 
-        RoboTerrestreEletrico eletrico = Teste.testeEletrico(meuAmbiente);
-        meuAmbiente.adicionarRobo(eletrico);
+            //funcoes de teste para cada subclasse de robo, retornam o robo e o adicionam ao ambiente.
+            RoboTerrestre terrestre = Teste.testeTerrestre(meuAmbiente);
+            meuAmbiente.adicionarEntidade(terrestre);
 
-        RoboTerrestreTeletransporte teletransporte = Teste.testeTeletransporte(meuAmbiente); 
-        meuAmbiente.adicionarRobo(teletransporte);
+            RoboTerrestreEletrico eletrico = Teste.testeEletrico(meuAmbiente);
+            meuAmbiente.adicionarEntidade(eletrico);
 
-        RoboAereo aereo = Teste.testeAereo(meuAmbiente);
-        meuAmbiente.adicionarRobo(aereo);
+            RoboTerrestreTeletransporte teletransporte = Teste.testeTeletransporte(meuAmbiente); 
+            meuAmbiente.adicionarEntidade(teletransporte);
 
-        RoboAereoRefletor refletor = Teste.testeRefletor(30, meuAmbiente.getAltura(), 0, meuAmbiente);
-        meuAmbiente.adicionarRobo(refletor);
+            RoboAereo aereo = Teste.testeAereo(meuAmbiente);
+            meuAmbiente.adicionarEntidade(aereo);
 
-        RoboAereoConsciente consciente = Teste.testeConsciente(meuAmbiente);
-        meuAmbiente.adicionarRobo(consciente);
+            RoboAereoRefletor refletor = Teste.testeRefletor(30, meuAmbiente.getAltura(), 0, meuAmbiente);
+            meuAmbiente.adicionarEntidade(refletor);
 
-        //Testar os sensores
-        Teste.testeSensorObstaculo(meuRobo, meuAmbiente);
-        Teste.testeSensorRobo(meuRobo, meuAmbiente);
-        //imprimir posicoes finais dos robos
-        imprimirRobos(meuAmbiente); 
+            RoboAereoConsciente consciente = Teste.testeConsciente(meuAmbiente);
+            meuAmbiente.adicionarEntidade(consciente);
 
-        entrarMenuInterativo(meuAmbiente);
+            //Testar os sensores
+            Teste.testeSensorObstaculo(meuRobo, meuAmbiente);
+            Teste.testeSensorRobo(meuRobo, meuAmbiente);
+            //imprimir posicoes finais dos robos
+            imprimirRobos(meuAmbiente); 
 
+            entrarMenuInterativo(meuAmbiente);
+        }catch(EntidadeInvalidaException e){
+
+        }
     }
     
 
@@ -79,8 +84,9 @@ public class Main{
     }
     private static void imprimirAmbiente(Ambiente amb){
         amb.imprimirDimensoes();
-        System.out.println("O ambiente tem " + amb.getRobos().size() + " robos.");
-        System.err.println("O ambiente tem " + amb.getObstaculos().size() + " obstaculos.");
+        System.out.println("O ambiente tem"+amb.getEntidades().size()+"entidades.");
+        //System.out.println("O ambiente tem " + amb.getRobos().size() + " robos.");
+        //System.err.println("O ambiente tem " + amb.getObstaculos().size() + " obstaculos.");
     }
 
     //escolhe um robo a partir do indice ou nome. Podemos utilizar depois para imprimir o robo ou analisar sensores
@@ -107,7 +113,8 @@ public class Main{
             //para utilizacao de nome para identificar robo
             else{
                 for(Entidade ent : entidades){
-                    if(identificador.equals(((Robo) ent).getNome())){
+                    
+                    if((ent instanceof Robo r) && identificador.equals(r.getNome())){
                         return ent;
                     }
                 }
@@ -252,24 +259,27 @@ public class Main{
 
         Robo roboSelecionado = null;
 
-        while(!comando.equals(comSair)){
+        while(!comando.equals(comSair)) {
             String[] divisor = comando.split(" ");
-
-            if(comando.equals(comImprimirRobos))
+        
+            if(comando.equals(comImprimirRobos)) {
                 imprimirRobos(meuAmbiente);
-            else if(comando.equals(comImprimirObstaculos))
+            }
+            else if(comando.equals(comImprimirObstaculos)) {
                 imprimirObstaculos(meuAmbiente);
-            else if(comando.equals(comImprimirAmbiente))
+            }
+            else if(comando.equals(comImprimirAmbiente)) {
                 imprimirAmbiente(meuAmbiente);
-            else if(comando.equals(comImprimirMapa))
+            }
+            else if(comando.equals(comImprimirMapa)) {
                 meuAmbiente.visualizarAmbiente();
-            
-            else if(comando.equals(comHelp))
+            }
+            else if(comando.equals(comHelp)) {
                 System.out.println(msgComandos);
-
+            }
             //escolher robo
-            else if(divisor[0].equals(comSelecionarRobo)){
-                if(divisor.length > 1){
+            else if(divisor[0].equals(comSelecionarRobo)) {
+                if(divisor.length > 1) {
                     Robo escolha = escolherRoboEspecifico(divisor[1], meuAmbiente);
                     if(escolha != null) {
                         roboSelecionado = escolha;
@@ -278,81 +288,75 @@ public class Main{
                     }
                 }
             }
-
             //Se nao eh nenhum dos comandos gerais, eh um comando dos robos
-            else{
-                if(roboSelecionado != null){
-                    if(comando.equals(comHelpRobo)){
+            else {
+                if(roboSelecionado != null) {
+                    if(comando.equals(comHelpRobo)) {
                         System.out.println(msgComandosRobo);
                         System.out.println("Tarefa especifica do robo:");
                         roboSelecionado.imprimirDescricaoTarefa();
                     }
-
                     //imprimir posicao robo selecionado
-                    else if(comando.equals(comPosRobo)){
+                    else if(comando.equals(comPosRobo)) {
                         System.out.println(roboSelecionado.toString());
                     }
-
-                    else if(comando.equals(comLigarRobo)){
+                    else if(comando.equals(comLigarRobo)) {
                         roboSelecionado.ligar();
                         System.out.println("Robo foi ligado");
                     }
-
-                    else if(comando.equals(comDesligarRobo)){
+                    else if(comando.equals(comDesligarRobo)) {
                         roboSelecionado.desligar();
                         System.out.println("Robo foi desligado");
                     }
-
-                     //imprimir sensor obstaculos robo selecionado
-                     //ESSES COMANDOS SERAO ESTABELECIDOS NA FUNCAO IMPRIMIRCOMANDOTAREFA
-                    else if(comando.equals(comSensorObst)){
-                        if(roboSelecionado instanceof Sensoreavel rSensoreavel){
-                            try{
+                    //imprimir sensor obstaculos robo selecionado
+                    else if(comando.equals(comSensorObst)) {
+                        if(roboSelecionado instanceof Sensoreavel rSensoreavel) {
+                            try {
                                 rSensoreavel.acionarSensores(meuAmbiente);
                                 ArrayList<Obstaculo> obstaculos = rSensoreavel.identificarObstaculos(meuAmbiente);
                                 System.out.println("----Utilizando sensor de obstaculos, de raio " + roboSelecionado.so.getRaio() + ": ----");
-
-                                for(Obstaculo obs : obstaculos){
+        
+                                for(Obstaculo obs : obstaculos) {
                                     obs.exibirObstaculo();
                                 }
                                 System.out.println("-------------------------------------------------------");
                             }
-                            catch(RoboDesligadoException e){
+                            catch(RoboDesligadoException e) {
                                 System.err.println(e.getMessage());
                             }
                         }
-                        else
+                        else {
                             System.err.println("O robo selecionado nao eh Sensoreavel");
+                        }
                     }
-
-                     //imprimir sensor robos robo selecionado
-                    else if(comando.equals(comSensorRobos)){
+                    //imprimir sensor robos robo selecionado
+                    else if(comando.equals(comSensorRobos)) {
                         ArrayList<Robo> robos = roboSelecionado.identificarRobos(meuAmbiente);
                         System.out.println("----Utilizando sensor de robos, de raio " + roboSelecionado.sr.getRaio() + ": ----");
-
-                        for(Robo robo : robos){
+        
+                        for(Robo robo : robos) {
                             robo.exibirPosicao();
                         }
                         System.out.println("--------------------------------------------------");
                     }
-
-                     //comandos de movimentacao
-                    else if(divisor[0].equals("rmx"))
+                    //comandos de movimentacao
+                    else if(divisor[0].equals("rmx")) {
                         deltaMov[0] = getDeltaRobo(divisor, maxMover);
-
-                    else if(divisor[0].equals("rmy"))
-                       deltaMov[1] = getDeltaRobo(divisor, maxMover);
-
-                    else if(divisor[0].equals("rmz"))
+                    }
+                    else if(divisor[0].equals("rmy")) {
+                        deltaMov[1] = getDeltaRobo(divisor, maxMover);
+                    }
+                    else if(divisor[0].equals("rmz")) {
                         deltaMov[2] = getDeltaRobo(divisor, maxMover);
-
-                    else if(comando.equals(roboSelecionado.getComandoTarefa())){
+                    }
+                    else if(comando.equals(roboSelecionado.getComandoTarefa())) {
                         //pode estar tanto desligado para acionar sensores quanto para executar a tarefa
-                        try{
+                        try {
                             //assumimos que os robos sensoreaveis precisam de sensores atualizados para suas tarefas
-                            if(roboSelecionado instanceof Sensoreavel rSensoreavel){
+                            if(roboSelecionado instanceof Sensoreavel rSensoreavel) {
                                 rSensoreavel.acionarSensores(meuAmbiente);
-                            } else if (roboSelecionado instanceof Referenciavel ref){
+                            } 
+                            else if (roboSelecionado instanceof Referenciavel ref) {
                                 System.out.println("Necessario a escolha de um Obstaculo para continuar: ");
                                 imprimirEntidades(meuAmbiente);
                                 Entidade obstaculo = null;
@@ -362,7 +366,8 @@ public class Main{
                                     System.out.println("Foi escolhido o obstaculo " + obstaculo.getTipo());
                                 }
                                 ref.setReferencia((Obstaculo) obstaculo);
-                            } else if (roboSelecionado instanceof Construtor rConstrutor){
+                            } 
+                            else if (roboSelecionado instanceof Construtor rConstrutor) {
                                 System.out.println("Necessario inserir posicoes de construcao (x y):");
                                 String[] coords = scanner.nextLine().split(" ");
                                 
@@ -370,42 +375,42 @@ public class Main{
                                     int x = Integer.parseInt(coords[0]);
                                     int y = Integer.parseInt(coords[1]);
                                     rConstrutor.construir(x, y, meuAmbiente);
-                                } catch (NumberFormatException | ArrayIndexOutOfBoundsException | EntidadeInvalidaException e) {
+                                } 
+                                catch (NumberFormatException | ArrayIndexOutOfBoundsException | EntidadeInvalidaException e) {
                                     System.err.println("Formato inválido! Digite dois números separados por espaço. Exemplo: 32 12");
                                 }
-
                             }
-                                
                             roboSelecionado.executarTarefa();
                         }
-                        catch(RoboDesligadoException e){
+                        catch(RoboDesligadoException e) {
                             System.err.println(e.getMessage());
                         }
                     }
-
-                    try{
-                        meuAmbiente.moverEntidade(roboSelecionado
-                                                , roboSelecionado.getX() + deltaMov[0]
-                                                , roboSelecionado.getY() + deltaMov[1]
-                                                , roboSelecionado.getZ() + deltaMov[2]);
-                    }
-                    catch(NaoAereoException e){
-                        System.err.println(e.getMessage());
+                    else if(comando.equals("moveraereo")) {
+                        try {
+                            meuAmbiente.moverEntidade(roboSelecionado,
+                                    roboSelecionado.getX() + deltaMov[0],
+                                    roboSelecionado.getY() + deltaMov[1],
+                                    roboSelecionado.getZ() + deltaMov[2]);
+                        }
+                        catch(NaoAereoException e) {
+                            System.err.println(e.getMessage());
+                        }
                     }
                 } 
-
-                else
+                else {
                     System.out.println("Nenhum Robo foi selecionado");
+                }
             }
-
+        
             //reseta vetor delta de deslocamento
             deltaMov[0] = 0; 
             deltaMov[1] = 0; 
             deltaMov[2] = 0;
-
+        
             comando = scanner.nextLine();
         }
-
+        
         scanner.close();
 
     }
