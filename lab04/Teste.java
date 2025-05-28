@@ -199,4 +199,23 @@ public class Teste {
         //Tentar mover para uma posição ocupada
 
     }
+
+    public static RoboTerrestreMorador testeTerrestreMorador(Ambiente amb){
+        RoboTerrestreMorador morador = new RoboTerrestreMorador("DERF", 90, 90,101);
+
+        return morador;
+    }
+
+    public static RoboTerrestreAmbientalista testeTerrestreAmbientalista(Ambiente amb){
+        RoboTerrestreAmbientalista ambientalista = new RoboTerrestreAmbientalista("Greta", 80, 70,101);
+
+        return ambientalista;
+    }
+
+    public static RoboTerrestrePanfletario testeTerrestrePanfletario(Ambiente amb){
+        RoboTerrestrePanfletario panfletario = new RoboTerrestrePanfletario("PrateadosInc", 80, 60,101);
+
+        return panfletario;
+    }
+
 }

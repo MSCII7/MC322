@@ -43,6 +43,16 @@ public class Main{
             RoboAereoConsciente consciente = Teste.testeConsciente(meuAmbiente);
             meuAmbiente.adicionarEntidade(consciente);
 
+            RoboTerrestreMorador morador = Teste.testeTerrestreMorador(meuAmbiente);
+            meuAmbiente.adicionarEntidade(morador);
+
+            RoboTerrestreAmbientalista ambientalista = Teste.testeTerrestreAmbientalista(meuAmbiente);
+            meuAmbiente.adicionarEntidade(ambientalista);
+
+            RoboTerrestrePanfletario panfletario = Teste.testeTerrestrePanfletario(meuAmbiente);
+            meuAmbiente.adicionarEntidade(panfletario);
+
+
             //Testar os sensores
             Teste.testeSensorObstaculo(meuRobo, meuAmbiente);
             //Teste.testeSensorRobo(meuRobo, meuAmbiente); Dando problema aqui
@@ -409,12 +419,12 @@ public class Main{
                             } 
                             else if (roboSelecionado instanceof Referenciavel ref) {
                                 System.out.println("Necessario a escolha de um Obstaculo para continuar: ");
-                                imprimirEntidades(meuAmbiente);
+                                imprimirObstaculos(meuAmbiente);
                                 Obstaculo obstaculo = escolherObstaculoEspecifica(scanner.nextLine(), meuAmbiente);
                                 if(obstaculo != null) {
-                                    System.out.println("Foi escolhido o obstaculo " + obstaculo.getTipo());
+                                    System.out.println("Foi escolhido o obstaculo " + obstaculo.getTipoObstaculo());
+                                    ref.setReferencia(obstaculo);
                                 }
-                                ref.setReferencia(obstaculo);
                             } 
                             else if (roboSelecionado instanceof Construtor rConstrutor) {
                                 System.out.println("Necessario inserir posicoes de construcao (x y):");

@@ -2,6 +2,8 @@ public class RoboTerrestreAmbientalista extends RoboTerrestre implements Constru
     private int construcaoX, construcaoY;
     public RoboTerrestreAmbientalista(String nomeIn, int posXIn, int posYIn, int vMax) {
             super(nomeIn, posXIn, posYIn, vMax);
+
+            this.tipo = "Ambientalista";
             this.comandoTarefa = "pa";
             this.descricaoTarefa = " escolhe uma posicao para plantar uma arvore";
         }

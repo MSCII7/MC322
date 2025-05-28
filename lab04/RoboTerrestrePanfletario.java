@@ -5,6 +5,7 @@ public class RoboTerrestrePanfletario extends RoboTerrestre implements Comunicav
         super(nome, posX, posY, vMax);
         this.sr.setRaio(100);
 
+        this.tipo = "Panfletario";
         this.descricaoTarefa = " envia propaganda imobiliaria para os robos moradores proximos";
         this.comandoTarefa = "ep";
         this.mensagem = "Atencao, novas ofertas de casas e apartamentos, todos murados e bem arborizados, em regioes proximas de voce\nAproveite, venha comprar na Imoveis Prateados!!";
@@ -31,16 +32,19 @@ public class RoboTerrestrePanfletario extends RoboTerrestre implements Comunicav
     public void executarTarefa() throws RoboDesligadoException {
         System.out.println("Propaganda a ser enviada: ");
         System.out.println(this.mensagem);
+        System.out.println("");
 
         for (Robo r : this.sr.getRobos_dentro()){
             if (r instanceof RoboTerrestreMorador m)
                 try{
                     enviarMensagem(m, mensagem);
+                    System.out.println("Enviou mensagem para " + m.getNome());
                 }
                 catch(RoboDesligadoException e){
                     throw e;
                 }
         }
+        System.out.println("--Finalizou envio--");
     }
    
 

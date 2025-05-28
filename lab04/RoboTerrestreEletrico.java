@@ -3,6 +3,7 @@ public class RoboTerrestreEletrico extends RoboTerrestre{
     public RoboTerrestreEletrico(String nomeIn, int posXIn, int posYIn, int vMax){
         super(nomeIn, posXIn, posYIn, vMax);
         nivel_bateria = 100;
+        
         tipo = "Eletrico";
         descricaoTarefa = " imprime o nivel de bateria anterior e carrega o robo ate 100";
         comandoTarefa = "cr";

@@ -1,8 +1,13 @@
 
 public class RoboTerrestreMorador extends RoboTerrestre implements Referenciavel, Comunicavel{
     private Obstaculo moradia;
+
     public RoboTerrestreMorador(String nome, int posX, int posY, int vMax) {
         super(nome, posX,posY, vMax);
+
+        this.tipo = "Morador";
+        this.descricaoTarefa = " move para perto do obstaculo definido como moradia";
+        this.comandoTarefa = "mpm"; //mover para moradia
     }
     
    
@@ -33,23 +38,33 @@ public class RoboTerrestreMorador extends RoboTerrestre implements Referenciavel
     
     @Override
     public void encontraReferencia(){
-        //Fica a uma distancia de 5 passos da moradia
-        int deltaX, deltaY;
-        if (this.posicaoX > getPosXReferencia()){
-            deltaX = this.posicaoX - getPosXReferencia() - moradia.getTipoObstaculo().getComprimento()/2 - 5;
-        }else
-            deltaX = this.posicaoX + getPosXReferencia() + moradia.getTipoObstaculo().getComprimento()/2 + 5;
-        if (this.posicaoY > getPosYReferencia()){
-            deltaY = this.posicaoY - getPosYReferencia() - moradia.getTipoObstaculo().getLargura()/2 - 5;
-        }else
-            deltaY = this.posicaoY + getPosYReferencia() + moradia.getTipoObstaculo().getLargura()/2 + 5;
-        mover(deltaX, deltaY);
+        if(moradia != null){
+            //Fica a uma distancia de 5 passos da moradia
+            int deltaX, deltaY;
+            if (this.posicaoX > getPosXReferencia()){
+                deltaX = this.posicaoX - getPosXReferencia() - moradia.getTipoObstaculo().getComprimento()/2 - 5;
+            }else
+                deltaX = this.posicaoX + getPosXReferencia() + moradia.getTipoObstaculo().getComprimento()/2 + 5;
+            if (this.posicaoY > getPosYReferencia()){
+                deltaY = this.posicaoY - getPosYReferencia() - moradia.getTipoObstaculo().getLargura()/2 - 5;
+            }else
+                deltaY = this.posicaoY + getPosYReferencia() + moradia.getTipoObstaculo().getLargura()/2 + 5;
+            mover(deltaX, deltaY);
+
+            System.out.println("Moveu para proximo da moradia");
+        }
+        else
+            System.out.println("O robo nao tem moradia valida");
     }  
 
 
     @Override
-    public void setReferencia(Obstaculo ref) {
-        this.moradia = ref;
+    public void setReferencia(Obstaculo ref){
+        TipoObstaculo refTipo = ref.getTipoObstaculo();
+
+        if(refTipo == TipoObstaculo.CASA ||refTipo == TipoObstaculo.PREDIO){
+            this.moradia = ref;
+        }
     }
     @Override
     public Obstaculo getReferencia(){
