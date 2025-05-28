@@ -186,8 +186,11 @@ public class MenuInterativo {
                                     int y = Integer.parseInt(coords[1]);
                                     rConstrutor.construir(x, y, meuAmbiente);
                                 } 
-                                catch (NumberFormatException | ArrayIndexOutOfBoundsException | EntidadeInvalidaException e) {
+                                catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                                     System.err.println("Formato inválido! Digite dois números separados por espaço. Exemplo: 32 12");
+                                }
+                                catch(EntidadeInvalidaException e){
+                                    System.err.println("Posicao ja ocupada por entidades!");
                                 }
                             }
 

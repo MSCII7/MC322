@@ -13,19 +13,21 @@ public class RoboTerrestreAmbientalista extends RoboTerrestre implements Constru
         Obstaculo arvore = new Obstaculo(x, y, TipoObstaculo.ARVORE);
         try {
             amb.adicionarEntidade(arvore);
+            System.out.println("Plantou arvore em " + x + ", " + y + "!");
         } catch (EntidadeInvalidaException e) {
-            System.out.println("Entidade Invalida");
+            throw e;
         }
     }
 
     @Override
     public void executarTarefa(){
     }
-    public void executarTarefa(int x, int y, Ambiente amb) {
+    
+    public void executarTarefa(int x, int y, Ambiente amb) throws EntidadeInvalidaException{
         try {
             construir(x, y, amb);
         } catch (EntidadeInvalidaException e) {
-            System.out.println("Erro ao adicionar arvore");
+            throw e;
         }
     }
     @Override
