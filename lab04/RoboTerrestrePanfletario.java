@@ -18,18 +18,9 @@ public class RoboTerrestrePanfletario extends RoboTerrestre implements Comunicav
             throw new RoboDesligadoException();
     }
 
+    //so envia mensagens
     @Override
     public void receberMensagens() throws RoboDesligadoException{
-        if(ligado){
-            System.out.println("Mensagens recebidas:");
-            for(GrupoMensagemRobo grupoMensagem : CentralComunicacao.getGrupos()){
-                if(grupoMensagem.destinatario == this){
-                    System.out.println("Do robo " + grupoMensagem.remetente + ": " + grupoMensagem.mensagem);
-                }
-            }
-        }
-        else
-            throw new RoboDesligadoException();
     }
 
     @Override
@@ -40,7 +31,7 @@ public class RoboTerrestrePanfletario extends RoboTerrestre implements Comunicav
     public void executarTarefa() throws RoboDesligadoException {
         System.out.println("Propaganda a ser enviada: ");
         System.out.println(this.mensagem);
-        
+
         for (Robo r : this.sr.getRobos_dentro()){
             if (r instanceof RoboTerrestreMorador m)
                 try{

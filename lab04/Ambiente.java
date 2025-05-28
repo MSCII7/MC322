@@ -8,6 +8,8 @@ public class Ambiente
     private final ArrayList<Entidade> entidades;
     private TipoEntidade[][][] mapa;
 
+    private char representacaoSelecionado = 's'; //representacao do robo selecionado no mapa 
+
     public Ambiente(int l, int c, int a)
     {
         largura = l;
@@ -205,7 +207,7 @@ public class Ambiente
   //        }
   //    }   
   //}
-    public void visualizarAmbiente(){
+    public void visualizarAmbiente(Robo roboSelecionado){
         //imprime a legenda do que cada caracter representa no mapa
         System.err.println("ˇ\nLegenda: ");
     
@@ -218,16 +220,25 @@ public class Ambiente
         System.out.println(TipoEntidade.ROBOAEREO.getRepresentacao() + ": representa RobosAereos");
     
         System.out.println(TipoEntidade.VAZIO.getRepresentacao() + ": representa espacos vazios");
+
+        System.out.println(representacaoSelecionado + ": representa robo selecionado (se houver)");
     
         //imprime o mapa em si
         char[][] mapa_aux = new char[this.comprimento][this.largura];
         for (int i = 0; i < this.comprimento; i++) 
-            for (int j = 0; j < this.largura; j++) 
-                mapa_aux[i][j] = this.mapa[i][j][0].getRepresentacao();
+            for (int j = 0; j < this.largura; j++){
+                if(roboSelecionado != null && roboSelecionado.posicaoX == i && roboSelecionado.posicaoY == j)
+                    mapa_aux[i][j] = representacaoSelecionado;
+                else
+                    mapa_aux[i][j] = this.mapa[i][j][0].getRepresentacao();
+            }
         //Sobrepor os robos aereos no mapa, para considerar uma visualização superior do mapa
         for (Entidade ent: entidades){ 
             if (ent instanceof RoboAereo ra){
-               mapa_aux[ra.getX()][ra.getY()] = ent.getRepresentacao(); 
+                if(ra == roboSelecionado)
+                    mapa_aux[ra.getX()][ra.getY()] = representacaoSelecionado;
+                else
+                    mapa_aux[ra.getX()][ra.getY()] = ent.getRepresentacao(); 
             }
         }
         for (int j = 0; j < this.largura; j++) {   

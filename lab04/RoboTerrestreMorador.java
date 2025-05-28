@@ -12,8 +12,19 @@ public class RoboTerrestreMorador extends RoboTerrestre implements Referenciavel
     }
 
     @Override
-    public void receberMensagens() {
+    public void receberMensagens() throws RoboDesligadoException{
+        if(ligado){
+            System.out.println("Mensagens recebidas:");
+            for(GrupoMensagemRobo grupoMensagem : CentralComunicacao.getGrupos()){
+                if(grupoMensagem.destinatario == this){
+                    System.out.println("Do robo " + ((Robo)(grupoMensagem.remetente)).getNome() + ": " + grupoMensagem.mensagem);
+                }
+            }
+        }
+        else
+            throw new RoboDesligadoException();
     }
+
 
     @Override
     public void executarTarefa() {

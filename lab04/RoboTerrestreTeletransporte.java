@@ -4,6 +4,10 @@ public class RoboTerrestreTeletransporte extends RoboTerrestre{
         super(nomeIn, posXIn, posYIn, vMax);
         barra_teletransporte = 0;
         tipo = "Teletransporte";
+
+        descricaoTarefa = " carrega a barra de teleporte do robo ate 100, permitindo que ele ultrapasse vMax " +
+                            "quando for se mover novamente(vMax do robo, nao ultrapassa o passo maximo do menu)";
+        comandoTarefa = "ctp";
     }
     //Adiciona o aumento da barra_teletransporte ao andar
     @Override public void mover(int deltaX, int deltaY){
@@ -37,10 +41,33 @@ public class RoboTerrestreTeletransporte extends RoboTerrestre{
             this.posicaoX = posX;
             this.posicaoY = posY;
             this.barra_teletransporte = 0; 
-        } else
+        } else{
+            mover(posX - posicaoX, posY - posicaoY);
             System.out.println("Barra de telestransporte não está carregada! Faltam "+(100-this.barra_teletransporte)+" passos");
+        }
     }
-    //Imprimi a barra em porcentagem
+
+    @Override
+    public void moverPara(int novoX, int novoY, int novoZ) throws NaoAereoException, RoboDesligadoException{
+        if(ligado){
+            if(novoZ != 0){
+                throw new NaoAereoException();
+            }
+            else{
+                teletransportar(novoX, novoY);
+            }
+        }
+        else{
+            throw new RoboDesligadoException();
+        }
+    }
+
+    @Override
+    public void executarTarefa() throws RoboDesligadoException {
+    }
+
+
+    //Imprime a barra em porcentagem
     public int getBarra_teletransporte(){
         return this.barra_teletransporte;
     }

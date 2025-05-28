@@ -58,7 +58,7 @@ public class Teste {
 
     //Teste RoboTerrestreTeletransporte 
     public static RoboTerrestreTeletransporte testeTeletransporte(Ambiente amb){
-        RoboTerrestreTeletransporte tele = new RoboTerrestreTeletransporte("TP", 10, 10, 100);
+        RoboTerrestreTeletransporte tele = new RoboTerrestreTeletransporte("TP", 20, 10, 10);
         //Testar as mudanças da posição e da barra de teletransporte após o seu movimento
      // System.out.println("\n-----------\nTESTE RoboTerrestreTeletransporte:\n");
 

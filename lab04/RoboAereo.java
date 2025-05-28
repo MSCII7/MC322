@@ -77,12 +77,9 @@ public class RoboAereo extends Robo implements Comunicavel{
         }
     }
 
+    //so recebe mensagens, entao fica vazio
     @Override
     public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException{
-        if(ligado)
-            CentralComunicacao.registrarMensagem(this, destinatario, mensagem);
-        else
-            throw new RoboDesligadoException();
     }
 
     @Override

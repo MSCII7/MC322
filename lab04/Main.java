@@ -31,8 +31,8 @@ public class Main{
             RoboTerrestreEletrico eletrico = Teste.testeEletrico(meuAmbiente);
             meuAmbiente.adicionarEntidade(eletrico);
             //Dando problema aqui
-            //RoboTerrestreTeletransporte teletransporte = Teste.testeTeletransporte(meuAmbiente); 
-            //meuAmbiente.adicionarEntidade(teletransporte);
+            RoboTerrestreTeletransporte teletransporte = Teste.testeTeletransporte(meuAmbiente); 
+            meuAmbiente.adicionarEntidade(teletransporte);
 
             RoboAereo aereo = Teste.testeAereo(meuAmbiente);
             meuAmbiente.adicionarEntidade(aereo);
@@ -321,7 +321,7 @@ public class Main{
                 imprimirAmbiente(meuAmbiente);
             }
             else if(comando.equals(comImprimirMapa)) {
-                meuAmbiente.visualizarAmbiente();
+                meuAmbiente.visualizarAmbiente(roboSelecionado);
             }
             else if(comando.equals(comHelp)) {
                 System.out.println(msgComandos);
@@ -429,6 +429,7 @@ public class Main{
                                     System.err.println("Formato inválido! Digite dois números separados por espaço. Exemplo: 32 12");
                                 }
                             }
+
                             roboSelecionado.executarTarefa();
                         }
                         catch(RoboDesligadoException e) {

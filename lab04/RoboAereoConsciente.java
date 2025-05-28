@@ -62,6 +62,15 @@ class RoboAereoConsciente extends RoboAereo implements Sensoreavel{
         return super.toString() + ". distMin = " + this.distanciaMin;
     }
 
+    //como esse envia, ele sobrescreve o metodo vazio de envio de mensagem da classe superior
+    @Override
+    public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException{
+        if(ligado)
+            CentralComunicacao.registrarMensagem(this, destinatario, mensagem);
+        else
+            throw new RoboDesligadoException();
+    }
+
     @Override 
     public void executarTarefa() throws RoboDesligadoException{
         System.out.println("Mandando mensagem e listando robos...");
