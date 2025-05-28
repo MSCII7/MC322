@@ -39,7 +39,7 @@ public class Teste {
 
      //testa o robo terrestre, excedendo a velocidade maxima em um dos deslocamentos
      public static RoboTerrestre testeTerrestre(Ambiente amb){
-        RoboTerrestre terrestre = new RoboTerrestre("Carro", 30, 10, 30);
+        RoboTerrestre terrestre = new RoboTerrestre("Carro", 30, 10, 20);
 
      // System.out.println("\n-----------\nTESTE RoboTerrestre:\n");
      // terrestre.exibirPosicao();
@@ -145,7 +145,7 @@ public class Teste {
     public static RoboAereo testeAereo(Ambiente amb){
        int altMax = 40;
        
-       RoboAereo aereo = new RoboAereo("AGUIA", 10,10, 20, altMax);
+       RoboAereo aereo = new RoboAereo("AGUIA", 5,10, 20, altMax);
 ///////System.out.println("\n-----------\nTESTE RoboAereo:\n");
 
 ///////exibirAereo(aereo, amb, altMax);

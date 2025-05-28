@@ -2,6 +2,7 @@ public enum TipoEntidade{
     VAZIO('-'),
     OBSTACULO('#'),
     ROBO('@'),
+    ROBOAEREO('v'),
     DESCONHECIDO('?');
 
     private final char representacao;

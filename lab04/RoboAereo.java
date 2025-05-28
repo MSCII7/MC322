@@ -10,6 +10,8 @@ public class RoboAereo extends Robo implements Comunicavel{
         altitudeMaxima = altMax;
         tipo = "Aereo";
 
+        tipoEntidade = TipoEntidade.ROBOAEREO;
+
         comandoTarefa = "imr"; //imprimir mensagens recebidas
         descricaoTarefa = " imprime as mensagens recebidas pelo robo";
     }

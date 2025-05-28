@@ -133,7 +133,7 @@ public class Ambiente
             this.mapa[e.getX()][e.getY()][e.getZ()]  = e.getTipo();
         } 
         catch (ColisaoException colException){
-            System.err.println("ColisaoException, entidade não pode se mover para"+novoX+novoY+novoZ);
+            System.err.println("ColisaoException, entidade não pode se mover para ("+novoX+ ", "+novoY+ ", "+novoZ+ ")");
         }
         catch (NaoAereoException naoAereo){
             System.err.println("Erro: tentativa de mover verticalmente robo nao aereo");
@@ -206,6 +206,20 @@ public class Ambiente
   //    }   
   //}
     public void visualizarAmbiente(){
+        //imprime a legenda do que cada caracter representa no mapa
+        System.err.println("ˇ\nLegenda: ");
+    
+        System.out.println(TipoEntidade.DESCONHECIDO.getRepresentacao() + ": representa entidades de tipo desconhecido");
+
+        System.out.println(TipoEntidade.OBSTACULO.getRepresentacao() + ": representa Obstaculos");
+    
+        System.out.println(TipoEntidade.ROBO.getRepresentacao() + ": representa Robos");
+
+        System.out.println(TipoEntidade.ROBOAEREO.getRepresentacao() + ": representa RobosAereos");
+    
+        System.out.println(TipoEntidade.VAZIO.getRepresentacao() + ": representa espacos vazios");
+    
+        //imprime o mapa em si
         char[][] mapa_aux = new char[this.comprimento][this.largura];
         for (int i = 0; i < this.comprimento; i++) 
             for (int j = 0; j < this.largura; j++) 

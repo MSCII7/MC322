@@ -11,7 +11,7 @@ public class Main{
             criarObstaculos(meuAmbiente);  
         
 
-            Robo meuRobo = new RoboTerrestre("FRED",10, 24,50);
+            Robo meuRobo = new RoboTerrestre("FRED",10, 24,20);
             //Testar reconhecimento dos limites
             //Teste.imprimirLimites(meuRobo, meuAmbiente);
             //Testar movimentar o robo
