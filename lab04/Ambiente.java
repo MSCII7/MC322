@@ -109,7 +109,7 @@ public class Ambiente
     }
 
     public boolean dentroDosLimites(int x, int y, int z){
-        return (x <= this.largura && y <= this.comprimento && z <= this.altura); //IMPLEMENTAR CONLISION ECXEPTION
+        return (x < this.largura && y < this.comprimento && z < this.altura);
     }
     public boolean estaOcupado (int x, int y, int z){
       ////Percorrer a lista de entidades e verificar se suas dimensões contém a coordenada desejada
@@ -130,6 +130,7 @@ public class Ambiente
     public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ){
         try{
             verificarColisoes(novoX, novoY, novoZ);
+            
             this.mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
             e.moverPara(novoX, novoY, novoZ);       
             this.mapa[e.getX()][e.getY()][e.getZ()]  = e.getTipo();
@@ -164,7 +165,7 @@ public class Ambiente
     }
 
     public void verificarColisoes(int x, int y, int z) throws ColisaoException{ 
-        if (estaOcupado(x, y, z)){
+        if (!dentroDosLimites(x, y, z) || estaOcupado(x, y, z)) {
             throw new ColisaoException();
         }
     }

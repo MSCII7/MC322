@@ -171,10 +171,17 @@ public class MenuInterativo {
                             else if (roboSelecionado instanceof Referenciavel ref) {
                                 System.out.println("Necessario a escolha de um Obstaculo para continuar: ");
                                 imprimirObstaculos(meuAmbiente);
-                                Obstaculo obstaculo = escolherObstaculoEspecifico(scanner.nextLine(), meuAmbiente);
-                                if(obstaculo != null) {
-                                    System.out.println("Foi escolhido o obstaculo " + obstaculo.getTipoObstaculo());
-                                    ref.setReferencia(obstaculo);
+                                while(ref.getReferencia()==null){
+                                    Obstaculo obstaculo = escolherObstaculoEspecifico(scanner.nextLine(), meuAmbiente);
+                                    if(obstaculo != null) {
+                                        System.out.println("Foi escolhido o obstaculo " + obstaculo.getTipoObstaculo());
+                                        try {
+                                            ref.setReferencia(obstaculo);  
+                                        } catch (TipoInconpativelException e) {
+                                            System.out.println(e.getMessage());
+                                            System.out.println("Tente novamente");
+                                        }
+                                    } 
                                 }
                             } 
                             else if (roboSelecionado instanceof Construtor rConstrutor) {

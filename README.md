@@ -22,10 +22,29 @@ Esse repositório apresenta os laboratórios de MC322, com o objetivo de gerar u
   * **Sensor Robôs**: Sensor que monitora robôs dentro do raio, usa o ambiente para achar os roboôs
   * **Sensor Obstáculos**: Sensor que acha os obstáculos próximos
   ## Ambiente
-  Classe que abriga os objetos criados: robôs, obstáculos e seus limites
+  Classe que abriga as entidades criadas: robôs, obstáculos, vazio ou indeterminada, juntamente com os seus limites.
   ## Obstáculo
   Classe que contém objetos que compõe o ambiente
-  
+  ## Interfaces
+  ### Comunicavel
+  Interface implementada para robos que utilizam a classe **CentralDeComunicacao** para enviar e receber mensagens
+  ### Sensoriavel
+  Implementada em objetos que contem sensores
+  ### Entidade
+  Generaliza os objetos do ambiente, adicionando metodos capazes de mapinular e distinguir as entidades existentes
+  ### Construtor
+  Interface dos objetos com capacidade de contruir no ambiente
+  ### Referenciavel
+  Interface que atrela um obstáculo a um objeto referenciavel
+  ## Exceptions
+  ### Colisao
+  Acionada toda vez que houver iminencia de colisao
+  ### EntidadeInvalida
+  Acionada quando há a tentativa de adicionar uma entidade nao válida no Ambiente
+  ### NaoAereo
+  Acionada para a tentativa de  mover robos terrestres no eixo z
+  ### RoboDesligado
+  Acionada quando um metodo tenta interagir com um robo desligado
 ## Como executar:
   - Abra o terminal e navegue para a pasta com o laboratório que você deseja rodar (certifique-se de que você está na pasta correta)
   - Utilize o comando "javac *.java" para compilar todos os arquivos java dentro da pasta com o laboratório desejado

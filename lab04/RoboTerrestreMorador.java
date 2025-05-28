@@ -42,13 +42,13 @@ public class RoboTerrestreMorador extends RoboTerrestre implements Referenciavel
             //Fica a uma distancia de 5 passos da moradia
             int deltaX, deltaY;
             if (this.posicaoX > getPosXReferencia()){
-                deltaX = this.posicaoX - getPosXReferencia() - moradia.getTipoObstaculo().getComprimento()/2 - 5;
+                deltaX = -(this.posicaoX - getPosXReferencia() - moradia.getTipoObstaculo().getComprimento()/2 - 5);
             }else
-                deltaX = this.posicaoX + getPosXReferencia() + moradia.getTipoObstaculo().getComprimento()/2 + 5;
+                deltaX = -this.posicaoX + getPosXReferencia() + moradia.getTipoObstaculo().getComprimento()/2 + 5;
             if (this.posicaoY > getPosYReferencia()){
-                deltaY = this.posicaoY - getPosYReferencia() - moradia.getTipoObstaculo().getLargura()/2 - 5;
+                deltaY = -(this.posicaoY - getPosYReferencia() - moradia.getTipoObstaculo().getLargura()/2 - 5);
             }else
-                deltaY = this.posicaoY + getPosYReferencia() + moradia.getTipoObstaculo().getLargura()/2 + 5;
+                deltaY = -this.posicaoY + getPosYReferencia() + moradia.getTipoObstaculo().getLargura()/2 + 5;
             mover(deltaX, deltaY);
 
             System.out.println("Moveu para proximo da moradia");
@@ -59,12 +59,13 @@ public class RoboTerrestreMorador extends RoboTerrestre implements Referenciavel
 
 
     @Override
-    public void setReferencia(Obstaculo ref){
+    public void setReferencia(Obstaculo ref) throws TipoInconpativelException{
         TipoObstaculo refTipo = ref.getTipoObstaculo();
 
         if(refTipo == TipoObstaculo.CASA ||refTipo == TipoObstaculo.PREDIO){
             this.moradia = ref;
-        }
+        }else
+            throw new TipoInconpativelException("Obstaculo escolhido nao eh uma moradia!");
     }
     @Override
     public Obstaculo getReferencia(){
