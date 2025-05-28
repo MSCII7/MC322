@@ -269,7 +269,7 @@ public class Main{
         int deltaMov[] = new int[3];
 
         //mensagem de comandos do menu interativo
-        String msgComandos = "Comandos gerais possiveis: \n" + 
+        String msgComandos = "\nComandos gerais possiveis: \n" + 
         comImprimirRobos +" imprime todos os robos \n" + 
         comImprimirLigados +" imprime todos os robos ligados \n"+
         comImprimirDesligados + " imprime todos os robos desligados \n"+
@@ -281,10 +281,10 @@ public class Main{
         comSair + " sai do programa \n" + 
         comHelp + " imprime essa mensagem novamente.";
 
-        String msgComandosRobo = "Comandos do robo selecionado: \n" + 
+        String msgComandosRobo = "\nComandos do robo selecionado: \n" + 
         comPosRobo + " imprime sua posicao \n"+
         comLigarRobo+ " liga o robo \n" +
-        comDesligarRobo+ "desliga o robo \n" +
+        comDesligarRobo+ " desliga o robo \n" +
         comSensorRobos + " imprime o status do seu sensor de robos \n" +
         comSensorObst +  " imprime o status do seu sensor de obstaculos. \n" +
         "rmx, rmy, rmz <delta> movem o robo selecionado na direcao escolhida uma quantidade <delta> "+
@@ -436,10 +436,13 @@ public class Main{
                         }
                     }
                     
-                    meuAmbiente.moverEntidade(roboSelecionado,
-                            roboSelecionado.getX() + deltaMov[0],
-                            roboSelecionado.getY() + deltaMov[1],
-                            roboSelecionado.getZ() + deltaMov[2]);
+                    //so executa mover se vetor delta de deslocamento nao for nulo
+                    if(deltaMov[0] != 0 || deltaMov[1] != 0 || deltaMov[2] != 0){
+                        meuAmbiente.moverEntidade(roboSelecionado,
+                                roboSelecionado.getX() + deltaMov[0],
+                                roboSelecionado.getY() + deltaMov[1],
+                                roboSelecionado.getZ() + deltaMov[2]);
+                    }
                 } 
                 else {
                     System.out.println("Nenhum Robo foi selecionado");

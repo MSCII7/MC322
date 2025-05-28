@@ -20,7 +20,7 @@ class RoboAereoConsciente extends RoboAereo implements Sensoreavel{
         
         mensagem = "Ei, saia do caminho!";
         comandoTarefa = "ctc"; //comando tarefa consciente
-        descricaoTarefa = " imprime todos os robos proximos e manda a mensagem '" + mensagem + "' para eles";
+        descricaoTarefa = " imprime todos os robos proximos e manda a mensagem '" + mensagem + "' para os comunicaveis";
     }
 
     @Override public void subir(int deltaZ){
@@ -72,10 +72,14 @@ class RoboAereoConsciente extends RoboAereo implements Sensoreavel{
             if(robo instanceof Comunicavel comunicavel){
                 try{
                     enviarMensagem(comunicavel, mensagem);
+                    System.out.println("Enviou mensagem para o robo comunicavel " + robo.getNome());
                 }
                 catch(RoboDesligadoException e){
                     throw e;
                 }
+            }
+            else{
+                System.out.println(robo.getNome() + " nao eh comunicavel: nao recebeu mensagem");
             }
         }
         System.out.println("--------------------------------------------------");

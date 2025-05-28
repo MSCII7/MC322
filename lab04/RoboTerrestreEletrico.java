@@ -4,6 +4,8 @@ public class RoboTerrestreEletrico extends RoboTerrestre{
         super(nomeIn, posXIn, posYIn, vMax);
         nivel_bateria = 100;
         tipo = "Eletrico";
+        descricaoTarefa = " imprime o nivel de bateria anterior e carrega o robo ate 100";
+        comandoTarefa = "cr";
     }
     //Alterar o mover() para que o robo nao se mmova quando novel_bateria = 0    
     @Override public void mover(int deltaX, int deltaY){
@@ -21,7 +23,7 @@ public class RoboTerrestreEletrico extends RoboTerrestre{
                     this.nivel_bateria -= Math.abs(deltaY);
                 }
             } else
-                System.out.println("Velocidade total do robo " + nome + " excedeu maximo: movimento impedido");
+                System.err.println("Velocidade total do robo " + nome + " excedeu maximo: movimento impedido");
         } else
             System.err.println("Sem bateria, recarregue o robo com o comando \"ce\"");
     }
@@ -34,6 +36,16 @@ public class RoboTerrestreEletrico extends RoboTerrestre{
     //Imprimir a bateria por "%"
     public int getNivel_bateria(){
         return this.nivel_bateria;
+    }
+
+    @Override public void executarTarefa() throws RoboDesligadoException{
+        if(this.ligado){
+            System.out.println("Nivel de bateria atual: " + getNivel_bateria());
+            carregar();
+        }
+        else{
+            throw new RoboDesligadoException();
+        }
     }
     @Override
     public String toString() {

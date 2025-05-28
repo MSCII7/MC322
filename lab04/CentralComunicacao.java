@@ -4,7 +4,7 @@ import java.util.ArrayList;
 // Mensagens ficam armezenadas como um conjunto contendo o destinatario, o remetente e a mensagem em si
 
 public class CentralComunicacao{
-    private static ArrayList<GrupoMensagemRobo> gruposMensagem;
+    private static ArrayList<GrupoMensagemRobo> gruposMensagem = new ArrayList<>();
 
     static public void registrarMensagem(Comunicavel remetente, Comunicavel dest, String mensagem){
         gruposMensagem.add(new GrupoMensagemRobo(remetente, dest, mensagem));
