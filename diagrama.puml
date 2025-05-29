@@ -137,7 +137,7 @@ class CentralComunicacao {
     +static removerMensagem:void 
 }
 class GrupoMensagemRobo {
-    -Cominicalvel remetente
+    -Comunicavel remetente
     -Comunicavel destinatario
     +GrupoMensagemRobo(Comunicavel, Comunicavel, String)
     +getRemetente:Comunicavel 
@@ -200,6 +200,7 @@ exception TipoIncompativelException {
     +TipoIncompativelException()
 }
 
+
 Referenciavel ..> TipoIncompativelException : «throws» 
 Comunicavel "1" o-- "1" CentralComunicacao
 CentralComunicacao o-- GrupoMensagemRobo
@@ -211,6 +212,7 @@ RoboTerrestreEletrico ..|> Carregavel
 RoboTerrestreTeletransporte ..|> Carregavel
 RoboTerrestrePanfletario ..|> Comunicavel
 RoboTerrestrePanfletario..|> Sensoreavel
+RoboAereo ..|> Comunicavel
 RoboAereoConsciente ..|> Sensoreavel
 RoboTerrestreMorador ..|> Referenciavel
 RoboTerrestreMorador ..|> Comunicavel
