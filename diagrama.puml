@@ -31,7 +31,7 @@ class RoboTerrestreEletrico {
     -int nivel_bateria
     +mover(int, int, Ambiente): void
     +carregar(): void
-    +getNivel_bateria(): int
+    +getNivel(): int
 }
 class RoboTerrestreTeletransporte {
     -int barra_teletransporte
@@ -180,6 +180,10 @@ interface Referenciavel {
     void encontraReferencia()
     Obstaculo getReferencia()
 }
+interface Carregavel{
+    +getNivel(): int
+    +carregar(): void
+}
 exception ColisaoException {
     +ColisaoException()
 }
@@ -192,13 +196,19 @@ exception NaoAereoException {
 exception EntidadeInvalidaException {
     +EntidadeInvalidaException()
 }
+exception TipoIncompativelException {
+    +TipoIncompativelException()
+}
 
+Referenciavel ..> TipoIncompativelException : «throws» 
 Comunicavel "1" o-- "1" CentralComunicacao
 CentralComunicacao o-- GrupoMensagemRobo
 Ambiente ..> ColisaoException : «throws» 
 Ambiente ..> EntidadeInvalidaException : «throws» 
 Robo ..> NaoAereoException : «throws» 
 Robo ..> RoboDesligadoException : «throws» 
+RoboTerrestreEletrico ..|> Carregavel
+RoboTerrestreTeletransporte ..|> Carregavel
 RoboTerrestrePanfletario ..|> Comunicavel
 RoboTerrestrePanfletario..|> Sensoreavel
 RoboAereoConsciente ..|> Sensoreavel
