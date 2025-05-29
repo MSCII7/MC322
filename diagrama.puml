@@ -228,6 +228,7 @@ RoboTerrestre <|-- RoboTerrestreTeletransporte
 RoboTerrestre <|-- RoboTerrestreEletrico
 RoboTerrestre <|-- RoboTerrestreAmbientalista
 RoboTerrestre <|-- RoboTerrestreMorador
+RoboTerrestre <|-- RoboTerrestrePanfletario
 Robo <|-- RoboAereo
 Robo <|-- RoboTerrestre
 Obstaculo ..> TipoObstaculo
