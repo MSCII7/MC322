@@ -116,11 +116,13 @@ public class Ambiente
     }
     public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ){
         try{
-            verificarColisoes(novoX, novoY, novoZ);
-            
-            this.mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
-            e.moverPara(novoX, novoY, novoZ);       
-            this.mapa[e.getX()][e.getY()][e.getZ()]  = e.getTipo();
+            if (e.getX() != novoX || e.getY() != novoY || e.getZ() != novoZ){
+                verificarColisoes(novoX, novoY, novoZ);
+                
+                this.mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
+                e.moverPara(novoX, novoY, novoZ);       
+                this.mapa[e.getX()][e.getY()][e.getZ()]  = e.getTipo();
+            }
         } 
         catch (ColisaoException colException){
             System.err.println("ColisaoException, entidade não pode se mover para ("+novoX+ ", "+novoY+ ", "+novoZ+ ")");
@@ -133,14 +135,7 @@ public class Ambiente
         }
 
     }
-      //if (e isnstanceof Robo r){
-      //    if (dentroDosLimites(novoX, novoY, novoZ)){
-      //        if (!estaOcupado(novoX, novoY, novoZ)){
-      //            this.mapa[e.getX()][e.getY()][e.getZ()] = null;
-      //            this.mapa[novoX][novoY][novoZ] = e.getTipo();
-      //        }
-      //    }
-      //}
+     
     public void executarSensores(Sensoreavel roboSensoreavel){
         try{
             roboSensoreavel.acionarSensores(this);
@@ -195,9 +190,9 @@ public class Ambiente
         System.out.println(representacaoSelecionado + ": representa robo selecionado (se houver)");
     
         //imprime o mapa em si
-        char[][] mapa_aux = new char[this.comprimento][this.largura];
-        for (int i = 0; i < this.comprimento; i++) 
-            for (int j = 0; j < this.largura; j++){
+        char[][] mapa_aux = new char[this.largura][this.comprimento];
+        for (int i = 0; i < this.largura; i++) 
+            for (int j = 0; j < this.comprimento; j++){
                 if(roboSelecionado != null && roboSelecionado.posicaoX == i && roboSelecionado.posicaoY == j)
                     mapa_aux[i][j] = representacaoSelecionado;
                 else
@@ -212,8 +207,8 @@ public class Ambiente
                     mapa_aux[ra.getX()][ra.getY()] = ent.getRepresentacao(); 
             }
         }
-        for (int j = this.largura-1; j >= 0; j--) {   
-            for (int i = 0; i < this.comprimento; i++) {  
+        for (int j = this.comprimento-1; j >= 0; j--) {   
+            for (int i = 0; i < this.largura; i++) {  
                 System.out.print(mapa_aux[i][j]);
             }
             System.out.println();
