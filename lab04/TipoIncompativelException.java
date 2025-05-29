@@ -1,5 +1,5 @@
-public class TipoInconpativelException extends Exception {
-    public TipoInconpativelException(String mensagem){
+public class TipoIncompativelException extends Exception {
+    public TipoIncompativelException(String mensagem){
         super(mensagem);
     }
 }
