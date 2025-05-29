@@ -49,8 +49,8 @@ public class MenuInterativo {
         comSensorRobos + " imprime o status do seu sensor de robos \n" +
         comSensorObst +  " imprime o status do seu sensor de obstaculos. \n" +
         "rmx, rmy, rmz <delta> movem o robo selecionado na direcao escolhida uma quantidade <delta> "+
-        "(delta pode ser negativo, rmz so pode ser usado para o aereo). "+
-        "O valor maximo para o modulo de delta eh " + maxMover + " unidades";
+        "(delta pode ser negativo, rmz so pode ser usado para o aereo). ";
+        //+"O valor maximo para o modulo de delta eh " + maxMover + " unidades";
 
         System.out.println("");
         System.out.println("---Bem vindo ao menu de interacao---");
@@ -153,13 +153,13 @@ public class MenuInterativo {
                         */
                     //comandos de movimentacao
                     else if(divisor[0].equals("rmx")) {
-                        deltaMov[0] = getDeltaRobo(divisor, maxMover);
+                        deltaMov[0] = getDeltaRobo(divisor);
                     }
                     else if(divisor[0].equals("rmy")) {
-                        deltaMov[1] = getDeltaRobo(divisor, maxMover);
+                        deltaMov[1] = getDeltaRobo(divisor);
                     }
                     else if(divisor[0].equals("rmz")) {
-                        deltaMov[2] = getDeltaRobo(divisor, maxMover);
+                        deltaMov[2] = getDeltaRobo(divisor);
                     }
                     else if(comando.equals(roboSelecionado.getComandoTarefa())) {
                         //pode estar tanto desligado para acionar sensores quanto para executar a tarefa
@@ -178,8 +178,8 @@ public class MenuInterativo {
                                         try {
                                             ref.setReferencia(obstaculo);  
                                         } catch (TipoInconpativelException e) {
-                                            System.out.println(e.getMessage());
-                                            System.out.println("Tente novamente");
+                                            System.err.println(e.getMessage());
+                                            System.err.println("Tente novamente");
                                         }
                                     } 
                                 }
@@ -396,11 +396,11 @@ public class MenuInterativo {
 
 
     //utilizado para obter o delta a partir do comando de movimentacao do robo (com .split ja aplicado)
-    private static int getDeltaRobo(String[] comDividido, int maxMover){
+    private static int getDeltaRobo(String[] comDividido){
         //se nao for maior que 1, o comando veio sem valor delta, entao podemos considerar delta = 0
         if(comDividido.length > 1){
             //usa o delta se for int e menor que o maximo
-            if(ehInt(comDividido[1]) && Math.abs(Integer.parseInt(comDividido[1])) <= maxMover)
+            if(ehInt(comDividido[1]))
                 return Integer.parseInt(comDividido[1]);
             else{
                 System.err.println("Nao foi fornecido numero valido");

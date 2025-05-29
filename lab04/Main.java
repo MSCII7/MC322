@@ -10,15 +10,11 @@ public class Main{
         
 
             Robo meuRobo = new RoboTerrestre("FRED",10, 24,20);
-            //Testar reconhecimento dos limites
-            //Teste.imprimirLimites(meuRobo, meuAmbiente);
-            //Testar movimentar o robo
-            //meuRobo.mover(20, 40, meuAmbiente);
+           
 
             meuAmbiente.adicionarEntidade(meuRobo);
 
 
-            //Teste.imprimirLimites(meuRobo, meuAmbiente);
 
             meuRobo.exibirPosicao();
 
@@ -28,7 +24,6 @@ public class Main{
 
             RoboTerrestreEletrico eletrico = Teste.testeEletrico(meuAmbiente);
             meuAmbiente.adicionarEntidade(eletrico);
-            //Dando problema aqui
             RoboTerrestreTeletransporte teletransporte = Teste.testeTeletransporte(meuAmbiente); 
             meuAmbiente.adicionarEntidade(teletransporte);
 

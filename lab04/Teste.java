@@ -4,7 +4,7 @@ public class Teste {
     /*Testa se as funcoes do robo eletrico funcionam e comparam com 
     o resultado esperado*/
     public static RoboTerrestreEletrico testeEletrico(Ambiente amb){
-        RoboTerrestreEletrico eletrico = new RoboTerrestreEletrico("SHOCK", 5, 5,101);
+        RoboTerrestreEletrico eletrico = new RoboTerrestreEletrico("SHOCK", 5, 5,20);
      // System.out.println("\n-----------\nTESTE RoboTerrestreEletrico:\n");
 
      // eletrico.mover(100,0);
@@ -167,7 +167,6 @@ public class Teste {
         aereo.exibirPosicao();
         amb.imprimirDimensoes();
         System.out.println("A altura maxima e " + altMax);
-        //imprimirLimites(aereo, amb);
         System.out.println("");
     }
 

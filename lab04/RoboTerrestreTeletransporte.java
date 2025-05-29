@@ -1,4 +1,4 @@
-public class RoboTerrestreTeletransporte extends RoboTerrestre{
+public class RoboTerrestreTeletransporte extends RoboTerrestre implements Carregavel{
     private int barra_teletransporte;
     public RoboTerrestreTeletransporte(String nomeIn, int posXIn, int posYIn, int vMax){
         super(nomeIn, posXIn, posYIn, vMax);
@@ -15,11 +15,11 @@ public class RoboTerrestreTeletransporte extends RoboTerrestre{
         
         if(moduloQuadrado < velocidadeMaxima*velocidadeMaxima){ 
             int deslocamento = 0;
-            if(posicaoX + deltaX > 0){ //para nao ir para negativo
+            if(posicaoX + deltaX >= 0){ //para nao ir para negativo
                 this.posicaoX += deltaX;
                 deslocamento += Math.abs(deltaX);
             }
-            if(posicaoY + deltaY > 0){ //para nao ir para negativo
+            if(posicaoY + deltaY >= 0){ //para nao ir para negativo
                 this.posicaoY += deltaY;
                 deslocamento += Math.abs(deltaY);
             }
@@ -30,8 +30,10 @@ public class RoboTerrestreTeletransporte extends RoboTerrestre{
                 else
                     this.barra_teletransporte = 100;
             } 
+        } else if (this.barra_teletransporte==100){
+            teletransportar(posicaoX + deltaX, posicaoY + deltaY);
         } else
-            System.out.println("Velocidade total do robo " + nome + " excedeu maximo: movimento impedido");
+            System.out.println("Velocidade total do robo " + nome + " excedeu maximo: movimento impedido. Por favor, carregue o robo com: "+this.comandoTarefa);
         
         
     }
@@ -43,7 +45,6 @@ public class RoboTerrestreTeletransporte extends RoboTerrestre{
             this.barra_teletransporte = 0; 
         } else{
             mover(posX - posicaoX, posY - posicaoY);
-            System.out.println("Barra de telestransporte não está carregada! Faltam "+(100-this.barra_teletransporte)+" passos");
         }
     }
 
@@ -62,17 +63,33 @@ public class RoboTerrestreTeletransporte extends RoboTerrestre{
         }
     }
 
-    @Override
-    public void executarTarefa() throws RoboDesligadoException {
+    
+    @Override public void executarTarefa() throws RoboDesligadoException{
+        if(this.ligado){
+            System.out.println("Nivel de bateria atual: " + getNivel()+"%");
+            if (getNivel()==100){
+                System.err.println("Barra ja esta cheia, nao precisa carregar!");
+            }else{ 
+                carregar();
+            }
+        }
+        else{
+            throw new RoboDesligadoException();
+        }
     }
-
-
+   
+    @Override
+    public void carregar(){
+        System.out.println("Barra de teletransporte cheia. Agora, "+this.nome+" pode se teletransportar!");
+        this.barra_teletransporte = 100;
+    }
     //Imprime a barra em porcentagem
-    public int getBarra_teletransporte(){
+    @Override
+    public int getNivel(){
         return this.barra_teletransporte;
     }
     @Override
     public String toString() {
-        return super.toString() + ". Barra_tp = "+ getBarra_teletransporte() + "%";
+        return super.toString() + ". Barra_tp = "+ getNivel() + "%";
     }
 }

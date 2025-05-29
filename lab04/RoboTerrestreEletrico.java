@@ -1,4 +1,4 @@
-public class RoboTerrestreEletrico extends RoboTerrestre{
+public class RoboTerrestreEletrico extends RoboTerrestre implements Carregavel{
     private int nivel_bateria; //determina a bateria restante do robo
     public RoboTerrestreEletrico(String nomeIn, int posXIn, int posYIn, int vMax){
         super(nomeIn, posXIn, posYIn, vMax);
@@ -15,11 +15,11 @@ public class RoboTerrestreEletrico extends RoboTerrestre{
         //Adicionar o fator do nível da bateria como um limitante do deslocamento
         if (this.nivel_bateria >= (deltaX + deltaY)){
             if(moduloQuadrado < velocidadeMaxima*velocidadeMaxima){
-                if(posicaoX + deltaX > 0){ //para nao ir para negativo
+                if(posicaoX + deltaX >= 0){ //para nao ir para negativo
                     this.posicaoX += deltaX;
                     this.nivel_bateria -= Math.abs(deltaX);
                 }
-                if(posicaoY + deltaY > 0){ //para nao ir para negativo
+                if(posicaoY + deltaY >= 0){ //para nao ir para negativo
                     this.posicaoY += deltaY;
                     this.nivel_bateria -= Math.abs(deltaY);
                 }
@@ -30,18 +30,20 @@ public class RoboTerrestreEletrico extends RoboTerrestre{
     }
 
     //Carregar o robo, imprimindo o seu status e colocar seu nivel para 100
+    @Override
     public void carregar(){
         System.out.println(this.nome+" foi carregado!");
         this.nivel_bateria = 100;
     }
     //Imprimir a bateria por "%"
-    public int getNivel_bateria(){
+    @Override
+    public int getNivel(){
         return this.nivel_bateria;
     }
 
     @Override public void executarTarefa() throws RoboDesligadoException{
         if(this.ligado){
-            System.out.println("Nivel de bateria atual: " + getNivel_bateria());
+            System.out.println("Nivel de bateria atual: " + getNivel());
             carregar();
         }
         else{
@@ -50,6 +52,6 @@ public class RoboTerrestreEletrico extends RoboTerrestre{
     }
     @Override
     public String toString() {
-        return super.toString() + ". Bateria = "+ getNivel_bateria() + "%";
+        return super.toString() + ". Bateria = "+ getNivel() + "%";
     }
 }

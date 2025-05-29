@@ -55,9 +55,9 @@ public class RoboAereo extends Robo implements Comunicavel{
         int novo_x = posicaoX + deltaX;
         int novo_y = posicaoY + deltaY;
 
-        if(novo_x > 0) //para nao ir para negativo
+        if(novo_x >= 0) //para nao ir para negativo
             this.posicaoX += deltaX;
-        if(novo_y > 0) //para nao ir para negativo
+        if(novo_y >= 0) //para nao ir para negativo
             this.posicaoY += deltaY;
     }
 

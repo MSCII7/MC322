@@ -20,10 +20,10 @@ public class RoboTerrestre extends Robo{
 
         if(moduloQuadrado <= velocidadeMaxima*velocidadeMaxima){
 
-            if(posicaoX + deltaX > 0) //para nao ir para negativo
+            if(posicaoX + deltaX >= 0) //para nao ir para negativo
                 this.posicaoX += deltaX;
 
-            if(posicaoY + deltaY > 0) //para nao ir para negativo
+            if(posicaoY + deltaY >= 0) //para nao ir para negativo
                 this.posicaoY += deltaY;
                 
         } else{
