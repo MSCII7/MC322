@@ -18,10 +18,9 @@ public class MenuInterativo {
         //comandos do robo no menu interativo
         String comHelpRobo = "rh";
         String comPosRobo = "rp";
-        String comSensorRobos = "rsr";
-        String comSensorObst = "rso";
         String comLigarRobo = "rl";
         String comDesligarRobo = "rd";
+        String comListarMensagens = "rlm";
 
 
         int maxMover = 20;
@@ -31,24 +30,23 @@ public class MenuInterativo {
 
         //mensagem de comandos do menu interativo
         String msgComandos = "\nComandos gerais possiveis: \n" + 
-        comImprimirRobos +" imprime todos os robos \n" + 
-        comImprimirLigados +" imprime todos os robos ligados \n"+
-        comImprimirDesligados + " imprime todos os robos desligados \n"+
-        comImprimirObstaculos + " imprime todos os obstaculos \n" +
-        comImprimirAmbiente + " imprime dados do ambiente \n" + 
-        comImprimirMapa + " imprime o mapa do ambiente \n" +
-        comSelecionarRobo + " <identificador> seleciona um robo, "
-        +"sendo <identificador> o nome ou indice do robo no ambiente. \n" +
-        comSair + " sai do programa \n" + 
-        comHelp + " imprime essa mensagem novamente.";
+        comImprimirRobos +" - imprime todos os robos \n" + 
+        comImprimirLigados +" - imprime todos os robos ligados \n"+
+        comImprimirDesligados + " - imprime todos os robos desligados \n"+
+        comImprimirObstaculos + " - imprime todos os obstaculos \n" +
+        comImprimirAmbiente + " - imprime dados do ambiente \n" + 
+        comImprimirMapa + " - imprime o mapa do ambiente \n" +
+        comSelecionarRobo + " <identificador> - seleciona um robo, "
+        +"sendo <identificador> o nome do robo, o id unico do robo ou o indice do robo no ambiente. \n" +
+        comSair + " - sai do programa \n" + 
+        comHelp + " - imprime essa mensagem novamente.";
 
         String msgComandosRobo = "\nComandos do robo selecionado: \n" + 
-        comPosRobo + " imprime sua posicao \n"+
-        comLigarRobo+ " liga o robo \n" +
-        comDesligarRobo+ " desliga o robo \n" +
-        comSensorRobos + " imprime o status do seu sensor de robos \n" +
-        comSensorObst +  " imprime o status do seu sensor de obstaculos. \n" +
-        "rmx, rmy, rmz <delta> movem o robo selecionado na direcao escolhida uma quantidade <delta> "+
+        comPosRobo + " - imprime sua posicao \n"+
+        comLigarRobo+ " - liga o robo \n" +
+        comDesligarRobo+ " - desliga o robo \n" +
+        comListarMensagens + " - lista as mensagens recebidas pelo robo (se for comunicavel) \n" +
+        "rmx, rmy, rmz <delta> - movem o robo selecionado na direcao escolhida uma quantidade <delta> "+
         "(delta pode ser negativo, rmz so pode ser usado para o aereo). ";
         //+"O valor maximo para o modulo de delta eh " + maxMover + " unidades";
 
@@ -103,12 +101,13 @@ public class MenuInterativo {
                 if(roboSelecionado != null) {
                     if(comando.equals(comHelpRobo)) {
                         System.out.println(msgComandosRobo);
-                        System.out.println("Tarefa especifica do robo:");
+                        System.out.println();
+                        System.out.println("Tarefa especifica do robo (Palavras em parenteses sao as interfaces adicionais utilizadas na tarefa, se houver):");
                         roboSelecionado.imprimirDescricaoTarefa();
                     }
                     //imprimir posicao robo selecionado
                     else if(comando.equals(comPosRobo)) {
-                        System.out.println(roboSelecionado.toString());
+                        System.out.println(roboSelecionado.getDescricao());
                     }
                     else if(comando.equals(comLigarRobo)) {
                         roboSelecionado.ligar();
@@ -118,39 +117,22 @@ public class MenuInterativo {
                         roboSelecionado.desligar();
                         System.out.println("Robo foi desligado");
                     }
-                    //imprimir sensor obstaculos robo selecionado
-                    /* 
-                    else if(comando.equals(comSensorObst)) {
-                        if(roboSelecionado instanceof Sensoreavel rSensoreavel) {
-                            try {
-                                rSensoreavel.acionarSensores(meuAmbiente);
-                                ArrayList<Obstaculo> obstaculos = rSensoreavel.identificarObstaculos(meuAmbiente);
-                                System.out.println("----Utilizando sensor de obstaculos, de raio " + roboSelecionado.so.getRaio() + ": ----");
-        
-                                for(Obstaculo obs : obstaculos) {
-                                    obs.exibirObstaculo();
-                                }
-                                System.out.println("-------------------------------------------------------");
+
+                    else if(comando.equals(comListarMensagens)){
+                        if(roboSelecionado instanceof Comunicavel roboComunicavel){
+                            try{
+                                roboComunicavel.receberMensagens();
                             }
-                            catch(RoboDesligadoException e) {
+                            catch(RoboDesligadoException e){
                                 System.err.println(e.getMessage());
                             }
                         }
-                        else {
-                            System.err.println("O robo selecionado nao eh Sensoreavel");
+                        else{
+                            System.err.println(roboSelecionado.getNome() + " nao eh Comunicavel!");
                         }
                     }
-                    //imprimir sensor robos robo selecionado
-                    else if(comando.equals(comSensorRobos)) {
-                        ArrayList<Robo> robos = roboSelecionado.identificarRobos(meuAmbiente);
-                        System.out.println("----Utilizando sensor de robos, de raio " + roboSelecionado.sr.getRaio() + ": ----");
-        
-                        for(Robo robo : robos) {
-                            robo.exibirPosicao();
-                        }
-                        System.out.println("--------------------------------------------------");
-                    }
-                        */
+                    
+
                     //comandos de movimentacao
                     else if(divisor[0].equals("rmx")) {
                         deltaMov[0] = getDeltaRobo(divisor);
@@ -177,9 +159,8 @@ public class MenuInterativo {
                                         System.out.println("Foi escolhido o obstaculo " + obstaculo.getTipoObstaculo());
                                         try {
                                             ref.setReferencia(obstaculo);  
-                                        } catch (TipoInconpativelException e) {
+                                        } catch (TipoIncompativelException e) {
                                             System.err.println(e.getMessage());
-                                            System.err.println("Tente novamente");
                                         }
                                     } 
                                 }
@@ -238,7 +219,7 @@ public class MenuInterativo {
         ArrayList<Robo> robos = amb.getRobos();
         for(int i = 0; i < robos.size(); i++){
             System.out.printf(i + "-> ");
-            System.out.println(robos.get(i).toString());
+            System.out.println(robos.get(i).getDescricao());
         }
     }
 
@@ -254,15 +235,18 @@ public class MenuInterativo {
     private static void imprimirPorEstado(Ambiente amb, boolean ligado){
         ArrayList<Robo> robos = amb.getRobos();
         ArrayList<Robo> robosEstado = new ArrayList<>();
-        for(Robo robo : robos){
+        ArrayList<Integer> robosIndexAmb = new ArrayList<>();
+        for(int i = 0; i < robos.size(); i++){
             //exemplo: se queremos os desligados, teremos false == false -> true
-            if(robo.getEstado() == ligado){
-                robosEstado.add(robo);
+            if(robos.get(i).getEstado() == ligado){
+                robosEstado.add(robos.get(i));
+                robosIndexAmb.add(i);
+
             }
         }
         for(int i = 0; i < robosEstado.size(); i++){
-            System.out.printf(i + "-> ");
-            System.out.println(robosEstado.get(i).toString());
+            System.out.printf(robosIndexAmb.get(i) + "-> ");
+            System.out.println(robosEstado.get(i).getDescricao());
         }
     }
 
@@ -270,12 +254,12 @@ public class MenuInterativo {
         ArrayList<Entidade> entidades= amb.getEntidades();
         for(int i = 0; i < entidades.size(); i++){
             System.out.printf(i +  ": ");
-            System.out.println(entidades.get(i).toString());
+            System.out.println(entidades.get(i).getDescricao());
         }
     }
     private static void imprimirAmbiente(Ambiente amb){
         amb.imprimirDimensoes();
-        System.out.println("O ambiente tem "+amb.getEntidades(). size()+" entidades.");
+        System.out.println("O ambiente tem "+ amb.getEntidades().size() +" entidades.");
         //System.out.println("O ambiente tem " + amb.getRobos().size() + " robos.");
         //System.err.println("O ambiente tem " + amb.getObstaculos().size() + " obstaculos.");
     }
@@ -340,7 +324,7 @@ public class MenuInterativo {
                 }
             }
         }
-        System.out.println("A string idenficadora esta vazia!");
+        System.out.println("A string idenficadora eh invalida");
         return null;
     }
     //escolhe um robo a partir do indice ou nome. Podemos utilizar depois para imprimir o robo ou analisar sensores
@@ -352,14 +336,21 @@ public class MenuInterativo {
 
             //para utilizacao de numero para identificar robo
             if(ehInt(identificador)){
-                int indice = Integer.parseInt(identificador);
+                int numero = Integer.parseInt(identificador);
 
-                if(indice > robos.size() - 1){
+                //escolha por id
+                for(Robo robo : robos){
+                    if(robo.getId() == numero)
+                        return robo;
+                }
+
+                //escolha por indice no ambiente
+                if(numero > robos.size() - 1){
                     System.out.println("Indice invalido");
                     return null;
                 }
                 else{
-                    Robo r = robos.get(indice);
+                    Robo r = robos.get(numero);
                     return r;
                 }
             }

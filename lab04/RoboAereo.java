@@ -13,7 +13,7 @@ public class RoboAereo extends Robo implements Comunicavel{
         tipoEntidade = TipoEntidade.ROBOAEREO;
 
         comandoTarefa = "imr"; //imprimir mensagens recebidas
-        descricaoTarefa = " imprime as mensagens recebidas pelo robo";
+        descricaoTarefa = " imprime as mensagens recebidas pelo robo (Comunicavel)";
     }
 
     public void subir(int deltaZ){

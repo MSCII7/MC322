@@ -20,7 +20,7 @@ class RoboAereoConsciente extends RoboAereo implements Sensoreavel{
         
         mensagem = "Ei, saia do caminho!";
         comandoTarefa = "ctc"; //comando tarefa consciente
-        descricaoTarefa = " imprime todos os robos proximos e manda a mensagem '" + mensagem + "' para os comunicaveis";
+        descricaoTarefa = " imprime todos os robos proximos e manda a mensagem '" + mensagem + "' para os comunicaveis (Comunicavel, Sensoreavel)";
     }
 
     @Override public void subir(int deltaZ){

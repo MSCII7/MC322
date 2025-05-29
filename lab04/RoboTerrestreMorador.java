@@ -6,7 +6,7 @@ public class RoboTerrestreMorador extends RoboTerrestre implements Referenciavel
         super(nome, posX,posY, vMax);
 
         this.tipo = "Morador";
-        this.descricaoTarefa = " move para perto do obstaculo definido como moradia";
+        this.descricaoTarefa = " move para perto do obstaculo definido como moradia (Referenciavel, Comunicavel)";
         this.comandoTarefa = "mpm"; //mover para moradia
     }
     

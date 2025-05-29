@@ -6,7 +6,7 @@ public class RoboTerrestrePanfletario extends RoboTerrestre implements Comunicav
         this.sr.setRaio(100);
 
         this.tipo = "Panfletario";
-        this.descricaoTarefa = " envia propaganda imobiliaria para os robos moradores proximos";
+        this.descricaoTarefa = " envia propaganda imobiliaria para os robos moradores proximos (Comunicavel, Sensoreavel)";
         this.comandoTarefa = "ep";
         this.mensagem = "Atencao, novas ofertas de casas e apartamentos, todos murados e bem arborizados, em regioes proximas de voce\nAproveite, venha comprar na Imoveis Prateados!!";
     }

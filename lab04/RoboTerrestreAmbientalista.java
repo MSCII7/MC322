@@ -5,7 +5,7 @@ public class RoboTerrestreAmbientalista extends RoboTerrestre implements Constru
 
             this.tipo = "Ambientalista";
             this.comandoTarefa = "pa";
-            this.descricaoTarefa = " escolhe uma posicao para plantar uma arvore";
+            this.descricaoTarefa = " escolhe uma posicao para plantar uma arvore (Construtor)";
         }
     
     @Override

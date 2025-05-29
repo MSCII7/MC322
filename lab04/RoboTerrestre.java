@@ -11,7 +11,7 @@ public class RoboTerrestre extends Robo{
 
         tipo = "Terrestre";
         this.fatorReducao = 2;
-        this.descricaoTarefa = " diminui a velocidade maxima do robo em " + fatorReducao + " unidades e imprime a nova velocidade maxima";
+        this.descricaoTarefa = " diminui a velocidade maxima do robo em " + fatorReducao + " unidades e imprime a nova velocidade maxima()";
         this.comandoTarefa = "dvm";
     }
     //Adicionar a verificação da velocidade para a locomoção do robo

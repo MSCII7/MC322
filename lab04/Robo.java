@@ -25,6 +25,7 @@ public abstract class Robo implements Entidade{
         posicaoY = posYIn;
 
         tipo = "Simples";
+        id = -1;
 
         //exemplo de comando e descricao base
         comandoTarefa = "et";
@@ -58,8 +59,14 @@ public abstract class Robo implements Entidade{
         return tipoEntidade.getRepresentacao();
     }
 
-    @Override public String getDescricao(){
-        return "Robo -_-";
+    //seta o id se o id ainda nao tiver sido setado(-1 representa id nao setado)
+    public void setId(int novoID){
+        if(id == -1)
+            id = novoID;
+    }
+
+    public int getId(){
+        return this.id;
     }
 
     public String getNome(){
@@ -87,7 +94,7 @@ public abstract class Robo implements Entidade{
 
 
     public void imprimirDescricaoTarefa(){
-        System.out.println(comandoTarefa + descricaoTarefa);
+        System.out.println(comandoTarefa +  " -" + descricaoTarefa);
     }
 
     @Override
@@ -124,5 +131,10 @@ public abstract class Robo implements Entidade{
     @Override
     public String toString() {
         return getNome() + "("+ this.tipo +"): " + getX() + ", " + getY();
+    }
+
+    @Override
+    public String getDescricao(){
+        return this.toString() + ",  id unico = " + this.id;
     }
 }

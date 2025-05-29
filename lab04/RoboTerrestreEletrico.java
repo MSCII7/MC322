@@ -5,7 +5,7 @@ public class RoboTerrestreEletrico extends RoboTerrestre implements Carregavel{
         nivel_bateria = 100;
         
         tipo = "Eletrico";
-        descricaoTarefa = " imprime o nivel de bateria anterior e carrega o robo ate 100";
+        descricaoTarefa = " imprime o nivel de bateria anterior e carrega o robo ate 100 (Carregavel)";
         comandoTarefa = "cr";
     }
     //Alterar o mover() para que o robo nao se mmova quando novel_bateria = 0    

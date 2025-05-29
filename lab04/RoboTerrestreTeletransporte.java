@@ -6,7 +6,7 @@ public class RoboTerrestreTeletransporte extends RoboTerrestre implements Carreg
         tipo = "Teletransporte";
 
         descricaoTarefa = " carrega a barra de teleporte do robo ate 100, permitindo que ele ultrapasse vMax " +
-                            "quando for se mover novamente(vMax do robo, nao ultrapassa o passo maximo do menu)";
+                            "quando for se mover novamente (Carregavel)";
         comandoTarefa = "ctp";
     }
     //Adiciona o aumento da barra_teletransporte ao andar
