@@ -181,7 +181,7 @@ public class Ambiente
 
         System.out.println(TipoEntidade.OBSTACULO.getRepresentacao() + ": representa Obstaculos");
     
-        System.out.println(TipoEntidade.ROBO.getRepresentacao() + ": representa Robos");
+        System.out.println(TipoEntidade.ROBO.getRepresentacao() + ": representa RobosTerrestres");
 
         System.out.println(TipoEntidade.ROBOAEREO.getRepresentacao() + ": representa RobosAereos");
     

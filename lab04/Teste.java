@@ -76,13 +76,69 @@ public class Teste {
 
         ambTeste.visualizarAmbiente(arb);
 
-        System.out.println("-----FIM DO TESTE------");
+        System.out.println("-----FIM DO TESTE------\n");
     }
     public static void testeComunicavel(){
+        System.out.println("\nTeste Robos da Interface Comunicavel ---------------------");
+        Ambiente ambTeste = new Ambiente(100, 10, 20);
+        
+        RoboAereoConsciente consciente = new RoboAereoConsciente("consciente", 2, 2, 5, 20, 5);
+        RoboAereo aereo = new RoboAereo("receptor", 3, 4, 4, 20);
+        try{
+            ambTeste.adicionarEntidade(consciente);
+            ambTeste.adicionarEntidade(aereo);
+        }catch (EntidadeInvalidaException e){
+            System.err.println("Nao pode adicionar robo nessa posicao");
+        }
+        
+        //Iniciar teste
+        ambTeste.visualizarAmbiente(consciente);
+        try{
+            consciente.acionarSensores(ambTeste);
+            consciente.executarTarefa();
+        }
+        catch(RoboDesligadoException e){
+            System.err.println("Robo esta desligado!");
+        }
+        try{
+            aereo.executarTarefa();
+        }
+        catch(RoboDesligadoException e){
+            System.err.println(e.getMessage());
+        }
 
+        System.out.println("-----FIM DO TESTE------\n");
     }   
     public static void testeSensoreavel(){
+        System.out.println("\nTeste Robos da Interface Sensoreavel ---------------------");
+        Ambiente ambTeste = new Ambiente(100, 10, 20);
+        
+        RoboAereoConsciente consciente = new RoboAereoConsciente("consciente", 2, 2, 3, 20, 7);
+        RoboAereo aereo = new RoboAereo("receptor", 3, 4, 4, 20);
+        RoboAereo aereo2 = new RoboAereo("receptor2", 2, 4, 4, 20);
+        RoboTerrestre carro = new RoboTerrestre("carro", 2, 3, 40);
+        
+        try{
+            ambTeste.adicionarEntidade(consciente);
+            ambTeste.adicionarEntidade(aereo);
+            ambTeste.adicionarEntidade(aereo2);
+            ambTeste.adicionarEntidade(carro);
 
+        }catch (EntidadeInvalidaException e){
+            System.err.println("Nao pode adicionar robo nessa posicao");
+        }
+        
+        //Iniciar teste
+        ambTeste.visualizarAmbiente(consciente);
+        try{
+            consciente.acionarSensores(ambTeste);
+            consciente.executarTarefa();
+        }
+        catch(RoboDesligadoException e){
+            System.err.println("Robo esta desligado!");
+        }
+        
+        System.out.println("-----FIM DO TESTE------\n");
     } 
     public static void testeTerrestrePanfletario(){
 

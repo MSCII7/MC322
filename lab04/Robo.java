@@ -5,6 +5,8 @@ public abstract class Robo implements Entidade{
     protected int posicaoY;
 
     protected String tipo;
+
+    //o id eh usado na escolha do robo no menu. -1 indica nao inicializado
     protected int id;
 
     //String do comando utilizado para tarefas especificas
@@ -126,15 +128,19 @@ public abstract class Robo implements Entidade{
 
     public void exibirPosicao(){
         System.out.println("posicao do Robo " + this.nome + ": " + this.posicaoX + ", " + this.posicaoY);
+        if(ligado)
+            System.out.println("Robo esta ligado");
+        else 
+            System.out.println("Robo esta desligado");
     }
     
     @Override
     public String toString() {
-        return getNome() + "("+ this.tipo +"): " + getX() + ", " + getY();
+        return getNome() + " ("+ this.tipo +", id = " + this.id + "): " + getX() + ", " + getY();
     }
 
     @Override
     public String getDescricao(){
-        return this.toString() + ",  id unico = " + this.id;
+        return this.toString();
     }
 }

@@ -64,7 +64,7 @@ public class RoboAereo extends Robo implements Comunicavel{
 
     @Override
     public String toString() {
-        return getNome() + "("+ this.tipo+"): " + getX() + ", " + getY()+ ", " + getZ() + ". altMax = "+ getAltitudeMaxima();
+        return getNome() + "("+ this.tipo+", id = " + this.id + "): " + getX() + ", " + getY()+ ", " + getZ() + ". altMax = "+ getAltitudeMaxima();
     }
 
     @Override

@@ -42,7 +42,7 @@ public class MenuInterativo {
         comHelp + " - imprime essa mensagem novamente.";
 
         String msgComandosRobo = "\nComandos do robo selecionado: \n" + 
-        comPosRobo + " - imprime sua posicao \n"+
+        comPosRobo + " - imprime sua posicao e status \n"+
         comLigarRobo+ " - liga o robo \n" +
         comDesligarRobo+ " - desliga o robo \n" +
         comListarMensagens + " - lista as mensagens recebidas pelo robo (se for comunicavel) \n" +
@@ -107,7 +107,7 @@ public class MenuInterativo {
                     }
                     //imprimir posicao robo selecionado
                     else if(comando.equals(comPosRobo)) {
-                        System.out.println(roboSelecionado.getDescricao());
+                        roboSelecionado.exibirPosicao();
                     }
                     else if(comando.equals(comLigarRobo)) {
                         roboSelecionado.ligar();
