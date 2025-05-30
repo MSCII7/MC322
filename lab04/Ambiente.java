@@ -175,7 +175,7 @@ public class Ambiente
 
     public void visualizarAmbiente(Robo roboSelecionado){
         //imprime a legenda do que cada caracter representa no mapa
-        System.err.println("ˇ\nLegenda: ");
+        System.err.println("\nLegenda: ");
     
         System.out.println(TipoEntidade.DESCONHECIDO.getRepresentacao() + ": representa entidades de tipo desconhecido");
 

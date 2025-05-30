@@ -8,7 +8,7 @@ public class Main{
             Teste.testeReferenciaveis();
             Teste.testeConstrutor();
             Teste.testeComunicavel();
-            Teste.testeSensoriavel();
+            Teste.testeSensoreavel();
             Teste.testeTerrestrePanfletario();
             //Criar robos e ambiente para menu interativo
             Ambiente meuAmbiente = new Ambiente(100, 100, 200);

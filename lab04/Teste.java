@@ -1,7 +1,8 @@
 
+//classe de testes fora do menu interativo
 public class Teste {
     public static void testeCarregaveis(){
-        System.out.println("\nTeste Robos da Entidade Comunicavel ---------------------");
+        System.out.println("\nTeste Robos da Interface Carregavel ---------------------");
         Ambiente ambTeste = new Ambiente(100, 10, 5);
         RoboTerrestreEletrico elet = new RoboTerrestreEletrico("shok", 0, 0, 9);
         RoboTerrestreTeletransporte tp = new RoboTerrestreTeletransporte("tp", 90, 9, 3);
@@ -42,12 +43,45 @@ public class Teste {
 
     }
     public static void testeConstrutor(){
+        System.out.println("\nTeste Robos da Interface Construtor ---------------------");
+        Ambiente ambTeste = new Ambiente(100, 10, 20);
+        RoboTerrestreAmbientalista arb = new RoboTerrestreAmbientalista("arboreo", 2, 2, 9);
+        try{
+            ambTeste.adicionarEntidade(arb);
+        }catch (EntidadeInvalidaException e){
+            System.err.println("Nao pode adicionar robo nessa posicao");
+        }
+        //Iniciar teste
+        ambTeste.visualizarAmbiente(arb);
+        System.out.println(arb);
+        try{
+            arb.executarTarefa(4, 4, ambTeste);
+        }
+        catch(EntidadeInvalidaException e){
+            System.err.println("Nao pode adicionar arvore: posicao ja ocupada");
+        }
+        try{
+            arb.construir(20, 5, ambTeste);
+        }
+        catch(EntidadeInvalidaException e){
+            System.err.println("Nao pode adicionar arvore: posicao ja ocupada");
+        }
+        ambTeste.visualizarAmbiente(arb);
+        try{
+            arb.construir(19, 5, ambTeste);
+        }
+        catch(EntidadeInvalidaException e){
+            System.err.println("Nao pode adicionar arvore: posicao ja ocupada");
+        }
 
+        ambTeste.visualizarAmbiente(arb);
+
+        System.out.println("-----FIM DO TESTE------");
     }
     public static void testeComunicavel(){
 
     }   
-    public static void testeSensoriavel(){
+    public static void testeSensoreavel(){
 
     } 
     public static void testeTerrestrePanfletario(){
