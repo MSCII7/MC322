@@ -157,6 +157,35 @@ public class Teste {
         System.out.println("-----FIM DO TESTE------\n");
     } 
     public static void testeTerrestrePanfletario(){
-
+        System.out.println("\nTeste Robos da Interface Terrestre Panfletario ---------------------");
+        Ambiente ambTeste = new Ambiente(100, 10, 20);
+        
+        RoboTerrestrePanfletario panfletario = new RoboTerrestrePanfletario("panfletario", 2, 2, 30);
+        RoboTerrestreMorador morador = new RoboTerrestreMorador("morador", 3, 3, 40);
+        try{
+            ambTeste.adicionarEntidade(panfletario);
+            ambTeste.adicionarEntidade(morador);
+        }catch (EntidadeInvalidaException e){
+            System.err.println("Nao pode adicionar robo nessa posicao");
+        }
+        
+        //Iniciar teste
+        ambTeste.visualizarAmbiente(panfletario);
+        try{
+            panfletario.acionarSensores(ambTeste);
+            panfletario.executarTarefa();
+        }
+        catch(RoboDesligadoException e){
+            System.err.println("Robo esta desligado!");
+        }
+        
+        // Testar se o morador recebeu a mensagem
+        System.out.println("Testar se o morador recebeu a mensagem:\n");
+        try{
+            morador.receberMensagens();
+        } catch (RoboDesligadoException e) {
+            System.err.println("Robo morador esta desligado!");
+        }
+        System.out.println("\n-----FIM DO TESTE------\n");
     }
 }
