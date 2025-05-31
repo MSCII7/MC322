@@ -128,7 +128,7 @@ public abstract class Robo implements Entidade{
 
     public void exibirPosicao(){
         System.out.println("posicao do Robo " + this.nome + ": " + this.posicaoX + ", " + this.posicaoY);
-        if(ligado)
+        if(this.ligado)
             System.out.println("Robo esta ligado");
         else 
             System.out.println("Robo esta desligado");
