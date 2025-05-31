@@ -13,7 +13,7 @@ public class Teste {
         //Iniciar teste
         ambTeste.visualizarAmbiente(null);
         System.out.println(elet);
-        //Andar ate descarregar
+        System.out.println("Andar ate descarregar");
         for (int i = 0; i < 18; i++) {
             if (i%2 == 0)
                 ambTeste.moverEntidade(elet, 3, 3,0);
@@ -40,7 +40,23 @@ public class Teste {
 
     }
     public static void testeReferenciaveis(){
+        System.out.println("\nTeste Robos da Interface Refereciaveis-------------------\n");
+        Ambiente ambTeste = new Ambiente(100,15,20);
+        RoboTerrestreMorador morador = new RoboTerrestreMorador("morador", 50, 5, 100);
+        System.out.println("Criar um obstaculo do tipo predio na posicao (90, 0)");
+        Obstaculo moradia = new Obstaculo(90,0,TipoObstaculo.PREDIO);
+        try{
+            ambTeste.adicionarEntidade(morador);
+            ambTeste.adicionarEntidade(moradia);
+        }catch (EntidadeInvalidaException e){}
+        System.out.println("Colocar o predio como a referecia, sendo verificado pelo executarTarefa");
+        try{
+            morador.setReferencia(moradia);
+        }catch (TipoIncompativelException e){}
+        morador.encontraReferencia();
+        ambTeste.visualizarAmbiente(morador);
 
+        System.out.println("FIM DO TESTE ---------------------------------------------------\n");
     }
     public static void testeConstrutor(){
         System.out.println("\nTeste Robos da Interface Construtor ---------------------");
