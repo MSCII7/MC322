@@ -44,8 +44,8 @@ public class Ambiente
     public void adicionarEntidade(Entidade e) throws EntidadeInvalidaException{
         if (e.getTipo() == TipoEntidade.OBSTACULO){
             int iniX = ((Obstaculo) e).getX();
-            //essa linha verifica que o obstaculo, se gerado perto da borda X, eh "truncado"
             int fimX = Math.min(((Obstaculo) e).getPosicaoX2(), largura);
+            //essa linha verifica que o obstaculo, se gerado perto da borda X, eh "truncado"
             int distX = Math.min(((Obstaculo) e).getPosicaoX2() - iniX, largura - iniX);
             int iniY = ((Obstaculo) e).getY();
             int fimY = Math.min(((Obstaculo) e).getPosicaoY2(), comprimento);
@@ -54,8 +54,8 @@ public class Ambiente
 
             int z = ((Obstaculo) e).getZ();
             //Verificar se a posição em que o obstáculo será colocado é válida
-            for (int i = iniX; i < fimX; i++) {
-                for (int j = iniY; j < fimY; j++) {
+            for (int i = iniX; i < distX; i++) {
+                for (int j = iniY; j < distY; j++) {
                     for (int k = 0;k < z;k++) {
                         if(this.mapa[i][j][k] != TipoEntidade.VAZIO)
                             throw new EntidadeInvalidaException();

@@ -23,7 +23,6 @@ public class MenuInterativo {
         String comListarMensagens = "rlm";
 
 
-        int maxMover = 20;
         //vetor com as 3 dimensoes do deslocamento, utilizado para tornar o codigo de movimentacao menos repetitivo
         //o robo ainda se movimenta apenas em uma direcao por comando
         int deltaMov[] = new int[3];
@@ -252,13 +251,7 @@ public class MenuInterativo {
         }
     }
 
-    private static void imprimirEntidades(Ambiente amb){
-        ArrayList<Entidade> entidades= amb.getEntidades();
-        for(int i = 0; i < entidades.size(); i++){
-            System.out.printf(i +  ": ");
-            System.out.println(entidades.get(i).getDescricao());
-        }
-    }
+    
     private static void imprimirAmbiente(Ambiente amb){
         amb.imprimirDimensoes();
         System.out.println("O ambiente tem "+ amb.getEntidades().size() +" entidades.");
@@ -266,46 +259,7 @@ public class MenuInterativo {
         //System.err.println("O ambiente tem " + amb.getObstaculos().size() + " obstaculos.");
     }
 
-    //escolhe um robo a partir do indice ou nome. Podemos utilizar depois para imprimir o robo ou analisar sensores
-    private static Entidade escolherEntidadeEspecifica(String identificador, Ambiente amb){
-        ArrayList<Entidade> entidades = amb.getEntidades();
-
-        //ver se string nao eh vazia
-        if(identificador.length() > 0){
-
-            //para utilizacao de numero para identificar robo
-            if(ehInt(identificador)){
-                int indice = Integer.parseInt(identificador);
-
-                if(indice > entidades.size() - 1){
-                    System.out.println("Indice invalido");
-                    return null;
-                }
-                else{
-                    Entidade ent = entidades.get(indice);
-                    return ent;
-                }
-            }
-
-            //para utilizacao de nome para identificar robo
-            else{
-                for(Entidade ent : entidades){
-                    
-                    if((ent instanceof Robo r) && identificador.equals(r.getNome())){
-                        return ent;
-                    }
-                }
-                //se nao retornou ainda, nenhum tem o nome
-                System.out.println("Nenhum robo tem o nome dado!");
-                return null;
-            }
-        }
-        else{
-            System.out.println("A string idenficadora esta vazia!");
-            return null;
-        }
-        
-    }
+   
     private static Obstaculo escolherObstaculoEspecifico(String identificador, Ambiente amb){
         ArrayList<Obstaculo> obstaculos = amb.getObstaculos();
 
