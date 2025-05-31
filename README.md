@@ -5,7 +5,6 @@ Esse repositório apresenta os laboratórios de MC322, com o objetivo de gerar u
   * Versão Java: openjdk 21.0.5 2024-10-15
   * OpenJDK Runtime Environment (Red_Hat-21.0.5.0.11-1) (build 21.0.5+11)
   * OpenJDK 64-Bit Server VM (Red_Hat-21.0.5.0.11-1) (build 21.0.5+11, mixed mode, sharing)
-
 # Classes
   ## Robô
   Classe genérica de robôs, implementa os atributos base, função base e cria os sensores para as funções necessários para o robô mover
@@ -49,6 +48,10 @@ Esse repositório apresenta os laboratórios de MC322, com o objetivo de gerar u
   Acionada para a tentativa de  mover robos terrestres no eixo z
   ### RoboDesligado
   Acionada quando um metodo tenta interagir com um robo desligado
+
+## Menu Interativo
+  O menu interativo imprime os comandos gerais possíveis no ambiente. Os comandos relacionados aos robos só são impressos quando já há um robo selecionado e se utiliza "rh". Os comandos da tarefa específica de cada robo e a descrição do comando estão inclusos na própria declaração da classe de cada robo como variáveis string, que são utilizadas pelo código do menu
+  
 ## Como executar:
   - Abra o terminal e navegue para a pasta com o laboratório que você deseja rodar (certifique-se de que você está na pasta correta)
   - Utilize o comando "javac *.java" para compilar todos os arquivos java dentro da pasta com o laboratório desejado
