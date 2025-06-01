@@ -55,7 +55,7 @@ public class Main{
             meuAmbiente.adicionarEntidade(morador);
 
             RoboTerrestreAmbientalista ambientalista = new RoboTerrestreAmbientalista("Greta", 80, 70,101);
-            ambientalista.setId(3);
+            ambientalista.setId(333);
             meuAmbiente.adicionarEntidade(ambientalista);
 
             RoboTerrestrePanfletario panfletario = new RoboTerrestrePanfletario("PrateadosInc", 80, 60,101);

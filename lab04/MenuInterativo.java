@@ -270,7 +270,7 @@ public class MenuInterativo {
             if(ehInt(identificador)){
                 int indice = Integer.parseInt(identificador);
 
-                if(indice > obstaculos.size() - 1){
+                if(indice > obstaculos.size() - 1 || indice < 0){
                     System.out.println("Indice invalido");
                     return null;
                 }
@@ -301,7 +301,7 @@ public class MenuInterativo {
                 }
 
                 //escolha por indice no ambiente
-                if(numero > robos.size() - 1){
+                if(numero > robos.size() - 1 || numero < 0){
                     System.out.println("Indice invalido");
                     return null;
                 }
