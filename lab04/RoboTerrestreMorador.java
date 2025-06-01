@@ -45,28 +45,6 @@ public class RoboTerrestreMorador extends RoboTerrestre implements Referenciavel
                             + getPosY1Referencia() + " <= y <= " + getPosY2Referencia() +")");
     }
 
-//  @Override
-//  public void encontraReferencia1(){
-//      if(moradia != null){
-//          //Fica a uma distancia de 5 passos da moradia
-//          int deltaX, deltaY;
-//          if (this.posicaoX > this.getPosX2Referencia()){
-//              deltaX = -(this.posicaoX - this.getPosX2Referencia() - 5);
-//          }else
-//              deltaX = -this.posicaoX + this.getPosX1Referencia() + 5;
-//          if (this.posicaoY > getPosY2Referencia()){
-//              deltaY = -(this.posicaoY - getPosY2Referencia() - 5);
-//          }else
-//              deltaY = -this.posicaoY + getPosY1Referencia() + 5;
-//          mover(deltaX, deltaY);
-
-//          System.out.println("Moveu para proximo da moradia");
-//      }
-//      else
-//          System.out.println("O robo nao tem moradia valida");
-//  }  
-
-
     @Override
     public void setReferencia(Obstaculo ref) throws TipoIncompativelException{
         TipoObstaculo refTipo = ref.getTipoObstaculo();
