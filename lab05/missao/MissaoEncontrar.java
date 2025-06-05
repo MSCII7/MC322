@@ -1,5 +1,6 @@
-import robos;
-import ambiente;
+package missao;
+import robos.*;
+import ambiente.*;
 
 public class MissaoEncontrar implements Missao {
     TipoObstaculo tipo;

@@ -1,5 +1,7 @@
-import robos;
-import ambiente;
+package missao;
+
+import robos.*;
+import ambiente.*;
 public interface  Missao {
     void executar (Robo r, Ambiente a);
     void ControleMovimento();
