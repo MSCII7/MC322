@@ -44,8 +44,8 @@ public class Ambiente
     public void adicionarEntidade(Entidade e) throws EntidadeInvalidaException{
         if (e.getTipo() == TipoEntidade.OBSTACULO){
             int iniX = ((Obstaculo) e).getX();
-            //essa linha verifica que o obstaculo, se gerado perto da borda X, eh "truncado"
             int fimX = Math.min(((Obstaculo) e).getPosicaoX2(), largura);
+            //essa linha verifica que o obstaculo, se gerado perto da borda X, eh "truncado"
             int distX = Math.min(((Obstaculo) e).getPosicaoX2() - iniX, largura - iniX);
             int iniY = ((Obstaculo) e).getY();
             int fimY = Math.min(((Obstaculo) e).getPosicaoY2(), comprimento);
@@ -54,8 +54,8 @@ public class Ambiente
 
             int z = ((Obstaculo) e).getZ();
             //Verificar se a posição em que o obstáculo será colocado é válida
-            for (int i = iniX; i < fimX; i++) {
-                for (int j = iniY; j < fimY; j++) {
+            for (int i = iniX; i < distX; i++) {
+                for (int j = iniY; j < distY; j++) {
                     for (int k = 0;k < z;k++) {
                         if(this.mapa[i][j][k] != TipoEntidade.VAZIO)
                             throw new EntidadeInvalidaException();
@@ -175,13 +175,13 @@ public class Ambiente
 
     public void visualizarAmbiente(Robo roboSelecionado){
         //imprime a legenda do que cada caracter representa no mapa
-        System.err.println("ˇ\nLegenda: ");
+        System.err.println("\nLegenda: ");
     
         System.out.println(TipoEntidade.DESCONHECIDO.getRepresentacao() + ": representa entidades de tipo desconhecido");
 
         System.out.println(TipoEntidade.OBSTACULO.getRepresentacao() + ": representa Obstaculos");
     
-        System.out.println(TipoEntidade.ROBO.getRepresentacao() + ": representa Robos");
+        System.out.println(TipoEntidade.ROBO.getRepresentacao() + ": representa RobosTerrestres");
 
         System.out.println(TipoEntidade.ROBOAEREO.getRepresentacao() + ": representa RobosAereos");
     
