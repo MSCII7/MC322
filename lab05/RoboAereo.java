@@ -37,17 +37,26 @@ public class RoboAereo extends Robo implements Comunicavel{
     //Varios dos metodos do robo devem ser alterados para utilizar a posicao Z
     @Override public void exibirPosicao(){
         System.out.println("posicao do Robo " + this.nome + ": " + posicaoX + ", " + posicaoY + ", " + posicaoZ);
+        
+        if(this.ligado)
+            System.out.println("Robo esta ligado");
+        else 
+            System.out.println("Robo esta desligado");
     }
 
     @Override
-    public void moverPara(int novoX, int novoY, int novoZ){
-        mover(novoX - posicaoX, novoY - posicaoY);
-        int deltaZ = novoZ - posicaoZ;
+    public void moverPara(int novoX, int novoY, int novoZ) throws RoboDesligadoException{
+        if(ligado){
+            mover(novoX - posicaoX, novoY - posicaoY);
+            int deltaZ = novoZ - posicaoZ;
 
-        if(deltaZ >= 0) 
-            subir(deltaZ);
-        else 
-            descer(deltaZ);
+            if(deltaZ >= 0) 
+                subir(deltaZ);
+            else 
+                descer(deltaZ);
+        }
+        else
+            throw new RoboDesligadoException();
     }
 
     @Override 
@@ -64,7 +73,7 @@ public class RoboAereo extends Robo implements Comunicavel{
 
     @Override
     public String toString() {
-        return getNome() + "("+ this.tipo+"): " + getX() + ", " + getY()+ ", " + getZ() + ". altMax = "+ getAltitudeMaxima();
+        return getNome() + "("+ this.tipo+", id = " + this.id + "): " + getX() + ", " + getY()+ ", " + getZ() + ". altMax = "+ getAltitudeMaxima();
     }
 
     @Override

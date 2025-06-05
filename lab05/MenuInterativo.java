@@ -23,7 +23,6 @@ public class MenuInterativo {
         String comListarMensagens = "rlm";
 
 
-        int maxMover = 20;
         //vetor com as 3 dimensoes do deslocamento, utilizado para tornar o codigo de movimentacao menos repetitivo
         //o robo ainda se movimenta apenas em uma direcao por comando
         int deltaMov[] = new int[3];
@@ -42,7 +41,7 @@ public class MenuInterativo {
         comHelp + " - imprime essa mensagem novamente.";
 
         String msgComandosRobo = "\nComandos do robo selecionado: \n" + 
-        comPosRobo + " - imprime sua posicao \n"+
+        comPosRobo + " - imprime sua posicao e status \n"+
         comLigarRobo+ " - liga o robo \n" +
         comDesligarRobo+ " - desliga o robo \n" +
         comListarMensagens + " - lista as mensagens recebidas pelo robo (se for comunicavel) \n" +
@@ -107,7 +106,7 @@ public class MenuInterativo {
                     }
                     //imprimir posicao robo selecionado
                     else if(comando.equals(comPosRobo)) {
-                        System.out.println(roboSelecionado.getDescricao());
+                        roboSelecionado.exibirPosicao();
                     }
                     else if(comando.equals(comLigarRobo)) {
                         roboSelecionado.ligar();
@@ -152,16 +151,18 @@ public class MenuInterativo {
                             } 
                             else if (roboSelecionado instanceof Referenciavel ref) {
                                 System.out.println("Necessario a escolha de um Obstaculo para continuar: ");
-                                imprimirObstaculos(meuAmbiente);
+                                
                                 while(ref.getReferencia()==null){
+                                    imprimirObstaculos(meuAmbiente);
                                     Obstaculo obstaculo = escolherObstaculoEspecifico(scanner.nextLine(), meuAmbiente);
                                     if(obstaculo != null) {
-                                        System.out.println("Foi escolhido o obstaculo " + obstaculo.getTipoObstaculo());
                                         try {
                                             ref.setReferencia(obstaculo);  
                                         } catch (TipoIncompativelException e) {
                                             System.err.println(e.getMessage());
+                                            System.out.println("\nEscolha outro obstaculo:");
                                         }
+                                        System.out.println("Foi escolhido o obstaculo " + obstaculo.getTipoObstaculo());
                                     } 
                                 }
                             } 
@@ -250,13 +251,7 @@ public class MenuInterativo {
         }
     }
 
-    private static void imprimirEntidades(Ambiente amb){
-        ArrayList<Entidade> entidades= amb.getEntidades();
-        for(int i = 0; i < entidades.size(); i++){
-            System.out.printf(i +  ": ");
-            System.out.println(entidades.get(i).getDescricao());
-        }
-    }
+    
     private static void imprimirAmbiente(Ambiente amb){
         amb.imprimirDimensoes();
         System.out.println("O ambiente tem "+ amb.getEntidades().size() +" entidades.");
@@ -264,46 +259,7 @@ public class MenuInterativo {
         //System.err.println("O ambiente tem " + amb.getObstaculos().size() + " obstaculos.");
     }
 
-    //escolhe um robo a partir do indice ou nome. Podemos utilizar depois para imprimir o robo ou analisar sensores
-    private static Entidade escolherEntidadeEspecifica(String identificador, Ambiente amb){
-        ArrayList<Entidade> entidades = amb.getEntidades();
-
-        //ver se string nao eh vazia
-        if(identificador.length() > 0){
-
-            //para utilizacao de numero para identificar robo
-            if(ehInt(identificador)){
-                int indice = Integer.parseInt(identificador);
-
-                if(indice > entidades.size() - 1){
-                    System.out.println("Indice invalido");
-                    return null;
-                }
-                else{
-                    Entidade ent = entidades.get(indice);
-                    return ent;
-                }
-            }
-
-            //para utilizacao de nome para identificar robo
-            else{
-                for(Entidade ent : entidades){
-                    
-                    if((ent instanceof Robo r) && identificador.equals(r.getNome())){
-                        return ent;
-                    }
-                }
-                //se nao retornou ainda, nenhum tem o nome
-                System.out.println("Nenhum robo tem o nome dado!");
-                return null;
-            }
-        }
-        else{
-            System.out.println("A string idenficadora esta vazia!");
-            return null;
-        }
-        
-    }
+   
     private static Obstaculo escolherObstaculoEspecifico(String identificador, Ambiente amb){
         ArrayList<Obstaculo> obstaculos = amb.getObstaculos();
 
@@ -314,7 +270,7 @@ public class MenuInterativo {
             if(ehInt(identificador)){
                 int indice = Integer.parseInt(identificador);
 
-                if(indice > obstaculos.size() - 1){
+                if(indice > obstaculos.size() - 1 || indice < 0){
                     System.out.println("Indice invalido");
                     return null;
                 }
@@ -345,7 +301,7 @@ public class MenuInterativo {
                 }
 
                 //escolha por indice no ambiente
-                if(numero > robos.size() - 1){
+                if(numero > robos.size() - 1 || numero < 0){
                     System.out.println("Indice invalido");
                     return null;
                 }
