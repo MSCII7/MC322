@@ -2,7 +2,7 @@ package robos;
 
 import missao.*;
 import ambiente.*;
-public abstract class AgenteInteligente extends Robo{
+public abstract class AgenteInteligente extends Robo implements Sensoreavel, Comunicavel{
     protected Missao missao ;
 
     public AgenteInteligente(Missao missao, String nomeIn, int posXIn, int posYIn) {
