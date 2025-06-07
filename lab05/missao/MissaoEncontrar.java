@@ -36,16 +36,5 @@ public class MissaoEncontrar implements Missao {
         
     }
 
-    //esses metodos nao deveriam ser classes que sao colocadas no robo?
-    //ver depois
-    @Override
-    public void ControleMovimento() {
-    }
-    @Override
-    public void GerenciadorSensores() {
-    }
-    @Override
-    public void ModuloComunicacao() {
-    }
 
 }
