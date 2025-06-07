@@ -3,6 +3,7 @@ package robos;
 import ambiente.*;
 import exceptions.*;
 import interfacesRobos.*;
+import java.util.ArrayList;
 
 public class RoboTerrestrePanfletario extends RoboTerrestre implements Comunicavel, Sensoreavel{
     private String mensagem;
@@ -51,6 +52,31 @@ public class RoboTerrestrePanfletario extends RoboTerrestre implements Comunicav
                 }
         }
         System.out.println("--Finalizou envio--");
+    }
+
+    
+    @Override
+    public ArrayList<Robo> getRobosDentro(Ambiente amb) throws RoboDesligadoException{
+        if(this.getEstado() == true){
+            ArrayList<Robo> robosDentro = sr.getRobos_dentro(posicaoX, posicaoY, 0, amb);
+            //remove ele mesmo da lista de robos proximos
+            robosDentro.remove(this);
+            return robosDentro;
+        }
+        else{
+            throw new RoboDesligadoException();
+        }
+    }
+
+    @Override
+    public ArrayList<Obstaculo> getObstaculosDentro(Ambiente amb) throws RoboDesligadoException{
+        if(this.getEstado() == true){
+            ArrayList<Obstaculo> obstDentro = so.getObstaculos_dentro(posicaoX, posicaoY, 0, amb);
+            return obstDentro;
+        }
+        else{
+            throw new RoboDesligadoException();
+        }
     }
    
 

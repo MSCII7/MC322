@@ -62,6 +62,30 @@ public class RoboAereoConsciente extends RoboAereo implements Sensoreavel{
     } 
 
     @Override
+    public ArrayList<Robo> getRobosDentro(Ambiente amb) throws RoboDesligadoException{
+        if(this.getEstado() == true){
+            ArrayList<Robo> robosDentro = sr.getRobos_dentro(posicaoX, posicaoY, posicaoZ, amb);
+            //remove ele mesmo da lista de robos proximos
+            robosDentro.remove(this);
+            return robosDentro;
+        }
+        else{
+            throw new RoboDesligadoException();
+        }
+    }
+
+    @Override
+    public ArrayList<Obstaculo> getObstaculosDentro(Ambiente amb) throws RoboDesligadoException{
+        if(this.getEstado() == true){
+            ArrayList<Obstaculo> obstDentro = so.getObstaculos_dentro(posicaoX, posicaoY, posicaoZ, amb);
+            return obstDentro;
+        }
+        else{
+            throw new RoboDesligadoException();
+        }
+    }
+
+    @Override
     public String toString() {
         return super.toString() + ". distMin = " + this.distanciaMin;
     }

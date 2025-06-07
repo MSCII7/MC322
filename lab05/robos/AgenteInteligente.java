@@ -1,7 +1,9 @@
 package robos;
 
-import missao.*;
 import ambiente.*;
+import interfacesRobos.*;
+import missao.*;
+
 public abstract class AgenteInteligente extends Robo implements Sensoreavel, Comunicavel{
     protected Missao missao ;
 
