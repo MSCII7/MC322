@@ -4,11 +4,13 @@ import ambiente.*;
 import exceptions.*;
 import interfacesRobos.*;
 import java.util.ArrayList;
+import sensores.Sensor;
 
 public class RoboAereoConsciente extends RoboAereo implements Sensoreavel{
     protected int distanciaMin;
     protected int novaZ;
     protected ArrayList<Robo> robosProximos;
+    protected ArrayList<Sensor> sensores;
     protected String mensagem;
     
     public RoboAereoConsciente(String nomeIn, int posXIn, int posYIn, int posZIn, int altMax, int distMin){
@@ -120,6 +122,19 @@ public class RoboAereoConsciente extends RoboAereo implements Sensoreavel{
             }
         }
         System.out.println("--------------------------------------------------");
+    }
+
+    @Override
+    public void removerSensor(Sensor s) {
+        for (Sensor sensor : sensores){
+            if (sensor == s)
+                sensores.remove(s);
+        }
+    }
+
+    @Override
+    public void adicionarSensor(Sensor s) {
+        sensores.add(s);
     }
     
 }

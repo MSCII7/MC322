@@ -4,9 +4,11 @@ import ambiente.*;
 import exceptions.*;
 import interfacesRobos.*;
 import java.util.ArrayList;
+import sensores.Sensor;
 
 public class RoboTerrestrePanfletario extends RoboTerrestre implements Comunicavel, Sensoreavel{
-    private String mensagem;
+    private final String mensagem;
+    protected ArrayList<Sensor> sensores;
     
     public RoboTerrestrePanfletario(String nome, int posX, int posY, int vMax){
         super(nome, posX, posY, vMax);
@@ -77,6 +79,18 @@ public class RoboTerrestrePanfletario extends RoboTerrestre implements Comunicav
         else{
             throw new RoboDesligadoException();
         }
+    }
+
+    @Override
+    public void adicionarSensor(Sensor s) {
+        sensores.add(s);
+    }
+
+    @Override
+    public void removerSensor(Sensor s) {
+        for (Sensor sensor : sensores)
+            if (s == sensor)
+                sensores.remove(s);
     }
    
 

@@ -1,13 +1,14 @@
 package subsistemas;
 
+import ambiente.*;
 import robos.*;
 
 public class ControleMovimento {
     protected Robo roboControlado;
-    public ControleMovimento(Robo r){
+    protected Ambiente amb;
+    public ControleMovimento(Robo r, Ambiente a){
         this.roboControlado = r;
+        this.amb = a;
     }
-    public void mover(){
-
-    }
+    
 }

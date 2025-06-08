@@ -4,6 +4,7 @@ import ambiente.*;
 import exceptions.RoboDesligadoException;
 import java.util.ArrayList;
 import robos.Robo;
+import sensores.*;
 
 public interface Sensoreavel{
     //atualiza os sensores
@@ -12,4 +13,7 @@ public interface Sensoreavel{
     //como precisam ativar os sensores para isso, tem que ver se esta ligado
     ArrayList<Obstaculo> getObstaculosDentro(Ambiente amb) throws RoboDesligadoException;
     ArrayList<Robo> getRobosDentro(Ambiente amb) throws RoboDesligadoException;
+
+    void adicionarSensor(Sensor s);
+    void removerSensor(Sensor s);
 }
