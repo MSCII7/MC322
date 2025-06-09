@@ -1,8 +1,9 @@
 package main;
 
 import ambiente.*;
-import robos.*;
 import exceptions.*;
+import missao.MissaoVerificarVazio;
+import robos.*;
 
 public class Main{
     public static void main(String[] args){
@@ -66,6 +67,17 @@ public class Main{
             panfletario.setId(1440);
             meuAmbiente.adicionarEntidade(panfletario);
 
+            MissaoVerificarVazio m = new MissaoVerificarVazio(30, 50, 10, 60);
+            RoboAgente roboAgente = new RoboAgente(m, "Bond", 43, 32);
+            roboAgente.setId(770);
+            meuAmbiente.adicionarEntidade(roboAgente);
+            
+            try{
+                roboAgente.executarMissao(meuAmbiente);
+            }
+            catch(RoboDesligadoException e){
+                System.err.println("Robo desligado");
+            }
 
             //Testar os sensores
             //Teste.testeSensorObstaculo(meuRobo, meuAmbiente);

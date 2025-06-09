@@ -84,7 +84,7 @@ public class RoboAgente extends AgenteInteligente {
     @Override
     public void executarTarefa() throws RoboDesligadoException {
 		if (this.getEstado()){
-
+            
 		}else
 			throw new RoboDesligadoException();
     }
