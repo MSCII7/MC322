@@ -201,12 +201,6 @@ public class MenuInterativo {
                             System.err.println(e.getMessage());
                         }
                     }
-
-                    if(roboSelecionado instanceof AgenteInteligente ai){
-                        if(comando.equals(ai.getComandoSelecionar())){
-                            
-                        }
-                    }
                     
                     //so executa mover se vetor delta de deslocamento nao for nulo
                     if(deltaMov[0] != 0 || deltaMov[1] != 0 || deltaMov[2] != 0){

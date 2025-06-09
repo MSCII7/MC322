@@ -8,9 +8,19 @@ import robos.*;
 
 public class MissaoEncontrar implements Missao {
     TipoObstaculo tipo;
+    String comandoMissao = "ME";
+
     public MissaoEncontrar(TipoObstaculo t){
         this.tipo = t;
     }
+
+    //exemplo: ME Seguro ARVORE atribui a missao de encontrar arvore ao robo seguro
+    public void imprimirFormatoMissao(){
+        System.out.println(comandoMissao + " <identificador robo> TipoObstaculo");
+    }
+
+
+
     @Override
     public void executar(Robo r, Ambiente a) {
         //Tentar criar uma lógica de exploração, ativando o sensor de Obstáculos para encontrar os obstáculos ao redor e ver se é do tipo desejado
