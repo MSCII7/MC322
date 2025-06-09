@@ -1,6 +1,7 @@
 package sensores;
 
 import ambiente.Ambiente;
+
 public abstract class Sensor {
     protected double raio;
         

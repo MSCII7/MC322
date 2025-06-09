@@ -16,10 +16,11 @@ public class MissaoVerificarVazio implements Missao{
         this.z = z;
         this.raioVerificacao = raioVerificacao;
     }
-    
+
+    //talvez seja melhor fazer um sensor pra isso, mas
     @Override
     public void executar(Robo r, Ambiente amb){
-        String msgMissao = "Rodando missao de verificacao de vazio com robo " + r.getNome() + ": \n";
+        String msgMissao = "Rodando Missao de Verificacao de Vazio com robo " + r.getNome() + ": \n";
 
         double dist = Math.sqrt(Math.pow(x - r.getX(), 2) + Math.pow(y - r.getY(), 2) + Math.pow(z - r.getZ(), 2));
         msgMissao += "A posicao (" + x + ", " + y + ", " + z + "), a uma distancia " + (int)(dist) + 
@@ -38,6 +39,11 @@ public class MissaoVerificarVazio implements Missao{
             msgMissao += "muito distante para ser verificada(raio de verificacao eh " + raioVerificacao + ")";
         }
         msgMissao += "\n";
+
         Salvar.escreverMissao(msgMissao);
+
+        System.out.println("---Escreveu no Arquivo---");
+        System.out.println(msgMissao);
+        System.out.println("--------------------------");
     }
 }

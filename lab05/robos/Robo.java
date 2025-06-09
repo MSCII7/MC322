@@ -44,6 +44,7 @@ public abstract class Robo implements Entidade{
         //Adicionar sensores essenciais para a movimentacao do robo
         sr = new SensorRobos(50);
         so = new SensorObstaculos(50);
+
     }
 
     @Override public int getX(){

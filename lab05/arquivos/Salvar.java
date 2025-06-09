@@ -38,6 +38,7 @@ public class Salvar {
             PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(caminho, true)));
             output.println(mensagemMissao);
             output.flush();
+            output.close();
         } 
         catch (IOException ioe) {
             ioe.printStackTrace();

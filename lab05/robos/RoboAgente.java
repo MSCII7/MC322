@@ -11,9 +11,12 @@ import subsistemas.GerenciadorSensores;
 import subsistemas.ModuloComunicacao;
 
 public class RoboAgente extends AgenteInteligente {
+    protected ArrayList<Sensor> sensores;
+
     public RoboAgente(Missao m, String nomeIn, int posXIn, int posYIn){
         super(nomeIn, posXIn, posYIn);
         this.missao = m;
+        this.sensores = new ArrayList<>();
     }
 
     @Override
@@ -47,24 +50,22 @@ public class RoboAgente extends AgenteInteligente {
 
     @Override
     public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException {
-        if(ligado)
-            CentralComunicacao.registrarMensagem(this, destinatario, mensagem);
-        else
-            throw new RoboDesligadoException();
+        try{
+            moduloComunicacao.enviarMensagem(destinatario, mensagem);
+        }
+        catch(RoboDesligadoException e){
+            throw e;
+        }
     }
 
     @Override
     public void receberMensagens() throws RoboDesligadoException {
-        if(ligado){
-            System.out.println("Mensagens recebidas:");
-            for(GrupoMensagemRobo grupoMensagem : CentralComunicacao.getGrupos()){
-                if(grupoMensagem.getDestinatario() == this){
-                    System.out.println("Do robo " + ((Robo)(grupoMensagem.getRemetente())).getNome() + ": " + grupoMensagem.getMensagem());
-                }
-            }
+        try {
+            moduloComunicacao.receberMensagens();
+        } 
+        catch (Exception e){
+            throw e;
         }
-        else
-            throw new RoboDesligadoException();
     }
 
     @Override

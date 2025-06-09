@@ -2,11 +2,10 @@ package main;
 
 import ambiente.*;
 import exceptions.*;
-import robos.*;
 import interfacesRobos.*;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+import robos.*;
 
 
 public class MenuInterativo {
@@ -191,10 +190,21 @@ public class MenuInterativo {
                                 }
                             }
 
-                            roboSelecionado.executarTarefa();
+                            if(roboSelecionado instanceof AgenteInteligente ai){
+                                ai.executarMissao(meuAmbiente);
+                            }
+                            else{
+                                roboSelecionado.executarTarefa();
+                            }
                         }
                         catch(RoboDesligadoException e) {
                             System.err.println(e.getMessage());
+                        }
+                    }
+
+                    if(roboSelecionado instanceof AgenteInteligente ai){
+                        if(comando.equals(ai.getComandoSelecionar())){
+                            
                         }
                     }
                     
