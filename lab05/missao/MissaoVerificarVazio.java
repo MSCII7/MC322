@@ -46,4 +46,9 @@ public class MissaoVerificarVazio implements Missao{
         System.out.println(msgMissao);
         System.out.println("--------------------------");
     }
+
+    @Override
+    public void imprimirFormatoMissao() {
+        System.out.println("MISSAOVF <identificador robo> x y z raio");
+    }
 }

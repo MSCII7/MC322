@@ -31,6 +31,7 @@ public class Ambiente
     public int getAltura(){
         return this.altura;
     }
+    
 
     public void inicializarmapa(){
         //Alocação dinâmica para a matrix do mapa
@@ -219,6 +220,14 @@ public class Ambiente
             System.out.println();
         }
         System.out.println();
+    }
+
+    public int getLargura() {
+        return largura;
+    }
+
+    public int getComprimento() {
+        return comprimento;
     }
 
 }

@@ -13,10 +13,13 @@ import subsistemas.ModuloComunicacao;
 public class RoboAgente extends AgenteInteligente {
     protected ArrayList<Sensor> sensores;
 
-    public RoboAgente(Missao m, String nomeIn, int posXIn, int posYIn){
+    public RoboAgente(Missao m, String nomeIn, int posXIn, int posYIn, Ambiente amb){
         super(nomeIn, posXIn, posYIn);
         this.missao = m;
         this.sensores = new ArrayList<>();
+        controleMovimento = new ControleMovimento(this, amb);
+        gerenciadorSensores = new GerenciadorSensores(this, amb);
+        moduloComunicacao = new ModuloComunicacao(this);
     }
 
     @Override
@@ -73,9 +76,6 @@ public class RoboAgente extends AgenteInteligente {
 		if (this.getEstado())
 			if (temMissao()){
 				//Criar os subsistemas para controlar a missao de maneira autonoma
-				controleMovimento = new ControleMovimento(this, a);
-				gerenciadorSensores = new GerenciadorSensores(this, a);
-				moduloComunicacao = new ModuloComunicacao(this);
 				missao.executar(this, a);
 			}
 		else

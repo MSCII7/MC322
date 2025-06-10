@@ -1,4 +1,10 @@
 @startuml
+' Skin parameters for a modern look
+'!theme carbon-gray
+
+' General styling for a cleaner look
+
+
 class Robo {
   #String nome
   #int posicaoX
@@ -91,6 +97,10 @@ class SensorObstaculos {
     #menor_dist(posX: int, posY: int, obs: Obstaculo): double
     +getObstaculos_dentro(Ambiente): ArrayList<Obstaculo>
 }
+class SensorLimites {
+    +monitorar(Ambiente amb, int posX, int posY, int posZ): void
+    +estaDentroDosLimites(Ambiente, amb, int x, int y, int z): boolean
+}
 class Ambiente {
    -int largura
    -int comprimento
@@ -143,6 +153,31 @@ class GrupoMensagemRobo {
     +getRemetente:Comunicavel 
     +getDestinatario:Comunicavel 
     +getMensagem():String 
+}
+class GerenciadorSensores {
+    # sensores : ArrayList<Sensor>
+    # roboGerenciado : AgenteInteligente
+    --
+    + GerenciadorSensores(r : AgenteInteligente)
+    --
+    + adicionarSensor(s : Sensor) : void
+    + removerSensor(s : Sensor) : void
+    + removerTodosSensores() : void
+    --
+    + getSensorLimites() : SensorLimites
+    + getSensorRobos() : SensorRobos
+    + getSensorObstaculos() : SensorObstaculos
+    --
+    + estaLivre(x : int, y : int, z : int, amb : Ambiente) : boolean
+    + colisaoExtremidades(x : int, y : int, z : int, amb : Ambiente) : boolean
+    + colisao_obs(obs_dentro : ArrayList<Obstaculo>, nova_x : int, nova_y : int, nova_z : int) : boolean
+    + colisao_robo(robos_dentro : ArrayList<Robo>, nova_x : int, nova_y : int, nova_z : int) : boolean
+}
+class GerenciadoSensores{
+
+}
+class ModuloComunicacao {
+
 }
 enum TipoObstaculo {
     MURO,
@@ -219,6 +254,7 @@ RoboTerrestreMorador ..|> Comunicavel
 RoboTerrestreAmbientalista ..|> Construtor
 Robo ..|> Entidade
 Sensor <|-- SensorObstaculos
+Sensor <|-- SensorLimites
 Sensor <|-- SensorRobos
 Ambiente --> Sensor
 Ambiente "1" o-- "*" Robo
