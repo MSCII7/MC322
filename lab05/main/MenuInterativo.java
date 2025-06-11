@@ -9,51 +9,53 @@ import robos.*;
 
 public class MenuInterativo {
 
+    //comandos gerais do menu interativo
+    static final String comImprimirRobos = "itr";
+    static final String comImprimirLigados = "itl";
+    static final String comImprimirDesligados = "itd";
+    static final String comImprimirObstaculos = "ito";
+    static final String comImprimirAmbiente = "ia";
+    static final String comImprimirMapa = "im";
+    static final String comSelecionarRobo = "r";
+    static final String comSair = "s";
+    static final String comHelp = "h";
+
+    //comandos do robo no menu interativo
+    static final String comHelpRobo = "rh";
+    static final String comPosRobo = "rp";
+    static final String comLigarRobo = "rl";
+    static final String comDesligarRobo = "rd";
+    static final String comListarMensagens = "rlm";
+
+
+    //vetor com as 3 dimensoes do deslocamento, utilizado para tornar o codigo de movimentacao menos repetitivo
+    //o robo ainda se movimenta apenas em uma direcao por comando
+    static int deltaMov[] = new int[3];
+
+    //mensagem de comandos do menu interativo
+    static String msgComandos = "\nComandos gerais possiveis: \n" + 
+    comImprimirRobos +" - imprime todos os robos \n" + 
+    comImprimirLigados +" - imprime todos os robos ligados \n"+
+    comImprimirDesligados + " - imprime todos os robos desligados \n"+
+    comImprimirObstaculos + " - imprime todos os obstaculos \n" +
+    comImprimirAmbiente + " - imprime dados do ambiente \n" + 
+    comImprimirMapa + " - imprime o mapa do ambiente \n" +
+    comSelecionarRobo + " <identificador> - seleciona um robo, "
+    +"sendo <identificador> o nome do robo, o id unico do robo ou o indice do robo no ambiente. \n" +
+    comSair + " - sai do programa \n" + 
+    comHelp + " - imprime essa mensagem novamente.";
+
+    static String msgComandosRobo = "\nComandos do robo selecionado: \n" + 
+    comPosRobo + " - imprime sua posicao e status \n"+
+    comLigarRobo+ " - liga o robo \n" +
+    comDesligarRobo+ " - desliga o robo \n" +
+    comListarMensagens + " - lista as mensagens recebidas pelo robo (se for comunicavel) \n" +
+    "rmx, rmy, rmz <delta> - movem o robo selecionado na direcao escolhida uma quantidade <delta> "+
+    "(delta pode ser negativo, rmz so pode ser usado para o aereo). ";
+    //+"O valor maximo para o modulo de delta eh " + maxMover + " unidades";
+    
+
     public static void entrarMenuInterativo(Ambiente meuAmbiente){
-        //comandos gerais do menu interativo
-        String comImprimirRobos = "itr";
-        String comImprimirLigados = "itl";
-        String comImprimirDesligados = "itd";
-        String comImprimirObstaculos = "ito";
-        String comImprimirAmbiente = "ia";
-        String comImprimirMapa = "im";
-        String comSelecionarRobo = "r";
-        String comSair = "s";
-        String comHelp = "h";
-
-        //comandos do robo no menu interativo
-        String comHelpRobo = "rh";
-        String comPosRobo = "rp";
-        String comLigarRobo = "rl";
-        String comDesligarRobo = "rd";
-        String comListarMensagens = "rlm";
-
-
-        //vetor com as 3 dimensoes do deslocamento, utilizado para tornar o codigo de movimentacao menos repetitivo
-        //o robo ainda se movimenta apenas em uma direcao por comando
-        int deltaMov[] = new int[3];
-
-        //mensagem de comandos do menu interativo
-        String msgComandos = "\nComandos gerais possiveis: \n" + 
-        comImprimirRobos +" - imprime todos os robos \n" + 
-        comImprimirLigados +" - imprime todos os robos ligados \n"+
-        comImprimirDesligados + " - imprime todos os robos desligados \n"+
-        comImprimirObstaculos + " - imprime todos os obstaculos \n" +
-        comImprimirAmbiente + " - imprime dados do ambiente \n" + 
-        comImprimirMapa + " - imprime o mapa do ambiente \n" +
-        comSelecionarRobo + " <identificador> - seleciona um robo, "
-        +"sendo <identificador> o nome do robo, o id unico do robo ou o indice do robo no ambiente. \n" +
-        comSair + " - sai do programa \n" + 
-        comHelp + " - imprime essa mensagem novamente.";
-
-        String msgComandosRobo = "\nComandos do robo selecionado: \n" + 
-        comPosRobo + " - imprime sua posicao e status \n"+
-        comLigarRobo+ " - liga o robo \n" +
-        comDesligarRobo+ " - desliga o robo \n" +
-        comListarMensagens + " - lista as mensagens recebidas pelo robo (se for comunicavel) \n" +
-        "rmx, rmy, rmz <delta> - movem o robo selecionado na direcao escolhida uma quantidade <delta> "+
-        "(delta pode ser negativo, rmz so pode ser usado para o aereo). ";
-        //+"O valor maximo para o modulo de delta eh " + maxMover + " unidades";
 
         System.out.println("");
         System.out.println("---Bem vindo ao menu de interacao---");

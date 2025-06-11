@@ -142,7 +142,10 @@ public abstract class Robo implements Entidade{
     
     @Override
     public String toString() {
-        return getNome() + " ("+ this.tipo +", id = " + this.id + "): " + getX() + ", " + getY();
+        String estado = "";
+        if(ligado) estado = "ligado";
+        else estado = "desligado";
+        return getNome() + " ("+ this.tipo +", id = " + this.id + ", " + estado + "): " + getX() + ", " + getY();
     }
 
     @Override

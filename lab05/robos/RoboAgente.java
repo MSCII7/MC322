@@ -20,6 +20,8 @@ public class RoboAgente extends AgenteInteligente {
         controleMovimento = new ControleMovimento(this);
         gerenciadorSensores = new GerenciadorSensores(this);
         moduloComunicacao = new ModuloComunicacao(this);
+
+        this.tipo = "Agente";
     }
 
     @Override
@@ -48,7 +50,9 @@ public class RoboAgente extends AgenteInteligente {
     
     @Override
     public ArrayList<Robo> getRobosDentro(Ambiente amb) throws RoboDesligadoException {
-        return sr.getRobos_dentro(posicaoX, posicaoY, id, amb);
+        ArrayList<Robo> robosProximos = sr.getRobos_dentro(posicaoX, posicaoY, id, amb);
+        robosProximos.remove(this);
+        return robosProximos;
     }
 
     @Override

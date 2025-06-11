@@ -19,12 +19,12 @@ public class MissaoVerificarVazio implements Missao{
 
     //talvez seja melhor fazer um sensor pra isso, mas
     @Override
-    public void executar(Robo r, Ambiente amb){
-        String msgMissao = "Rodando Missao de Verificacao de Vazio com robo " + r.getNome() + ": \n";
+    public void executar(AgenteInteligente ai, Ambiente amb){
+        String msgMissao = "Rodando Missao de Verificacao de Vazio com robo " + ai.getNome() + ": \n";
 
-        double dist = Math.sqrt(Math.pow(x - r.getX(), 2) + Math.pow(y - r.getY(), 2) + Math.pow(z - r.getZ(), 2));
+        double dist = Math.sqrt(Math.pow(x - ai.getX(), 2) + Math.pow(y - ai.getY(), 2) + Math.pow(z - ai.getZ(), 2));
         msgMissao += "A posicao (" + x + ", " + y + ", " + z + "), a uma distancia " + (int)(dist) + 
-                    " do robo " + r.getNome() + ", esta ";
+                    " do robo " + ai.getNome() + ", esta ";
 
         if(dist < raioVerificacao){
             if(amb.estaOcupado(x, y, z) == false){

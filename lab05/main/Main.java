@@ -2,6 +2,7 @@ package main;
 
 import ambiente.*;
 import exceptions.*;
+import missao.MissaoEMP;
 import missao.MissaoVerificarVazio;
 import robos.*;
 
@@ -68,12 +69,24 @@ public class Main{
             meuAmbiente.adicionarEntidade(panfletario);
 
             MissaoVerificarVazio m = new MissaoVerificarVazio(30, 50, 10, 60);
-            RoboAgente roboAgente = new RoboAgente(m, "Bond", 43, 32);
-            roboAgente.setId(770);
-            meuAmbiente.adicionarEntidade(roboAgente);
+            RoboAgente roboAgente1 = new RoboAgente(m, "Bond", 43, 32);
+            roboAgente1.setId(770);
+            meuAmbiente.adicionarEntidade(roboAgente1);
+
+            MissaoEMP emp = new MissaoEMP();
+            RoboAgente roboAgente2 = new RoboAgente(emp, "Craig", 70, 7);
+            roboAgente2.setId(707);
+            meuAmbiente.adicionarEntidade(roboAgente2);
             
             try{
-                roboAgente.executarMissao(meuAmbiente);
+                roboAgente1.executarMissao(meuAmbiente);
+            }
+            catch(RoboDesligadoException e){
+                System.err.println("Robo desligado");
+            }
+
+            try{
+                roboAgente2.executarMissao(meuAmbiente);
             }
             catch(RoboDesligadoException e){
                 System.err.println("Robo desligado");
@@ -83,7 +96,7 @@ public class Main{
             //Teste.testeSensorObstaculo(meuRobo, meuAmbiente);
             //Teste.testeSensorRobo(meuRobo, meuAmbiente); Dando problema aqui
             //imprimir posicoes finais dos robos
-            MenuInterativo.imprimirRobos(meuAmbiente); 
+            MenuHelper.imprimirRobos(meuAmbiente); 
 
             MenuInterativo.entrarMenuInterativo(meuAmbiente);
             
