@@ -12,6 +12,10 @@ import robos.*;
 
 public class MissaoEMP implements Missao{
 
+    public MissaoEMP(){
+        
+    }
+
     @Override
     public void executar(AgenteInteligente ai, Ambiente a) {
         String msgMissao = "Rodando Missao EMP com robo " + ai.getNome() + ": \n";

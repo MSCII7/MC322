@@ -26,6 +26,8 @@ public class MenuInterativo {
     static final String comLigarRobo = "rl";
     static final String comDesligarRobo = "rd";
     static final String comListarMensagens = "rlm";
+    static final String comListarMissoes = "rdm";
+    static final String comAtribuirMissao = "ram";
 
 
     //vetor com as 3 dimensoes do deslocamento, utilizado para tornar o codigo de movimentacao menos repetitivo
@@ -49,9 +51,10 @@ public class MenuInterativo {
     comPosRobo + " - imprime sua posicao e status \n"+
     comLigarRobo+ " - liga o robo \n" +
     comDesligarRobo+ " - desliga o robo \n" +
-    comListarMensagens + " - lista as mensagens recebidas pelo robo (se for comunicavel) \n" +
+    comListarMensagens + " - lista as mensagens recebidas pelo robo (se for Comunicavel) \n" +
+    comListarMissoes + " - lista as missoes, com as descricoes e seu formato (se for Agente)" + 
     "rmx, rmy, rmz <delta> - movem o robo selecionado na direcao escolhida uma quantidade <delta> "+
-    "(delta pode ser negativo, rmz so pode ser usado para o aereo). ";
+    "(delta pode ser negativo, rmz so pode ser usado para o aereo).";
     //+"O valor maximo para o modulo de delta eh " + maxMover + " unidades";
     
 
@@ -138,6 +141,13 @@ public class MenuInterativo {
                             System.err.println(roboSelecionado.getNome() + " nao eh Comunicavel!");
                         }
                     }
+
+                    else if(comando.equals(comListarMissoes)){
+                        if(roboSelecionado instanceof AgenteInteligente ai){
+                            
+                        }
+                    }
+                    
                     
 
                     //comandos de movimentacao
@@ -150,6 +160,13 @@ public class MenuInterativo {
                     else if(divisor[0].equals("rmz")) {
                         deltaMov[2] = MenuHelper.getDeltaRobo(divisor);
                     }
+
+                    else if(divisor[0].equals(comAtribuirMissao)){
+                        if(roboSelecionado instanceof AgenteInteligente ai){
+                            MenuHelper.atribuirMissao(divisor, ai, meuAmbiente);
+                        }
+                    }
+
                     else if(comando.equals(roboSelecionado.getComandoTarefa())) {
                         //pode estar tanto desligado para acionar sensores quanto para executar a tarefa
                         try {

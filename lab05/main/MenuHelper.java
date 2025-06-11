@@ -4,10 +4,16 @@ import java.util.ArrayList;
 
 import ambiente.Ambiente;
 import ambiente.Obstaculo;
+import missao.*;
+
+import robos.AgenteInteligente;
 import robos.Robo;
 
 //classe para ter as funcoes adicionais utilizadas pelo menu interativo
 public class MenuHelper {
+    static String comEncontrar = "ENC";
+    static String comVerificarVazio = "VERVAZIO";
+    static String comEMP = "EMP";
      //Imprimir os robos do ambiente, com seu indice na lista de robos na frente
     public static void imprimirRobos(Ambiente amb){
         ArrayList<Robo> robos = amb.getRobos();
@@ -150,4 +156,19 @@ public class MenuHelper {
         return 0;
     }
 
+    public static void atribuirMissao(String[] comDividido, AgenteInteligente ai, Ambiente amb){
+        if(comDividido.length > 1){
+            if(comDividido[1].equals(comEMP)){
+                MissaoEMP emp = new MissaoEMP();
+                ai.definirMissao(emp);
+                System.out.println("A missao EMP foi atribuida ao robo " + ai.getNome());
+            }
+            else if(comDividido[1].equals(comEncontrar)){
+
+            }
+            else if(comDividido[1].equals(comVerificarVazio)){
+
+            }
+        }
+    }
 }

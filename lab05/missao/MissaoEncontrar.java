@@ -7,7 +7,7 @@ import robos.*;
 
 public class MissaoEncontrar implements Missao {
     TipoObstaculo tipo;
-    String comandoMissao = "ME";
+    String comandoMissao = "ENC";
 
     public MissaoEncontrar(TipoObstaculo t){
         this.tipo = t;
