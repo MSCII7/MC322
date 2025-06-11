@@ -8,6 +8,7 @@ import robos.*;
 public class MissaoVerificarVazio implements Missao{
     protected int raioVerificacao;
     protected int x, y, z;
+    String comandoMissao = "VERVAZIO";
 
     //x, y, z representam a posicao que sera verificada pra ver se eh vazia
     public MissaoVerificarVazio(int x, int y, int z, int raioVerificacao){
@@ -48,7 +49,8 @@ public class MissaoVerificarVazio implements Missao{
     }
 
     @Override
-    public void imprimirFormatoMissao() {
-        System.out.println("MISSAOVF <identificador robo> x y z raio");
+    public String getComando() {
+        return comandoMissao;
     }
+
 }

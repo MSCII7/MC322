@@ -14,10 +14,6 @@ public class MissaoEncontrar implements Missao {
     }
 
     //exemplo: ME Bond ARVORE atribui a missao de encontrar arvore ao robo Bond
-    @Override
-    public void imprimirFormatoMissao(){
-        System.out.println(comandoMissao + " <identificador robo> TipoObstaculo");
-    }
 
 
 
@@ -39,6 +35,27 @@ public class MissaoEncontrar implements Missao {
             System.err.println(e.getMessage());
         }
         
+    }
+
+    @Override
+    public String getComando() {
+        return comandoMissao;
+    }
+
+    @Override
+    public Missao formatarParaMissao(String[] comDividido){
+        MissaoEncontrar novaMissao = null;
+        if(comDividido.length > 2){
+            for(TipoObstaculo tipo : TipoObstaculo.values()){
+                if(comDividido[2].equals(tipo.toString())){
+                    novaMissao = new MissaoEncontrar(tipo);
+                }
+            }
+        }
+        if(novaMissao == null){
+            System.out.println("Missao fornecida eh invalida. Tente novamente");
+        }
+        return novaMissao;
     }
 
 

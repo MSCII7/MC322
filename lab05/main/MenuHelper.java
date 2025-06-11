@@ -1,19 +1,17 @@
 package main;
 
-import java.util.ArrayList;
-
 import ambiente.Ambiente;
 import ambiente.Obstaculo;
+import java.util.ArrayList;
 import missao.*;
-
 import robos.AgenteInteligente;
 import robos.Robo;
 
 //classe para ter as funcoes adicionais utilizadas pelo menu interativo
 public class MenuHelper {
-    static String comEncontrar = "ENC";
-    static String comVerificarVazio = "VERVAZIO";
-    static String comEMP = "EMP";
+
+    static Missao[] missoesFake = {new MissaoEMP(), new MissaoEncontrar(null), new MissaoVerificarVazio(0, 0, 0, 1)};
+
      //Imprimir os robos do ambiente, com seu indice na lista de robos na frente
     public static void imprimirRobos(Ambiente amb){
         ArrayList<Robo> robos = amb.getRobos();
@@ -157,18 +155,17 @@ public class MenuHelper {
     }
 
     public static void atribuirMissao(String[] comDividido, AgenteInteligente ai, Ambiente amb){
+        Missao novaMissao = null;
         if(comDividido.length > 1){
-            if(comDividido[1].equals(comEMP)){
-                MissaoEMP emp = new MissaoEMP();
-                ai.definirMissao(emp);
-                System.out.println("A missao EMP foi atribuida ao robo " + ai.getNome());
+            for(Missao m : missoesFake){
+                if(comDividido[1].equals(m.getComando())){
+                    novaMissao = m.formatarParaMissao(comDividido);
+                }
             }
-            else if(comDividido[1].equals(comEncontrar)){
-
-            }
-            else if(comDividido[1].equals(comVerificarVazio)){
-
-            }
+        }
+        
+        if(novaMissao != null){
+            ai.definirMissao(novaMissao);
         }
     }
 }

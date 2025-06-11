@@ -3,7 +3,6 @@ package missao;
 import ambiente.*;
 import arquivos.Salvar;
 import exceptions.RoboDesligadoException;
-
 import java.util.ArrayList;
 import robos.*;
 
@@ -12,6 +11,8 @@ import robos.*;
 
 public class MissaoEMP implements Missao{
 
+    String comandoMissao = "EMP";
+    
     public MissaoEMP(){
         
     }
@@ -44,10 +45,17 @@ public class MissaoEMP implements Missao{
         System.out.println("--------------------------");
     }
 
+
     @Override
-    public void imprimirFormatoMissao() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public String getComando() {
+        return comandoMissao;
     }
+
+    @Override
+    public Missao formatarParaMissao(String[] comDividido){
+        return new MissaoEMP();
+    }
+    
 
     
 }
