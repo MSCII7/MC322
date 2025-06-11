@@ -14,7 +14,8 @@ public class MissaoEncontrar implements Missao {
         this.tipo = t;
     }
 
-    //exemplo: ME Seguro ARVORE atribui a missao de encontrar arvore ao robo seguro
+    //exemplo: ME Bond ARVORE atribui a missao de encontrar arvore ao robo Bond
+    @Override
     public void imprimirFormatoMissao(){
         System.out.println(comandoMissao + " <identificador robo> TipoObstaculo");
     }

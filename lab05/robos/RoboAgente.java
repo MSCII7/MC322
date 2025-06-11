@@ -13,12 +13,12 @@ import subsistemas.ModuloComunicacao;
 public class RoboAgente extends AgenteInteligente {
     protected ArrayList<Sensor> sensores;
 
-    public RoboAgente(Missao m, String nomeIn, int posXIn, int posYIn, Ambiente amb){
+    public RoboAgente(Missao m, String nomeIn, int posXIn, int posYIn){
         super(nomeIn, posXIn, posYIn);
         this.missao = m;
         this.sensores = new ArrayList<>();
-        controleMovimento = new ControleMovimento(this, amb);
-        gerenciadorSensores = new GerenciadorSensores(this, amb);
+        controleMovimento = new ControleMovimento(this);
+        gerenciadorSensores = new GerenciadorSensores(this);
         moduloComunicacao = new ModuloComunicacao(this);
     }
 
