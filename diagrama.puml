@@ -79,6 +79,22 @@ class RoboAereoRefletor {
     +subir(deltaZ: int, amb: Ambiente): void
     +descer(deltaZ: int, amb: Ambiente): void
 }
+abstract AgenteInteligente {
+    # missao : Missao
+    # sensores : ArrayList<Sensor>
+    + controleMovimento : ControleMovimento
+    + gerenciadorSensores: GerenciadorSensores
+    + moduloComunicacao : ModuloComunicacao
+    --
+    + AgenteInteligente(String, int, int)
+    + definirMissao(Missao m) : void
+    + temMissao() : boolean
+    + executarMissao(Ambiente) : amb
+
+}
+class RoboAgente {
+
+}
 abstract class Sensor {
     #double raio
     +{abstract} monitorar(amb: Ambiente, posX: int, posY: int, posZ: int): void
@@ -173,12 +189,42 @@ class GerenciadorSensores {
     + colisao_obs(obs_dentro : ArrayList<Obstaculo>, nova_x : int, nova_y : int, nova_z : int) : boolean
     + colisao_robo(robos_dentro : ArrayList<Robo>, nova_x : int, nova_y : int, nova_z : int) : boolean
 }
-class GerenciadoSensores{
-
+class ControleMovimento {
+    #roboControlado: AgenteInteligente
+    --
+    + ControleMovimento(AgenteInteligente): void
+    + mover(int, int, int, Ambiente): void
 }
 class ModuloComunicacao {
-
+    # roboComunicavel Comunicavel
+    --
+    + ModuloComunicacao(Comunicavel): void
+    + enviarMensagem(Comunicavel, String): void
+    + receberMensagens()
 }
+
+interface Missao {
+    + executar(): void
+    + getComando(): String
+    + formatarParaMissao(String[]): Missao
+}
+class MissaoEMP{
+    # comandoMissao : String
+    --
+    + MissaoEMP()
+}
+class MissaoEncontrar{
+    # comandoMissao : String
+    -- 
+    + MissaoEncontrar(TipoObstaculo)
+}
+class MissaoVerificarVazio{
+    # comandoMissao : String
+    --
+    + MissaoVerificarVazio(int x, int y, int z, int raio)
+}
+
+
 enum TipoObstaculo {
     MURO,
     MEGAMURO,
@@ -252,6 +298,14 @@ RoboAereoConsciente ..|> Sensoreavel
 RoboTerrestreMorador ..|> Referenciavel
 RoboTerrestreMorador ..|> Comunicavel
 RoboTerrestreAmbientalista ..|> Construtor
+AgenteInteligente ..|> Sensoreavel
+AgenteInteligente ..|> Comunicavel
+AgenteInteligente "1" o-- "1" ControleMovimento
+AgenteInteligente "1" o-- "1" GerenciadorSensores 
+AgenteInteligente "1" o-- "1" ModuloComunicacao
+AgenteInteligente "1" o-- "1" Missao
+AgenteInteligente <|-- RoboAgente
+Robo <|-- AgenteInteligente
 Robo ..|> Entidade
 Sensor <|-- SensorObstaculos
 Sensor <|-- SensorLimites
@@ -271,4 +325,7 @@ Robo <|-- RoboAereo
 Robo <|-- RoboTerrestre
 Obstaculo ..> TipoObstaculo
 Entidade ..>TipoEntidade
+MissaoEMP ..|> Missao
+MissaoEncontrar ..|> Missao
+MissaoVerificarVazio ..|> Missao
 @enduml

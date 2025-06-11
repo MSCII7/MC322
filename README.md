@@ -12,18 +12,32 @@ Esse repositório apresenta os laboratórios de MC322, com o objetivo de gerar u
   Subclasse de robô que implementa uma velocidade máxima de deslocamento do robô
   * **Robô Terrestre Eletrico**: Implementa bateria e recarga para o robô
   * **Robô Terrestre Teletransporte**: Implementa a barra de teletransporte e o método de teletransporte
+  * **Robô Terrestre Morador**: Implementa a interface referenciavel com o intuito de atribuir as coordenadas de um obstaculo do tipo moradia (casa ou predio) no metodo executarTarefa
+  * **Robô Terrestre Panfletario**: Robô que aplica as interfaces comunicavel e sensoreavel para encontrar Robôs Moradores e mandar mensagens de anuncio de moradia.
   ### Robô Aéreo
   Subclasse de robô que implementa o deslocamento no eixo Z e um limite de altura, e implementa a recepção de mensagens
   * **Robô Aéreo Consciente**: Manda mensagem para os robos muito proximos, implementa o sensor de robos
   * **Robô Aéreo Refletor**: reflete o que ele iria ultrapassar a altura máxima
+  ### Agente Inteligente
+  Classe abstrata que representa Robôs capazes de executar missoes, implmentando as interfaces sensoreavel e comunicavel. Alem disso, ele eh composto por subsistemas capazes de dar autonomia para o robo realizar as tarefas sem a presenca do usuario.
+  * **Robô Agente**: classe concreta capaz de executar missoes 
   ## Sensor
   Classe genérica dos sensores, que contém o raio de monitoramento e a função abstrata monitorar
   * **Sensor Robôs**: Sensor que monitora robôs dentro do raio, usa o ambiente para achar os roboôs
   * **Sensor Obstáculos**: Sensor que acha os obstáculos próximos
+  * **Sensor Limites**: Sensor que monitora as extremidades do ambiente
   ## Ambiente
   Classe que abriga as entidades criadas: robôs, obstáculos, vazio ou indeterminada, juntamente com os seus limites.
   ## Obstáculo
   Classe que contém objetos que compõe o ambiente
+  ## Missao
+  Interface que atribui tarefas especificas para robos inteligentes. Alem de criar um arquivo com o log da missao
+  ### MissaoEMP
+  O robo com essa missao inverte o estado de todos os robos no raio do seu sensor de robos
+  ### MissaoEncontrar
+  Nessa missao o robo encontra um tipo de obstaculo especifico
+  ### MissaoVerificarVazio
+  Verifica se a posicao escolhida esta vazia
   ## Interfaces
   ### Carregavel
   Interface para robos que dependem que algum componente carregavel para funcionar (RoboTerrestreEletrico, RoboTerrestreTeletransporte)
@@ -37,6 +51,14 @@ Esse repositório apresenta os laboratórios de MC322, com o objetivo de gerar u
   Interface dos objetos com capacidade de contruir no ambiente (RoboTerrestreAmbientalista)
   ### Referenciavel
   Interface que atrela um obstáculo a um objeto referenciavel (RoboTerrestreMorador)
+  ## Subsistemas
+  Classes capazes de dar autonomia ao Robô 
+  ### ControleMovimento
+  Controla os movimentos do Robô, alterando as suas coordenadas internas e as relacionadas ao ambiente
+  ### GerenciadorSensores
+  Controla os sensores e realiza as tarefas necesssarias para dar autonomia ao Robô, como verificar se o espaco no qual o robo ira se deslocar esta vazio
+  ### ModuloComunicacao
+  Controla e gerencia a comunicacao dos Robôs, recebimento e envio de mensagens
   ## Exceptions
   ### TipoIncompativel
   Para evitar acoplamento de tipos de classes invalidas a objetos que dependem de tipo especificos (como colocar um obstaculo de tipo ARVORE quando só poderia ser CASA ou PREDIO)

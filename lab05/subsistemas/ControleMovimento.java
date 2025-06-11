@@ -7,7 +7,6 @@ import robos.*;
 
 public class ControleMovimento {
     protected AgenteInteligente roboControlado;
-    protected Ambiente amb;
     
     public ControleMovimento(AgenteInteligente r){
         this.roboControlado = r;
