@@ -20,9 +20,9 @@ public class ControleMovimento {
             int novaZ = roboControlado.getZ()+delZ;
             amb.moverEntidade(roboControlado, novaX, novaY, novaZ);
             roboControlado.moverPara(novaX, novaY, novaZ);
-        }catch (RoboDesligadoException e){
+        }catch (RoboDesligadoException | NaoAereoException e){
 
-        }catch(NaoAereoException e){}
+        }
     
     }
 }

@@ -4,7 +4,6 @@ import ambiente.*;
 import exceptions.RoboDesligadoException;
 import interfacesRobos.*;
 import java.util.ArrayList;
-import missao.*;
 import sensores.*;
 import subsistemas.ControleMovimento;
 import subsistemas.GerenciadorSensores;
@@ -12,10 +11,8 @@ import subsistemas.ModuloComunicacao;
 
 public class RoboAgente extends AgenteInteligente {
     protected ArrayList<Sensor> sensores;
-
-    public RoboAgente(Missao m, String nomeIn, int posXIn, int posYIn){
+    public RoboAgente(String nomeIn, int posXIn, int posYIn){
         super(nomeIn, posXIn, posYIn);
-        this.missao = m;
         this.sensores = new ArrayList<>();
         controleMovimento = new ControleMovimento(this);
         gerenciadorSensores = new GerenciadorSensores(this);

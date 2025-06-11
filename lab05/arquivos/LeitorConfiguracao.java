@@ -1,0 +1,220 @@
+package arquivos;
+import java.io.*;
+import java.util.Scanner;
+import java.nio.file.Paths;
+
+import ambiente.*;
+import ambiente.Obstaculo;
+import robos.*;
+import missao.*;
+import exceptions.*;
+
+
+public class LeitorConfiguracao {
+    Scanner in = null;
+    public LeitorConfiguracao(){
+
+    }
+    public Ambiente ler(String arquivo){
+        try {
+            Ambiente amb=null;
+            File arq = new File(arquivo);
+            if (!arq.exists())
+                throw new FileNotFoundException();
+            in = new Scanner(arq);
+            while (in.hasNextLine()){
+                String linha = in.nextLine();
+                String[] palavras = linha.split(" ");
+                switch (palavras[0]){
+                    case "AMBIENTE":
+                        amb = construirAmbiente(palavras);
+                    case "ROBO":
+                        geraRobo(palavras, amb);
+                    case "OBSTACULO":
+                        geraObstaculo(palavras, amb);
+                    case "MISSAO":
+                        atribuiMissao(palavras, amb);
+                    default:
+                        throw new LeituraInvalidaException();
+                }
+            }
+            return amb;
+        } catch (Exception e) {
+        }
+    }
+    private Ambiente construirAmbiente(String[] dimensoes){
+        try {
+            if (dimensoes.length != 4)
+                throw new LeituraInvalidaException();
+            int largura = Integer.parseInt(dimensoes[1]);
+            int comprimento = Integer.parseInt(dimensoes[2]);
+            int altura = Integer.parseInt(dimensoes[3]);
+            Ambiente amb = new Ambiente(largura, comprimento, altura);
+            return amb;
+        } catch (Exception e) {
+            throw new LeituraInvalidaException();
+        }
+    }
+    private void geraRobo(String[] caracteristicas, Ambiente a){
+        try {
+            if (a == null || caracteristicas.length < 5)
+                throw new LeituraInvalidaException();
+            String tipo = caracteristicas[1];
+            String id = caracteristicas[2];
+            int x = Integer.parseInt(caracteristicas[3]);
+            int y = Integer.parseInt(caracteristicas[4]);
+            switch (tipo){
+                case "Eletrico":
+                    if (caracteristicas.length < 6)
+                        throw new LeituraInvalidaException();
+                    int vmax = caracteristicas[5];
+                    RoboTerrestreEletrico el = new RoboTerrestreEletrico(id, x, y, vmax);
+                    a.adicionarEntidade(el);
+                case "Terrestre":
+                    if (caracteristicas.length < 6)
+                        throw new LeituraInvalidaException();
+                    int vmax = caracteristicas[5];
+                    RoboTerrestre t = new RoboTerrestre(id, x, y, vmax);
+                    a.adicionarEntidade(t);
+                case "Ambientalista":
+                    if (caracteristicas.length < 6)
+                        throw new LeituraInvalidaException();
+                    int vmax = caracteristicas[5];
+                    RoboTerrestreAmbientalista am = new RoboTerrestreAmbientalista(id, x, y, vmax);
+                    a.adicionarEntidade(am);
+                case "Teletransporte":
+                    if (caracteristicas.length < 6)
+                        throw new LeituraInvalidaException();
+                    int vmax = caracteristicas[5];
+                    RoboTerrestreTeletransporte tp = new RoboTerrestreTeletransporte(id, x, y, vmax);
+                    a.adicionarEntidade(tp);
+                case "Morador":
+                    if (caracteristicas.length < 6)
+                        throw new LeituraInvalidaException();
+                    int vmax = caracteristicas[5];
+                    RoboTerrestreMorador mor = new RoboTerrestreMorador(id, x, y, vmax);
+                    a.adicionarEntidade(mor);
+                case "Panfletario":
+                    if (caracteristicas.length < 6)
+                        throw new LeituraInvalidaException();
+                    int vmax = caracteristicas[5];
+                    RoboTerrestrePanfletario p = new RoboTerrestrePanfletario(id, x, y, vmax);
+                    a.adicionarEntidade(p);
+                case "Aereo":
+                    if (caracteristicas.length < 7)
+                        throw new LeituraInvalidaException();
+                    int z = caracteristicas[5];
+                    int altMax = caracteristicas[6];
+                    RoboAereo ae = new RoboAereo(id, x, y, z,altMax);
+                    a.adicionarEntidade(ae);
+                case "Refletor":
+                    if (caracteristicas.length < 7)
+                        throw new LeituraInvalidaException();
+                    int z = caracteristicas[5];
+                    int altMax = caracteristicas[6];
+                    RoboAereoRefletor ar = new RoboAereoRefletor(id, x, y, z,altMax);
+                    a.adicionarEntidade(ar);
+                case "Consciente":
+                    if (caracteristicas.length < 7)
+                        throw new LeituraInvalidaException();
+                    int z = caracteristicas[5];
+                    int altMax = caracteristicas[6];
+                    RoboAereoConsciente ac = new RoboAereoConsciente(id, x, y, z,altMax);
+                    a.adicionarEntidade(ac);
+                case "Agente":
+                    RoboAgente rg = new RoboAgente(id, x, y);
+                    a.adicionarEntidade(rg);
+                default:
+                    throw new LeituraInvalidaException();
+            }
+        } catch (Exception e) {
+            throw new LeituraInvalidaException();
+        }
+    }
+    private void geraObstaculo(String[] info, Ambiente a){
+        try {
+            if (info.length < 4)
+                throw new LeituraInvalidaException();
+            String tipo = info[1];
+            int x = Integer.parseInt(info[2]);
+            int y = Integer.parseInt(info[3]);
+            switch (tipo){
+                case "Arvore":
+                    Obstaculo arv = new Obstaculo(x, y, TipoObstaculo.ARVORE);
+                    a.adicionarEntidade(arv);
+                case "Arbusto":
+                    Obstaculo arb = new Obstaculo(x, y,TipoObstaculo.ARBUSTO);
+                    a.adicionarEntidade(arb);
+                case "Predio":
+                    Obstaculo pr =new Obstaculo(x, y, TipoObstaculo.PREDIO);
+                    a.adicionarEntidade(pr);
+                case "Casa":
+                    Obstaculo ca = new Obstaculo(x, y, TipoObstaculo.CASA);
+                case "Muro":
+                    Obstaculo m = new Obstaculo(x, y, TipoObstaculo.MURO);
+                    a.adicionarEntidade(m);
+                case "Megamuro":
+                    Obstaculo mm = new Obstaculo(x, y, TipoObstaculo.MEGAMURO);
+                    a.adicionarEntidade(mm);
+                default:
+                    throw new LeituraInvalidaException();
+            }
+        } catch (Exception e) {
+        }
+
+    }
+    private void atribuiMissao(String[] info, Ambiente a){
+        try {
+            if (info.length < 3)
+                throw new LeituraInvalidaException();
+            int id = Integer.parseInt(info[1]);
+            if (!(a.getRobos()[id] instanceof AgenteInteligente ai))
+                throw new LeituraInvalidaException();
+            String tipo = info[2];
+            switch (tipo){
+                case "EMP":
+                    Missao m = new MissaoEMP();
+                    ai.definirMissao(m);
+                case "Encontrar":
+                    if (info.length < 4)
+                        throw new LeituraInvalidaException();
+                    String tipoObs = info[3];
+                    TipoObstaculo obs;
+                    switch (tipoObs){
+                        case "Arvore":
+                            obs = TipoObstaculo.ARVORE;
+                        case "Arbusto":
+                            obs = TipoObstaculo.ARBUSTO;
+                        case "Predio":
+                            obs = TipoObstaculo.PREDIO;
+                        case "Casa":
+                            obs = TipoObstaculo.CASA;
+                        case "Muro":
+                            obs = TipoObstaculo.MURO;
+                        case "Megamuro":
+                            obs =TipoObstaculo.MEGAMURO;
+                        default:
+                            throw new LeituraInvalidaException();
+                    }
+                    Missao me= new MissaoEncontrar(obs);
+                    ai.definirMissao(me);
+
+                case "VerificarVazio":
+                    if (info.length < 7)
+                        throw new LeituraInvalidaException();
+                    int x = Integer.parseInt(info[3]);
+                    int y = Integer.parseInt(info[4]);
+                    int z = Integer.parseInt(info[5]);
+                    int raio = Integer.parseInt(info[6]);
+                    Missao mvv = new MissaoVerificarVazio(x, y, z, raio);
+                    ai.definirMissao(mvv);
+                default:
+                    throw new LeituraInvalidaException();
+
+            }
+        } catch (Exception e) {
+        }
+    }
+    
+
+}

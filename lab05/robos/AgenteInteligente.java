@@ -18,7 +18,7 @@ public abstract class AgenteInteligente extends Robo implements Sensoreavel, Com
 
     public AgenteInteligente(String nomeIn, int posXIn, int posYIn) {
         super(nomeIn, posXIn, posYIn);
-        
+        this.missao = null;
         comandoTarefa = "em";
         descricaoTarefa = " executa a missao do agente inteligente";
 
