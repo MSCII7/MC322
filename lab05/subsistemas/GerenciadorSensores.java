@@ -12,13 +12,14 @@ public class GerenciadorSensores {
     protected AgenteInteligente roboGerenciado;
     public GerenciadorSensores(AgenteInteligente r){
         this.roboGerenciado= r;
+        sensores = new ArrayList<>();
     }
 
     public void adicionarSensor(Sensor s){
-        roboGerenciado.adicionarSensor(s);
+        sensores.add(s);
     }
     public void removerSensor(Sensor s){
-        roboGerenciado.removerSensor(s);
+        sensores.remove(s);
     }
     public void removerTodosSensores(){
         sensores = null;
@@ -90,5 +91,9 @@ public class GerenciadorSensores {
             if (nova_x == robo.getX() && nova_y == robo.getY() && robo.getZ() == nova_z)
                 return true;
         return false;
+    }
+
+    public ArrayList<Sensor> getSensores(){
+        return sensores;
     }
 }

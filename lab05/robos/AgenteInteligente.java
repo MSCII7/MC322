@@ -34,4 +34,8 @@ public abstract class AgenteInteligente extends Robo implements Sensoreavel, Com
 
     public abstract void executarMissao (Ambiente a) throws RoboDesligadoException;
 
+    public GerenciadorSensores getGerenciadorSensores(){
+        return gerenciadorSensores;
+    }
+
 }

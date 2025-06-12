@@ -1,6 +1,7 @@
 package missao;
 
 import ambiente.*;
+import arquivos.Salvar;
 import exceptions.RoboDesligadoException;
 import java.util.ArrayList;
 import robos.*;
@@ -20,20 +21,32 @@ public class MissaoEncontrar implements Missao {
     @Override
     public void executar(AgenteInteligente ai, Ambiente a) {
         //Tentar criar uma lógica de exploração, ativando o sensor de Obstáculos para encontrar os obstáculos ao redor e ver se é do tipo desejado
+        String msgMissao = "Rodando Missao de Encontrar Obstaculos com robo " + ai.getNome() + ": \n";
+
         try{
             ai.acionarSensores(a);
             ArrayList<Obstaculo> obstaculos = ai.getObstaculosDentro(a);
-            System.out.println("Encontrou os seguintes obstaculos:");
+
+            msgMissao += "Ativou Sensor de Obstaculos do robo " + ai.getNome() + 
+            ", de raio " + ai.getGerenciadorSensores().getSensorObstaculos().getRaio() + "\n";
+            
+            msgMissao += "Encontrou os seguintes obstaculos do tipo " + tipo.toString() + ": \n";
 
             for(Obstaculo ob : obstaculos){
                 if(ob.getTipoObstaculo() == tipo){
-                    System.out.println(ob.getDescricao());
+                    msgMissao += ob.getDescricao() + "\n";
                 }
             }
         }
         catch(RoboDesligadoException e){
             System.err.println(e.getMessage());
         }
+
+        Salvar.escreverMissao(msgMissao);
+
+        System.out.println("---Escreveu no Arquivo---");
+        System.out.println(msgMissao);
+        System.out.println("--------------------------");
         
     }
 
