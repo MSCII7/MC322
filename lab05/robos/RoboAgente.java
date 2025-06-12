@@ -74,11 +74,15 @@ public class RoboAgente extends AgenteInteligente {
 
     @Override
     public void executarMissao(Ambiente a) throws RoboDesligadoException{
-		if (this.getEstado())
+		if (this.getEstado()){
 			if (temMissao()){
 				//Criar os subsistemas para controlar a missao de maneira autonoma
 				missao.executar(this, a);
 			}
+            else{
+                System.out.println("Nao tem missao");
+            }
+        }
 		else
 			throw new RoboDesligadoException();
     }

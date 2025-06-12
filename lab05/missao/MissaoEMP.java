@@ -55,6 +55,16 @@ public class MissaoEMP implements Missao{
     public Missao formatarParaMissao(String[] comDividido){
         return new MissaoEMP();
     }
+
+    @Override
+    public String formatoEntrada(){
+        return comandoMissao;
+    }
+
+    @Override
+    public String getDescricao(){
+        return "Missao EMP : inverte o estado de todos os robos no entorno";
+    }
     
 
     

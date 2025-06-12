@@ -58,5 +58,14 @@ public class MissaoEncontrar implements Missao {
         return novaMissao;
     }
 
+    @Override
+    public String formatoEntrada(){
+        return comandoMissao + " <TipoObstaculo> (ex : " + comandoMissao + " ARVORE)";
+    }
+
+    @Override
+    public String getDescricao(){
+        return "Missao encontrar : encontra todos os obstaculos de um determinado tipo no entorno";
+    }
 
 }

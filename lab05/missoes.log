@@ -6,3 +6,25 @@ Ativou o sensor de robos do Craig
 Desligou o robo Carro
 Desligou o robo Bond
 
+Rodando Missao de Verificacao de Vazio com robo Craig: 
+A posicao (10, 10, 10), a uma distancia 60 do robo Craig, esta muito distante para ser verificada(raio de verificacao eh 5)
+
+Rodando Missao EMP com robo Bond: 
+Ativou o sensor de robos do Bond
+Desligou o robo FRED
+Desligou o robo Carro
+Desligou o robo SHOCK
+Desligou o robo TP
+Desligou o robo PrateadosInc
+Desligou o robo Craig
+
+Rodando Missao EMP com robo Craig: 
+Ativou o sensor de robos do Craig
+Desligou o robo Carro
+Desligou o robo Bond
+
+Rodando Missao EMP com robo Craig: 
+Ativou o sensor de robos do Craig
+Ligou o robo Carro
+Ligou o robo Bond
+

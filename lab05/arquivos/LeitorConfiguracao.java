@@ -9,7 +9,7 @@ import robos.*;
 import missao.*;
 import exceptions.*;
 
-
+/* 
 public class LeitorConfiguracao {
     Scanner in = null;
     public LeitorConfiguracao(){
@@ -218,3 +218,4 @@ public class LeitorConfiguracao {
     
 
 }
+    */

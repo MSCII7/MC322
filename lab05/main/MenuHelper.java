@@ -166,6 +166,7 @@ public class MenuHelper {
         
         if(novaMissao != null){
             ai.definirMissao(novaMissao);
+            System.out.println("Foi atribuida uma nova missao ao robo " + ai.getNome());
         }
     }
 }

@@ -69,12 +69,12 @@ public class Main{
             meuAmbiente.adicionarEntidade(panfletario);
 
             MissaoVerificarVazio m = new MissaoVerificarVazio(30, 50, 10, 60);
-            RoboAgente roboAgente1 = new RoboAgente(m, "Bond", 43, 32);
+            RoboAgente roboAgente1 = new RoboAgente("Bond", 43, 32);
             roboAgente1.setId(770);
             meuAmbiente.adicionarEntidade(roboAgente1);
 
             MissaoEMP emp = new MissaoEMP();
-            RoboAgente roboAgente2 = new RoboAgente(emp, "Craig", 70, 7);
+            RoboAgente roboAgente2 = new RoboAgente("Craig", 70, 7);
             roboAgente2.setId(707);
             meuAmbiente.adicionarEntidade(roboAgente2);
             
