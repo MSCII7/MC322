@@ -13,4 +13,6 @@ public interface  Missao {
     String formatoEntrada();
 
     String getDescricao();
+
+    String getExemplo();
 }

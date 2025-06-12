@@ -52,7 +52,8 @@ public class MenuInterativo {
     comLigarRobo+ " - liga o robo \n" +
     comDesligarRobo+ " - desliga o robo \n" +
     comListarMensagens + " - lista as mensagens recebidas pelo robo (se for Comunicavel) \n" +
-    comListarMissoes + " - lista as missoes, com as descricoes e seu formato (se for Agente)" + 
+    comListarMissoes + " - lista as missoes, com as descricoes e seu formato (se for Agente) \n" + 
+    comAtribuirMissao + " - comando geral de atribuicao de missao (rode "+ comListarMissoes + " para mais detalhes)\n"+
     "rmx, rmy, rmz <delta> - movem o robo selecionado na direcao escolhida uma quantidade <delta> "+
     "(delta pode ser negativo, rmz so pode ser usado para o aereo).";
     //+"O valor maximo para o modulo de delta eh " + maxMover + " unidades";
@@ -144,7 +145,7 @@ public class MenuInterativo {
 
                     else if(comando.equals(comListarMissoes)){
                         if(roboSelecionado instanceof AgenteInteligente ai){
-                            
+                            MenuHelper.imprimirMissoes(comAtribuirMissao);
                         }
                     }
                     

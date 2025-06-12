@@ -63,7 +63,12 @@ public class MissaoEMP implements Missao{
 
     @Override
     public String getDescricao(){
-        return "Missao EMP : inverte o estado de todos os robos no entorno";
+        return "----Missao EMP : inverte o estado de todos os robos no entorno----";
+    }
+
+    @Override
+    public String getExemplo(){
+        return comandoMissao;
     }
     
 

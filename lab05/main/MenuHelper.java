@@ -10,6 +10,7 @@ import robos.Robo;
 //classe para ter as funcoes adicionais utilizadas pelo menu interativo
 public class MenuHelper {
 
+    //missoes "dummy" utilizadas para a criacao de missoes do mesmo tipo
     static Missao[] missoesFake = {new MissaoEMP(), new MissaoEncontrar(null), new MissaoVerificarVazio(0, 0, 0, 1)};
 
      //Imprimir os robos do ambiente, com seu indice na lista de robos na frente
@@ -163,10 +164,23 @@ public class MenuHelper {
                 }
             }
         }
+        if(novaMissao == null){
+            System.out.println("Missao fornecida nao eh valida. Tente novamente");
+        }
         
-        if(novaMissao != null){
+        else{
             ai.definirMissao(novaMissao);
             System.out.println("Foi atribuida uma nova missao ao robo " + ai.getNome());
+        }
+
+    }
+
+    public static void imprimirMissoes(String comandoAtribuir){
+        for(Missao m : missoesFake){
+            System.out.println(m.getDescricao());
+            System.out.println("Formato: " + comandoAtribuir + " " + m.formatoEntrada());
+            System.out.println("Exemplo: " + comandoAtribuir + " " + m.getExemplo());
+            System.out.println("");
         }
     }
 }

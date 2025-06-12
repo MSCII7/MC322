@@ -66,9 +66,6 @@ public class MissaoVerificarVazio implements Missao{
                 
             }
         }
-        if(novaMissao == null){
-            System.out.println("Missao fornecida eh invalida. Tente novamente");
-        }
         return novaMissao;
     }
 
@@ -79,7 +76,12 @@ public class MissaoVerificarVazio implements Missao{
 
     @Override
     public String getDescricao(){
-        return "Missao Encontrar : encontra todos os obstaculos de um determinado tipo no entorno";
+        return "----Missao Verificar Vazio: ve se a posicao selecionada esta vazia, se estiver dentro do raio----";
+    }
+
+    @Override
+    public String getExemplo(){
+        return comandoMissao + " 10 20 10 5";
     }
 
 }

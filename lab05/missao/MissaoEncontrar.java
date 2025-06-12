@@ -52,20 +52,22 @@ public class MissaoEncontrar implements Missao {
                 }
             }
         }
-        if(novaMissao == null){
-            System.out.println("Missao fornecida eh invalida. Tente novamente");
-        }
         return novaMissao;
     }
 
     @Override
     public String formatoEntrada(){
-        return comandoMissao + " <TipoObstaculo> (ex : " + comandoMissao + " ARVORE)";
+        return comandoMissao + " <TipoObstaculo>";
     }
 
     @Override
     public String getDescricao(){
-        return "Missao encontrar : encontra todos os obstaculos de um determinado tipo no entorno";
+        return "----Missao Encontrar : encontra todos os obstaculos de um determinado tipo no entorno----";
+    }
+
+    @Override
+    public String getExemplo(){
+        return comandoMissao + " ARVORE";
     }
 
 }
