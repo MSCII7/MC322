@@ -1,9 +1,9 @@
 package main;
 
-import robos.*;
 import ambiente.*;
+import arquivos.LeitorConfiguracao;
 import exceptions.*;
-import interfacesRobos.*;
+import robos.*;
 
 public class Teste {
     public static void testeCarregaveis(){
@@ -192,5 +192,14 @@ public class Teste {
             System.err.println("Robo morador esta desligado!");
         }
         System.out.println("\n-----FIM DO TESTE------\n");
+    }
+    public static void lerArquivo(String arq){
+        LeitorConfiguracao lc = new LeitorConfiguracao();
+        try {
+          Ambiente amb = lc.ler(arq);
+  
+        } catch (Exception e) {
+            System.out.println("Erro de leitura de arquivo: "+e.getMessage());
+        } 
     }
 }

@@ -16,6 +16,7 @@ public class Main{
             Teste.testeComunicavel();
             Teste.testeSensoreavel();
             Teste.testeTerrestrePanfletario();
+            Teste.lerArquivo("teste.txt");
             //Criar robos e ambiente para menu interativo
             Ambiente meuAmbiente = new Ambiente(100, 100, 200);
             criarObstaculos(meuAmbiente);  
