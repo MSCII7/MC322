@@ -15,39 +15,44 @@ public class RoboAgente extends AgenteInteligente {
         super(nomeIn, posXIn, posYIn);
         this.sensores = new ArrayList<>();
         controleMovimento = new ControleMovimento(this);
+        
         gerenciadorSensores = new GerenciadorSensores(this);
+        gerenciadorSensores.adicionarSensor(so);
+        gerenciadorSensores.adicionarSensor(sr);
+
         moduloComunicacao = new ModuloComunicacao(this);
 
         this.tipo = "Agente";
     }
 
+
     @Override
     public void removerSensor(Sensor s) {
         for (Sensor sensor : sensores){
             if (sensor == s)
-                sensores.remove(s);
+                gerenciadorSensores.removerSensor(s);
         }
     }
 
     @Override
     public void adicionarSensor(Sensor s) {
-        sensores.add(s);
+        gerenciadorSensores.adicionarSensor(s);
     }
 
     @Override
     public void acionarSensores(Ambiente amb) throws RoboDesligadoException {
-        for (Sensor s : sensores)
+        for (Sensor s : gerenciadorSensores.getSensores())
             s.monitorar(posicaoX, posicaoY, id, amb);
     }
 
     @Override
     public ArrayList<Obstaculo> getObstaculosDentro(Ambiente amb) throws RoboDesligadoException {
-        return so.getObstaculos_dentro(posicaoX, posicaoY, posicaoX, amb);
+        return gerenciadorSensores.getSensorObstaculos().getObstaculos_dentro(posicaoX, posicaoY, 0, amb);
     }
     
     @Override
     public ArrayList<Robo> getRobosDentro(Ambiente amb) throws RoboDesligadoException {
-        ArrayList<Robo> robosProximos = sr.getRobos_dentro(posicaoX, posicaoY, id, amb);
+        ArrayList<Robo> robosProximos = gerenciadorSensores.getSensorRobos().getRobos_dentro(posicaoX, posicaoY, 0, amb);
         robosProximos.remove(this);
         return robosProximos;
     }
