@@ -22,16 +22,11 @@ public class LeitorConfiguracao {
                 String linha = in.nextLine();
                 String[] palavras = linha.split(" ");
                 switch (palavras[0]){
-                    case "AMBIENTE":
-                        amb = construirAmbiente(palavras);
-                    case "ROBO":
-                        geraRobo(palavras, amb);
-                    case "OBSTACULO":
-                        geraObstaculo(palavras, amb);
-                    case "MISSAO":
-                        atribuiMissao(palavras, amb);
-                    default:
-                        throw new IOException();
+                    case "AMBIENTE" -> amb = construirAmbiente(palavras);
+                    case "ROBO" -> geraRobo(palavras, amb);
+                    case "OBSTACULO" -> geraObstaculo(palavras, amb);
+                    case "MISSAO" -> atribuiMissao(palavras, amb);
+                    default -> throw new IOException();
                 }
             }
             return amb;
@@ -63,50 +58,57 @@ public class LeitorConfiguracao {
             int y = Integer.parseInt(caracteristicas[4]);
             int vmax, altMax, z;
             switch (tipo){
-                case "Eletrico":
+                case "Eletrico" -> {
                     if (caracteristicas.length < 6)
                         throw new IOException();
                     vmax = Integer.parseInt(caracteristicas[5]);
                     RoboTerrestreEletrico el = new RoboTerrestreEletrico(id, x, y, vmax);
                     a.adicionarEntidade(el);
-                case "Terrestre":
+                }
+                case "Terrestre" -> {
                     if (caracteristicas.length < 6)
                         throw new IOException();
                     vmax = Integer.parseInt(caracteristicas[5]);
                     RoboTerrestre t = new RoboTerrestre(id, x, y, vmax);
                     a.adicionarEntidade(t);
-                case "Ambientalista":
+                }
+                case "Ambientalista" -> {
                     if (caracteristicas.length < 6)
                         throw new IOException();
                     vmax = Integer.parseInt(caracteristicas[5]);
                     RoboTerrestreAmbientalista am = new RoboTerrestreAmbientalista(id, x, y, vmax);
                     a.adicionarEntidade(am);
-                case "Teletransporte":
+                }
+                case "Teletransporte" -> {
                     if (caracteristicas.length < 6)
                         throw new IOException();
                     vmax = Integer.parseInt(caracteristicas[5]);
                     RoboTerrestreTeletransporte tp = new RoboTerrestreTeletransporte(id, x, y, vmax);
                     a.adicionarEntidade(tp);
-                case "Morador":
+                }
+                case "Morador" -> {
                     if (caracteristicas.length < 6)
                         throw new IOException();
                     vmax = Integer.parseInt(caracteristicas[5]);
                     RoboTerrestreMorador mor = new RoboTerrestreMorador(id, x, y, vmax);
                     a.adicionarEntidade(mor);
-                case "Panfletario":
+                }
+                case "Panfletario" -> {
                     if (caracteristicas.length < 6)
                         throw new IOException();
                     vmax = Integer.parseInt(caracteristicas[5]);
                     RoboTerrestrePanfletario p = new RoboTerrestrePanfletario(id, x, y, vmax);
                     a.adicionarEntidade(p);
-                case "Aereo":
+                }
+                case "Aereo" -> {
                     if (caracteristicas.length < 7)
                         throw new IOException();
                     z = Integer.parseInt(caracteristicas[5]);
                     altMax = Integer.parseInt(caracteristicas[6]);
                     RoboAereo ae = new RoboAereo(id, x, y, z,altMax);
                     a.adicionarEntidade(ae);
-                case "Refletor":
+                }
+                case "Refletor" -> {
                     if (caracteristicas.length < 7)
                         throw new IOException();
                     z = Integer.parseInt(caracteristicas[5]);
@@ -114,7 +116,8 @@ public class LeitorConfiguracao {
                     int altMin =Integer.parseInt(caracteristicas[7]);
                     RoboAereoRefletor ar = new RoboAereoRefletor(id, x, y, z, altMax, altMin);
                     a.adicionarEntidade(ar);
-                case "Consciente":
+                }
+                case "Consciente" -> {
                     if (caracteristicas.length < 7)
                         throw new IOException();
                     z = Integer.parseInt(caracteristicas[5]);
@@ -122,11 +125,12 @@ public class LeitorConfiguracao {
                     int distMin =Integer.parseInt(caracteristicas[7]);
                     RoboAereoConsciente ac = new RoboAereoConsciente(id, x, y, z,altMax, distMin);
                     a.adicionarEntidade(ac);
-                case "Agente":
+                }
+                case "Agente" -> {
                     RoboAgente rg = new RoboAgente(id, x, y);
                     a.adicionarEntidade(rg);
-                default:
-                    throw new IOException();
+                }
+                default -> throw new IOException();
             }
         } catch (Exception e) {
             throw e;
@@ -141,25 +145,31 @@ public class LeitorConfiguracao {
             int x = Integer.parseInt(info[2]);
             int y = Integer.parseInt(info[3]);
             switch (tipo){
-                case "Arvore":
+                case "Arvore" -> {
                     Obstaculo arv = new Obstaculo(x, y, TipoObstaculo.ARVORE);
                     a.adicionarEntidade(arv);
-                case "Arbusto":
+                }
+                case "Arbusto" -> {
                     Obstaculo arb = new Obstaculo(x, y,TipoObstaculo.ARBUSTO);
                     a.adicionarEntidade(arb);
-                case "Predio":
+                }
+                case "Predio" -> {
                     Obstaculo pr =new Obstaculo(x, y, TipoObstaculo.PREDIO);
                     a.adicionarEntidade(pr);
-                case "Casa":
+                }
+                case "Casa" -> {
                     Obstaculo ca = new Obstaculo(x, y, TipoObstaculo.CASA);
-                case "Muro":
+                    a.adicionarEntidade(ca);
+                }
+                case "Muro" -> {
                     Obstaculo m = new Obstaculo(x, y, TipoObstaculo.MURO);
                     a.adicionarEntidade(m);
-                case "Megamuro":
+                }
+                case "Megamuro" -> {
                     Obstaculo mm = new Obstaculo(x, y, TipoObstaculo.MEGAMURO);
                     a.adicionarEntidade(mm);
-                default:
-                    throw new IOException();
+                }
+                default -> throw new IOException();
             }
         } catch (Exception e) {
             throw e;
@@ -176,35 +186,31 @@ public class LeitorConfiguracao {
                 throw new IOException();
             String tipo = info[2];
             switch (tipo){
-                case "EMP":
+                case "EMP" -> {
                     Missao m = new MissaoEMP();
                     ai.definirMissao(m);
-                case "Encontrar":
+                }
+                case "Encontrar" -> {
                     if (info.length < 4)
                         throw new IOException();
                     String tipoObs = info[3];
                     TipoObstaculo obs = null;
                     switch (tipoObs){
-                        case "Arvore":
-                            obs = TipoObstaculo.ARVORE;
-                        case "Arbusto":
-                            obs = TipoObstaculo.ARBUSTO;
-                        case "Predio":
-                            obs = TipoObstaculo.PREDIO;
-                        case "Casa":
-                            obs = TipoObstaculo.CASA;
-                        case "Muro":
-                            obs = TipoObstaculo.MURO;
-                        case "Megamuro":
-                            obs =TipoObstaculo.MEGAMURO;
+                        case "Arvore" -> obs = TipoObstaculo.ARVORE;
+                        case "Arbusto" -> obs = TipoObstaculo.ARBUSTO;
+                        case "Predio" -> obs = TipoObstaculo.PREDIO;
+                        case "Casa" -> obs = TipoObstaculo.CASA;
+                        case "Muro" -> obs = TipoObstaculo.MURO;
+                        case "Megamuro" -> obs =TipoObstaculo.MEGAMURO;
                         
                     }
                     if (obs == null)
                         throw new IOException();
                     Missao me= new MissaoEncontrar(obs);
                     ai.definirMissao(me);
+                }
 
-                case "VerificarVazio":
+                case "VerificarVazio" -> {
                     if (info.length < 7)
                         throw new IOException();
                     int x = Integer.parseInt(info[3]);
@@ -213,8 +219,8 @@ public class LeitorConfiguracao {
                     int raio = Integer.parseInt(info[6]);
                     Missao mvv = new MissaoVerificarVazio(x, y, z, raio);
                     ai.definirMissao(mvv);
-                default:
-                    throw new IOException();
+                }
+                default -> throw new IOException();
 
             }
         } catch (Exception e) {
