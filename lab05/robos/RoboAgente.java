@@ -17,6 +17,7 @@ public class RoboAgente extends AgenteInteligente {
         controleMovimento = new ControleMovimento(this);
         
         gerenciadorSensores = new GerenciadorSensores(this);
+        sr.setRaio(35);
         gerenciadorSensores.adicionarSensor(so);
         gerenciadorSensores.adicionarSensor(sr);
 

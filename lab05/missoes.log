@@ -19,3 +19,124 @@ Ativou Sensor de Obstaculos do robo Bond, de raio 50.0
 Encontrou os seguintes obstaculos do tipo ARVORE: 
 Obstaculo do tipo ARVORE, com largura(x) 2, comprimento(y) 2 e altura(z) 8, com posicao inicial: 80, 30
 
+Rodando Missao de Verificacao de Vazio com robo Bond: 
+A posicao (10, 20, 10), a uma distancia 36 do robo Bond, esta muito distante para ser verificada(raio de verificacao eh 5)
+
+Rodando Missao de Encontrar Obstaculos com robo Bond: 
+Ativou Sensor de Obstaculos do robo Bond, de raio 50.0
+Encontrou os seguintes obstaculos do tipo CASA: 
+
+Rodando Missao EMP com robo Bond: 
+Ativou o sensor de robos do Bond
+Desligou o robo FRED
+Desligou o robo Carro
+Desligou o robo SHOCK
+Desligou o robo TP
+Desligou o robo AGUIA
+Desligou o robo REFRED
+Desligou o robo Seguro
+Desligou o robo PrateadosInc
+Desligou o robo Craig
+
+Rodando Missao EMP com robo Bond: 
+Ativou o sensor de robos do Bond
+Ligou o robo FRED
+Ligou o robo Carro
+Ligou o robo SHOCK
+Ligou o robo TP
+Ligou o robo AGUIA
+Ligou o robo REFRED
+Ligou o robo Seguro
+Ligou o robo PrateadosInc
+Ligou o robo Craig
+
+Rodando Missao EMP com robo Bond, com raio 50.0: 
+Ativou o sensor de robos do Bond
+Desligou o robo FRED
+Desligou o robo Carro
+Desligou o robo SHOCK
+Desligou o robo TP
+Desligou o robo AGUIA
+Desligou o robo REFRED
+Desligou o robo Seguro
+Desligou o robo PrateadosInc
+Desligou o robo Craig
+
+Rodando Missao EMP com robo Bond, com raio 20.0: 
+Ativou o sensor de robos do Bond
+
+Rodando Missao EMP com robo Bond, com raio 30.0: 
+Ativou o sensor de robos do Bond
+Desligou o robo Carro
+Desligou o robo Seguro
+
+Rodando Missao EMP com robo Bond, com raio 40.0: 
+Ativou o sensor de robos do Bond
+Desligou o robo FRED
+Desligou o robo Carro
+Desligou o robo TP
+Desligou o robo REFRED
+Desligou o robo Seguro
+Desligou o robo Craig
+
+Rodando Missao EMP com robo Bond, com raio 35.0: 
+Ativou o sensor de robos do Bond
+Desligou o robo FRED
+Desligou o robo Carro
+Desligou o robo TP
+Desligou o robo Seguro
+
+Rodando Missao EMP com robo Bond, com raio 35.0: 
+Ativou o sensor de robos do Bond
+Desligou o robo FRED
+Desligou o robo Carro
+Desligou o robo TP
+Desligou o robo Seguro
+Enviou mensagem para o roboSeguro
+
+Rodando Missao EMP com robo Bond, com raio 35.0: 
+Ativou o sensor de robos do Bond
+Desligou o robo FRED
+Desligou o robo Carro
+Desligou o robo TP
+Desligou o robo Seguro
+Enviou mensagem para o roboSeguro
+
+Rodando Missao EMP com robo Bond, com raio 35.0: 
+Ativou o sensor de robos do Bond
+Ligou o robo FRED
+Ligou o robo Carro
+Ligou o robo TP
+Ligou o robo Seguro
+Enviou mensagem para o robo Seguro
+
+Rodando Missao EMP com robo Bond, com raio 35.0: 
+Ativou o sensor de robos do Bond
+Desligou o robo FRED
+Desligou o robo Carro
+Desligou o robo TP
+Desligou o robo Seguro
+Enviou mensagem para o roboSeguro
+
+Rodando Missao EMP com robo Bond, com raio 35.0: 
+Ativou o sensor de robos do Bond
+Desligou o robo Greta
+Desligou o robo PrateadosInc
+Enviou mensagem para o roboPrateadosInc
+
+Rodando Missao EMP com robo Bond, com raio 35.0: 
+Ativou o sensor de robos do Bond
+
+Rodando Missao EMP com robo Bond, com raio 35.0: 
+Ativou o sensor de robos do Bond
+
+Rodando Missao EMP com robo Bond, com raio 35.0: 
+Ativou o sensor de robos do Bond
+Ligou o robo FRED
+Ligou o robo Carro
+Ligou o robo TP
+Desligou o robo REFRED
+Enviou mensagem para o roboREFRED
+Ligou o robo Seguro
+Enviou mensagem para o robo Seguro
+

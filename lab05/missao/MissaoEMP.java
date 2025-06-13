@@ -3,6 +3,7 @@ package missao;
 import ambiente.*;
 import arquivos.Salvar;
 import exceptions.RoboDesligadoException;
+import interfacesRobos.Comunicavel;
 import java.util.ArrayList;
 import robos.*;
 
@@ -19,7 +20,11 @@ public class MissaoEMP implements Missao{
 
     @Override
     public void executar(AgenteInteligente ai, Ambiente a) {
-        String msgMissao = "Rodando Missao EMP com robo " + ai.getNome() + ": \n";
+        String msgMissao = "Rodando Missao EMP com robo " + ai.getNome() + 
+        ", com raio " + ai.getGerenciadorSensores().getSensorRobos().getRaio() +": \n";
+
+        String msgRobo = "";
+
         try{
             ArrayList<Robo> robosProximos = ai.getRobosDentro(a);
             msgMissao += "Ativou o sensor de robos do " + ai.getNome() + "\n";
@@ -27,10 +32,20 @@ public class MissaoEMP implements Missao{
                 if(r.getEstado() == true){
                     r.desligar();
                     msgMissao += "Desligou o robo " + r.getNome() + "\n";
+                    if(r instanceof Comunicavel rComunicavel){
+                        msgRobo = "Foi desligado por pulso EMP do robo " + ai.getNome();
+                        ai.getModuloComunicacao().enviarMensagem(rComunicavel, msgRobo);
+                        msgMissao += "Enviou mensagem para o robo " + r.getNome() + "\n";
+                    }
                 }
                 else{
                     r.ligar();
                     msgMissao += "Ligou o robo " + r.getNome() + "\n";
+                    if(r instanceof Comunicavel rComunicavel){
+                        msgRobo = "Foi ligado por pulso EMP do robo " + ai.getNome();
+                        ai.getModuloComunicacao().enviarMensagem(rComunicavel, msgRobo);
+                        msgMissao += "Enviou mensagem para o robo " + r.getNome() + "\n";
+                    }
                 }
             }
         }
@@ -63,7 +78,7 @@ public class MissaoEMP implements Missao{
 
     @Override
     public String getDescricao(){
-        return "----Missao EMP : inverte o estado de todos os robos no entorno----";
+        return "----Missao EMP : inverte o estado de todos os robos no entorno e envia mensagem para os comunicaveis avisando isso----";
     }
 
     @Override
