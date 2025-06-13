@@ -27,7 +27,7 @@ public class MissaoEncontrar implements Missao {
         //Mover para (0,0) ou o mais perto possivel
         try {
             moverPara(ai, a, 0, 0);  
-            varrerAmbiente(msgMissao, a, ai);
+            msgMissao=varrerAmbiente(msgMissao, a, ai);
         } catch (NaoAereoException | RoboDesligadoException e) {
         }
         
@@ -146,14 +146,15 @@ public class MissaoEncontrar implements Missao {
     
 
 
-    private void varrerAmbiente(String msgMissao, Ambiente amb, AgenteInteligente ai) throws NaoAereoException, RoboDesligadoException {
+    private String varrerAmbiente(String msgMissao, Ambiente amb, AgenteInteligente ai) throws NaoAereoException, RoboDesligadoException {
         final int passo = 50; // Passo igual ao raio do sensor
         boolean direita = true;
         int xAtual = ai.getX(), yAtual = ai.getY();
         while (true) {
             // Verifica alvo na posição atual antes de mover
+            msgMissao = verificarAlvo(msgMissao, ai, amb).mensagem();
             if (verificarAlvo(msgMissao, ai, amb).sucesso()) {
-                return;
+                return msgMissao;
             }
 
             // Calcula próxima posição em X
@@ -161,13 +162,13 @@ public class MissaoEncontrar implements Missao {
 
             // Verifica se pode mover em X
             if (!ai.getGerenciadorSensores().colisaoExtremidades(proximoX, yAtual, 0, amb)) {
-                if (ai.getGerenciadorSensores().estaLivre(proximoX, yAtual, passo, amb)){
+                if (ai.getGerenciadorSensores().estaLivre(proximoX, yAtual, 0, amb)){
                     ai.getControleMovimento().moverPara(proximoX, yAtual,0, amb);
                     xAtual = proximoX;
                 }else{
                     if (direita){
                         for (int i = proximoX; i > xAtual; i--){
-                            if (ai.getGerenciadorSensores().estaLivre(i, yAtual, passo, amb)){
+                            if (ai.getGerenciadorSensores().estaLivre(i, yAtual, 0, amb)){
                                 ai.getControleMovimento().moverPara(i, yAtual,0, amb);
                                 xAtual = i;
                                 break;
@@ -175,7 +176,7 @@ public class MissaoEncontrar implements Missao {
                         }
                     } else{
                         for (int i = proximoX; i< xAtual; i++){
-                            if (ai.getGerenciadorSensores().estaLivre(i, yAtual, passo, amb)){
+                            if (ai.getGerenciadorSensores().estaLivre(i, yAtual, 0, amb)){
                                 ai.getControleMovimento().moverPara(i, yAtual,0, amb);
                                 xAtual = i;
                                 break;
@@ -208,6 +209,7 @@ public class MissaoEncontrar implements Missao {
                 }
             }
         }
+        return msgMissao;
     }
 
 

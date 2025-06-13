@@ -79,11 +79,13 @@ public class GerenciadorSensores {
         ArrayList<Obstaculo> obs = so.getObstaculos_dentro(atualX, atualY, atualZ, amb);
         SensorRobos sr = this.getSensorRobos();
         ArrayList<Robo> robos = sr.getRobos_dentro(atualX, atualY, atualZ, amb);
-        return colisao_obs(obs, x, y,z) || colisao_robo(robos, x,y,z) || colisaoExtremidades(x, y, z, amb);
+        boolean t = !(colisao_obs(obs, x, y,z) || colisao_robo(robos, x,y,z) || colisaoExtremidades(x, y, z, amb));
+        return t;
     } 
 
     public boolean colisaoExtremidades(int x, int y, int z, Ambiente amb){
-        return this.getSensorLimites().estaDentroDosLimites(roboGerenciado,x, y, z, amb);
+        boolean t = !this.getSensorLimites().estaDentroDosLimites(roboGerenciado,x, y, z, amb);
+        return t;
     }
 
     public boolean colisao_obs(ArrayList<Obstaculo> obs_dentro, int nova_x, int nova_y, int nova_z){
