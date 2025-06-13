@@ -101,12 +101,12 @@ public class MissaoEncontrar implements Missao {
                 }else{
 
             }
-            }
+            }/*
             for (int i = 0; i<x;){
                 for (int j)
 
                 }
-            
+            */
         } catch (NaoAereoException | RoboDesligadoException e) {
         }
     }

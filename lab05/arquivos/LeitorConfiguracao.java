@@ -211,13 +211,12 @@ public class LeitorConfiguracao {
                 }
 
                 case "VerificarVazio" -> {
-                    if (info.length < 7)
+                    if (info.length < 6)
                         throw new IOException();
                     int x = Integer.parseInt(info[3]);
                     int y = Integer.parseInt(info[4]);
                     int z = Integer.parseInt(info[5]);
-                    int raio = Integer.parseInt(info[6]);
-                    Missao mvv = new MissaoVerificarVazio(x, y, z, raio);
+                    Missao mvv = new MissaoVerificarVazio(x, y, z);
                     ai.definirMissao(mvv);
                 }
                 default -> throw new IOException();

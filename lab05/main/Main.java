@@ -69,7 +69,7 @@ public class Main{
             panfletario.setId(1440);
             meuAmbiente.adicionarEntidade(panfletario);
 
-            MissaoVerificarVazio m = new MissaoVerificarVazio(30, 50, 10, 60);
+            MissaoVerificarVazio m = new MissaoVerificarVazio(30, 50, 10);
             RoboAgente roboAgente1 = new RoboAgente("Bond", 43, 32);
             roboAgente1.setId(770);
             meuAmbiente.adicionarEntidade(roboAgente1);

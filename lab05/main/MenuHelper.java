@@ -11,7 +11,7 @@ import robos.Robo;
 public class MenuHelper {
 
     //missoes "dummy" utilizadas para a criacao de missoes do mesmo tipo
-    static Missao[] missoesFake = {new MissaoEMP(), new MissaoEncontrar(null), new MissaoVerificarVazio(0, 0, 0, 1)};
+    static Missao[] missoesFake = {new MissaoEMP(), new MissaoEncontrar(null), new MissaoVerificarVazio(0, 0, 0)};
 
      //Imprimir os robos do ambiente, com seu indice na lista de robos na frente
     public static void imprimirRobos(Ambiente amb){

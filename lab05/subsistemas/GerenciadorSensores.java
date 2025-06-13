@@ -61,6 +61,16 @@ public class GerenciadorSensores {
         return escolhido;
     }
 
+    public double getRaioMinimo(){
+        double raioMinimo = Double.MAX_VALUE;
+        for(Sensor s : sensores){
+            if(s.getRaio() < raioMinimo){
+                raioMinimo = s.getRaio();
+            }
+        }
+        return raioMinimo;
+    }
+
     public boolean estaLivre(int x, int y, int z, Ambiente amb){
         int atualX = roboGerenciado.getX();
         int atualY = roboGerenciado.getY();
