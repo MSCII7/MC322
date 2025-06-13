@@ -24,4 +24,11 @@ public class ControleMovimento {
         }
     
     }
+    public void moverPara(int x, int y, int z, Ambiente amb) throws RoboDesligadoException, NaoAereoException{
+        try {
+            amb.moverEntidade(roboControlado, x, y, z);
+            roboControlado.moverPara(x, y, z);
+        } catch (RoboDesligadoException | NaoAereoException e) {
+        }
+    }
 }

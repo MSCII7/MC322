@@ -37,5 +37,11 @@ public abstract class AgenteInteligente extends Robo implements Sensoreavel, Com
     public GerenciadorSensores getGerenciadorSensores(){
         return gerenciadorSensores;
     }
+    public ControleMovimento getControleMovimento(){
+        return controleMovimento;
+    }
+    public ModuloComunicacao getModuloComunicacao(){
+        return moduloComunicacao;
+    }
 
 }

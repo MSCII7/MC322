@@ -2,9 +2,11 @@ package missao;
 
 import ambiente.*;
 import arquivos.Salvar;
+import exceptions.NaoAereoException;
 import exceptions.RoboDesligadoException;
 import java.util.ArrayList;
 import robos.*;
+import sensores.SensorLimites;
 
 public class MissaoEncontrar implements Missao {
     TipoObstaculo tipo;
@@ -24,6 +26,7 @@ public class MissaoEncontrar implements Missao {
         String msgMissao = "Rodando Missao de Encontrar Obstaculos com robo " + ai.getNome() + ": \n";
 
         try{
+            //Mover para a posicao (0,0)
             ai.acionarSensores(a);
             ArrayList<Obstaculo> obstaculos = ai.getObstaculosDentro(a);
 
@@ -81,6 +84,31 @@ public class MissaoEncontrar implements Missao {
     @Override
     public String getExemplo(){
         return comandoMissao + " ARVORE";
+    }
+
+    private void moverPara(AgenteInteligente ai,Ambiente amb,  int x, int y){
+        boolean chegou = false;
+        SensorLimites sl = new SensorLimites(50);
+        ai.getGerenciadorSensores().adicionarSensor(sl);
+        double dist = Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
+        int novo_x = 0, novo_y = 0;
+        try {
+            while (!chegou){
+                if (dist < 50){
+                    if (ai.getGerenciadorSensores().estaLivre(x, y, 0, amb)){
+                        ai.getControleMovimento().moverPara(x, y, y, amb);
+                    }
+                }else{
+
+            }
+            }
+            for (int i = 0; i<x;){
+                for (int j)
+
+            }
+            
+        } catch (NaoAereoException | RoboDesligadoException e) {
+        }
     }
 
 }
