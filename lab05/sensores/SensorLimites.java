@@ -1,6 +1,7 @@
 package sensores;
 
 import ambiente.Ambiente;
+import robos.AgenteInteligente;
 
 public class SensorLimites extends Sensor{
     boolean dentro;
@@ -11,8 +12,8 @@ public class SensorLimites extends Sensor{
     public void monitorar(int posX, int posY, int posZ, Ambiente amb) {
         
     }
-    public boolean estaDentroDosLimites(int x, int y, int z, Ambiente amb) {
-        if (Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2)+Math.pow(z, 2)) <= raio){
+    public boolean estaDentroDosLimites(AgenteInteligente r, int x, int y, int z, Ambiente amb) {
+        if (dist(x, r.getX(), y, r.getY(), z, r.getZ()) <= raio){
             // Get environment dimensions
             int largura = amb.getLargura();
             int comprimento = amb.getComprimento();
@@ -26,5 +27,8 @@ public class SensorLimites extends Sensor{
             return xValido && yValido && zValido;
         } else
             return false;
+    }
+    private double dist(int x1,int x2,int y1,int y2,int z1,int z2){
+        return Math.sqrt(Math.pow(x1-x2, 2)+Math.pow(y1-y2, 2)+Math.pow(z1-z2, 2));
     }
 }

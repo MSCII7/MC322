@@ -24,26 +24,13 @@ public class MissaoEncontrar implements Missao {
     public void executar(AgenteInteligente ai, Ambiente a) {
         //Tentar criar uma lógica de exploração, ativando o sensor de Obstáculos para encontrar os obstáculos ao redor e ver se é do tipo desejado
         String msgMissao = "Rodando Missao de Encontrar Obstaculos com robo " + ai.getNome() + ": \n";
-
-        try{
-            //Mover para a posicao (0,0)
-            ai.acionarSensores(a);
-            ArrayList<Obstaculo> obstaculos = ai.getObstaculosDentro(a);
-
-            msgMissao += "Ativou Sensor de Obstaculos do robo " + ai.getNome() + 
-            ", de raio " + ai.getGerenciadorSensores().getSensorObstaculos().getRaio() + "\n";
-            
-            msgMissao += "Encontrou os seguintes obstaculos do tipo " + tipo.toString() + ": \n";
-
-            for(Obstaculo ob : obstaculos){
-                if(ob.getTipoObstaculo() == tipo){
-                    msgMissao += ob.getDescricao() + "\n";
-                }
-            }
+        //Mover para (0,0) ou o mais perto possivel
+        try {
+            moverPara(ai, a, 0, 0);  
+            varrerAmbiente(msgMissao, a, ai);
+        } catch (NaoAereoException | RoboDesligadoException e) {
         }
-        catch(RoboDesligadoException e){
-            System.err.println(e.getMessage());
-        }
+        
 
         Salvar.escreverMissao(msgMissao);
 
@@ -62,9 +49,9 @@ public class MissaoEncontrar implements Missao {
     public Missao formatarParaMissao(String[] comDividido){
         MissaoEncontrar novaMissao = null;
         if(comDividido.length > 2){
-            for(TipoObstaculo tipo : TipoObstaculo.values()){
-                if(comDividido[2].equals(tipo.toString())){
-                    novaMissao = new MissaoEncontrar(tipo);
+            for(TipoObstaculo t : TipoObstaculo.values()){
+                if(comDividido[2].equals(t.toString())){
+                    novaMissao = new MissaoEncontrar(t);
                 }
             }
         }
@@ -86,29 +73,171 @@ public class MissaoEncontrar implements Missao {
         return comandoMissao + " ARVORE";
     }
 
-    private void moverPara(AgenteInteligente ai,Ambiente amb,  int x, int y){
-        boolean chegou = false;
-        SensorLimites sl = new SensorLimites(50);
-        ai.getGerenciadorSensores().adicionarSensor(sl);
-        double dist = Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
-        int novo_x = 0, novo_y = 0;
-        try {
-            while (!chegou){
-                if (dist < 50){
-                    if (ai.getGerenciadorSensores().estaLivre(x, y, 0, amb)){
-                        ai.getControleMovimento().moverPara(x, y, y, amb);
-                    }
-                }else{
+  //private void moverPara1(AgenteInteligente ai,Ambiente amb,  int x, int y){
+  //    boolean chegou = false;
+  //    SensorLimites sl = new SensorLimites(50);
+  //    ai.getGerenciadorSensores().adicionarSensor(sl);
+  //    double dist = dist(x, ai.getX(), y, ai.getY());
+  //    int novo_x = 0, novo_y = 0;
+  //    try {
+  //        while (!chegou){
+  //            if (dist < 50){
+  //                if (ai.getGerenciadorSensores().estaLivre(x, y, 0, amb)){
+  //                    ai.getControleMovimento().moverPara(x, y, y, amb);
+  //                }
+  //            }else{
 
+  //        }
+  //        }
+  //        for (int i = 0; i<x;){
+  //            for (int j)
+
+  //            }
+  //        
+  //    } catch (NaoAereoException | RoboDesligadoException e) {
+  //    }
+  //}
+    private void moverPara(AgenteInteligente ai, Ambiente amb, int targetX, int targetY) throws NaoAereoException, RoboDesligadoException {
+    
+        SensorLimites sensor = new SensorLimites(50);
+        ai.getGerenciadorSensores().adicionarSensor(sensor);
+        
+        int atualX = ai.getX();
+        int atualY = ai.getY();
+        
+        while (atualX != targetX || atualY != targetY) {
+            // Calculate direction (1, 0, or -1 for each axis)
+            int dirX = Integer.compare(targetX, atualX);
+            int dirY = Integer.compare(targetY, atualY);
+            
+            // Try moving in X direction first
+            if (dirX != 0 && ai.getGerenciadorSensores().estaLivre(atualX + dirX, atualY, 0, amb)) {
+                ai.getControleMovimento().moverPara(atualX + dirX, atualY,0, amb);
+                atualX += dirX;
+            } 
+            // If X blocked, try Y
+            else if (dirY != 0 && ai.getGerenciadorSensores().estaLivre(atualX, atualY + dirY, 0, amb)) {
+                ai.getControleMovimento().moverPara(atualX, atualY + dirY,0, amb);
+                atualY += dirY;
             }
-            }/*
-            for (int i = 0; i<x;){
-                for (int j)
-
+            // If completely blocked, try adjacent cells
+            else {
+                // Implement obstacle avoidance (e.g., move around)
+                boolean moved = false;
+                for (int[] dir : new int[][]{{1,0}, {0,1}, {-1,0}, {0,-1}}) {
+                    int proxX = atualX + dir[0];
+                    int proxY = atualY + dir[1];
+                    
+                    if (ai.getGerenciadorSensores().estaLivre(proxX, proxY, 0, amb)) {
+                        ai.getControleMovimento().moverPara(proxX, proxY,0, amb);
+                        atualX = proxX;
+                        atualY = proxY;
+                        moved = true;
+                        break;
+                    }
                 }
-            */
-        } catch (NaoAereoException | RoboDesligadoException e) {
+                
+                if (!moved) {
+                    throw new RuntimeException("Robô preso! Não há caminho livre.");
+                }
+            }
+    }
+}
+    
+
+
+    private void varrerAmbiente(String msgMissao, Ambiente amb, AgenteInteligente ai) throws NaoAereoException, RoboDesligadoException {
+        final int passo = 50; // Passo igual ao raio do sensor
+        boolean direita = true;
+        int xAtual = ai.getX(), yAtual = ai.getY();
+        while (true) {
+            // Verifica alvo na posição atual antes de mover
+            if (verificarAlvo(msgMissao, ai, amb).sucesso()) {
+                return;
+            }
+
+            // Calcula próxima posição em X
+            int proximoX = direita ? xAtual + passo : xAtual - passo;
+
+            // Verifica se pode mover em X
+            if (!ai.getGerenciadorSensores().colisaoExtremidades(proximoX, yAtual, 0, amb)) {
+                if (ai.getGerenciadorSensores().estaLivre(proximoX, yAtual, passo, amb)){
+                    ai.getControleMovimento().moverPara(proximoX, yAtual,0, amb);
+                    xAtual = proximoX;
+                }else{
+                    if (direita){
+                        for (int i = proximoX; i > xAtual; i--){
+                            if (ai.getGerenciadorSensores().estaLivre(i, yAtual, passo, amb)){
+                                ai.getControleMovimento().moverPara(i, yAtual,0, amb);
+                                xAtual = i;
+                                break;
+                            }
+                        }
+                    } else{
+                        for (int i = proximoX; i< xAtual; i++){
+                            if (ai.getGerenciadorSensores().estaLivre(i, yAtual, passo, amb)){
+                                ai.getControleMovimento().moverPara(i, yAtual,0, amb);
+                                xAtual = i;
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+            } 
+            // Se não pode mover em X, tenta mover em Y
+            else {
+                int proximoY = yAtual + passo;
+                if (!ai.getGerenciadorSensores().colisaoExtremidades(xAtual, proximoY, 0, amb)) {
+                    if (ai.getGerenciadorSensores().estaLivre(xAtual, proximoY, passo, amb)){
+                        ai.getControleMovimento().moverPara(xAtual, proximoY,0, amb);
+                        yAtual = proximoY;
+                    }else{  
+                        for (int j = proximoY; j > yAtual; j--){
+                            if (ai.getGerenciadorSensores().estaLivre(xAtual, j, passo, amb)){
+                                ai.getControleMovimento().moverPara(xAtual, j,0, amb);
+                                yAtual = j;
+                                break;
+                            }
+                        }
+                    }
+                    direita = !direita; // Inverte direção
+                } else {
+                    // Não pode mover nem em X nem em Y - fim da varredura
+                    break;
+                }
+            }
         }
     }
+
+
+    
+
+    private record Resultado(boolean sucesso, String mensagem) {}
+    private Resultado verificarAlvo(String msgMissao, AgenteInteligente ai, Ambiente a){
+        try{
+            //Mover para a posicao (0,0)
+            ai.acionarSensores(a);
+            ArrayList<Obstaculo> obstaculos = ai.getObstaculosDentro(a);
+
+            msgMissao += "Ativou Sensor de Obstaculos do robo " + ai.getNome() + 
+            ", de raio " + ai.getGerenciadorSensores().getSensorObstaculos().getRaio() + "\n";
+            
+            msgMissao += "Encontrou os seguintes obstaculos do tipo " + tipo.toString() + ": \n";
+
+            for(Obstaculo ob : obstaculos){
+                if(ob.getTipoObstaculo() == tipo){
+                    msgMissao += ob.getDescricao() + "\n";
+                    return new Resultado(true, msgMissao);
+                }
+            }
+        }
+        catch(RoboDesligadoException e){
+            System.err.println(e.getMessage());
+        }
+        return new Resultado(false, msgMissao);
+    }
+
+    
 
 }

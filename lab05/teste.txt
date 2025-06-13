@@ -1,4 +1,4 @@
 AMBIENTE 100 10 10
 OBSTACULO Arvore 50 5
-ROBO Eletrico r1 90 1 20
-OBSTACULO Muro 0 0
+ROBO Agente r1 90 1 20
+MISSAO 0 Encontrar Arvore

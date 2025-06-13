@@ -208,6 +208,7 @@ public class LeitorConfiguracao {
                         throw new IOException();
                     Missao me= new MissaoEncontrar(obs);
                     ai.definirMissao(me);
+                    ai.executarMissao(a);
                 }
 
                 case "VerificarVazio" -> {
