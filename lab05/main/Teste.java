@@ -197,10 +197,25 @@ public class Teste {
         LeitorConfiguracao lc = new LeitorConfiguracao();
         try {
           Ambiente amb = lc.ler(arq);
-          //amb.visualizarAmbiente(null);
+          amb.visualizarAmbiente(null);
   
         } catch (Exception e) {
             System.out.println("Erro de leitura de arquivo: "+e.getMessage());
         } 
+    }
+    public static void  missaoEncontrar(String arq){
+        System.out.println("\nTeste Missão Encontrar ---------------------------");
+        LeitorConfiguracao lc = new LeitorConfiguracao();
+        try {
+            Ambiente amb = lc.ler(arq);
+            for (Robo r : amb.getRobos()){
+                if (r instanceof AgenteInteligente ai)
+                    ai.executarMissao(amb);
+            }
+        }catch (Exception e){
+            System.out.println("Erro na leitura de arquivo"+e.getMessage());
+        }
+
+        System.out.println("\n-----FIM DO TESTE------\n");
     }
 }

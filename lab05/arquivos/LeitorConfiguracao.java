@@ -171,7 +171,6 @@ public class LeitorConfiguracao {
                 }
                 default -> throw new IOException();
             }
-            a.visualizarAmbiente(null);
         } catch (Exception e) {
             throw e;
 
@@ -209,7 +208,7 @@ public class LeitorConfiguracao {
                         throw new IOException();
                     Missao me= new MissaoEncontrar(obs);
                     ai.definirMissao(me);
-                    ai.executarMissao(a);
+                    //ai.executarMissao(a);
                 }
 
                 case "VerificarVazio" -> {

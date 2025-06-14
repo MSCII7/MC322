@@ -74,52 +74,67 @@ public class MissaoEncontrar implements Missao {
     }
 
     private void moverPara(AgenteInteligente ai, Ambiente amb, int fimX, int fimY) throws NaoAereoException, RoboDesligadoException {
-    
+
         SensorLimites sensor = new SensorLimites(50);
         ai.getGerenciadorSensores().adicionarSensor(sensor);
-        
+
         int atualX = ai.getX();
         int atualY = ai.getY();
-        
+
+        // Armazena a posição anterior para evitar loops de "vai e vem"
+        int prevX = -1;
+        int prevY = -1;
+
         while (atualX != fimX || atualY != fimY) {
-            // Calcula o vetor direção para cada eixo
+            // Calcula o vetor direção para cada eixo (movimento ideal)
             int dirX = Integer.compare(fimX, atualX);
             int dirY = Integer.compare(fimY, atualY);
             
-            // Começa com o eixo x
+            // Armazena a posição atual antes de qualquer movimento nesta iteração
+            // Isso se tornará a "posição anterior" na próxima iteração.
+            int tempX = atualX;
+            int tempY = atualY;
+
+            // Tenta mover-se na direção X ideal
             if (dirX != 0 && ai.getGerenciadorSensores().estaLivre(atualX + dirX, atualY, 0, amb)) {
-                ai.getControleMovimento().moverPara(atualX + dirX, atualY,0, amb);
+                ai.getControleMovimento().moverPara(atualX + dirX, atualY, 0, amb);
                 atualX += dirX;
-            } 
-            // Continua no y caso o x esteja bloqueado
+            }
+            // Se o caminho X estiver bloqueado, tenta mover-se na direção Y ideal
             else if (dirY != 0 && ai.getGerenciadorSensores().estaLivre(atualX, atualY + dirY, 0, amb)) {
-                ai.getControleMovimento().moverPara(atualX, atualY + dirY,0, amb);
+                ai.getControleMovimento().moverPara(atualX, atualY + dirY, 0, amb);
                 atualY += dirY;
             }
+            // Se ambos os caminhos ideais estiverem bloqueados, procura um caminho alternativo
             else {
-                // Tenta dar a volta
                 boolean moveu = false;
-                for (int[] dir : new int[][]{{1,0}, {0,1}, {-1,0}, {0,-1}}) {
+                // Itera sobre as quatro direções possíveis para encontrar um desvio
+                for (int[] dir : new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}}) { // Direita, Baixo, Esquerda, Cima
                     int proxX = atualX + dir[0];
                     int proxY = atualY + dir[1];
-                    
-                    if (ai.getGerenciadorSensores().estaLivre(proxX, proxY, 0, amb)) {
-                        ai.getControleMovimento().moverPara(proxX, proxY,0, amb);
+
+                    if ((proxX != prevX || proxY != prevY) && ai.getGerenciadorSensores().estaLivre(proxX, proxY, 0, amb)) {
+                        ai.getControleMovimento().moverPara(proxX, proxY, 0, amb);
                         atualX = proxX;
                         atualY = proxY;
                         moveu = true;
-                        break;
+                        break; // Sai do loop de desvio assim que encontrar um caminho
                     }
                 }
-                
+
                 if (!moveu) {
-                    //throw new RuntimeException("Robô preso! Não há caminho livre.");
-                    return; //Fim do percurso, ponto mais próximo atingido
+                    // Se não se moveu, o robô está preso.
+                    // throw new RuntimeException("Robô preso! Não há caminho livre.");
+                    return; // Fim do percurso, ponto mais próximo atingido
                 }
             }
+            
+            // Atualiza a posição anterior com a posição em que o robô estava no início desta iteração
+            prevX = tempX;
+            prevY = tempY;
         }
     }
-    
+        
 
 
     private String varrerAmbiente(String msgMissao, Ambiente amb, AgenteInteligente ai) throws NaoAereoException, RoboDesligadoException {
@@ -127,6 +142,7 @@ public class MissaoEncontrar implements Missao {
         boolean direita = true;
         int xAtual = ai.getX(), yAtual = ai.getY();
         while (true) {
+            amb.visualizarAmbiente(ai);
             // Verifica alvo na posição atual antes de mover
             msgMissao = verificarAlvo(msgMissao, ai, amb).mensagem();
             if (verificarAlvo(msgMissao, ai, amb).sucesso()) {
