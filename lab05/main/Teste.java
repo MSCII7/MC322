@@ -197,7 +197,7 @@ public class Teste {
         LeitorConfiguracao lc = new LeitorConfiguracao();
         try {
           Ambiente amb = lc.ler(arq);
-          amb.visualizarAmbiente(null);
+          //amb.visualizarAmbiente(null);
   
         } catch (Exception e) {
             System.out.println("Erro de leitura de arquivo: "+e.getMessage());

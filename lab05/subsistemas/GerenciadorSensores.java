@@ -91,8 +91,8 @@ public class GerenciadorSensores {
     public boolean colisao_obs(ArrayList<Obstaculo> obs_dentro, int nova_x, int nova_y, int nova_z){
         for (Obstaculo obs : obs_dentro){
             if ((obs.getX() < nova_x) && (nova_x < obs.getPosicaoX2()) 
-            && (obs.getY() < nova_y) && (nova_y < obs.getPosicaoY2())
-            && (0 < nova_z) && (nova_z < obs.getZ()))
+            || (obs.getY() < nova_y) && (nova_y < obs.getPosicaoY2())
+            || (0 < nova_z) && (nova_z < obs.getZ()))
                 return true;
         }
         return false;

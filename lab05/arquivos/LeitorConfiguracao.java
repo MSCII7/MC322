@@ -171,6 +171,7 @@ public class LeitorConfiguracao {
                 }
                 default -> throw new IOException();
             }
+            a.visualizarAmbiente(null);
         } catch (Exception e) {
             throw e;
 

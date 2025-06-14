@@ -60,8 +60,8 @@ public class Ambiente
 
             int z = ((Obstaculo) e).getZ();
             //Verificar se a posição em que o obstáculo será colocado é válida
-            for (int i = iniX; i < distX; i++) {
-                for (int j = iniY; j < distY; j++) {
+            for (int i = iniX; i < fimX; i++) {
+                for (int j = iniY; j < fimY; j++) {
                     for (int k = 0;k < z;k++) {
                         if(this.mapa[i][j][k] != TipoEntidade.VAZIO)
                             throw new EntidadeInvalidaException();

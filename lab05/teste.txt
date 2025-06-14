@@ -1,6 +1,5 @@
 AMBIENTE 100 10 10
-ROBO Agente r1 90 1 20
-OBSTACULO Casa 0 0
-OBSTACULO Megamuro 70 0
+ROBO Agente r1 90 1
+OBSTACULO Megamuro 0 0
 OBSTACULO Arvore 90 9
 MISSAO 0 Encontrar Arvore
