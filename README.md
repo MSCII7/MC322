@@ -31,9 +31,11 @@ Esse repositório apresenta os laboratórios de MC322, com o objetivo de gerar u
   ## Obstáculo
   Classe que contém objetos que compõe o ambiente
   ## Missao
-  Interface que atribui tarefas especificas para robos inteligentes. Alem de criar um arquivo com o log da missao
+  Interface que atribui tarefas especificas para robos inteligentes, além de criar um arquivo com o log da missao
+  No menu interativo, a atribuição de missões é realizada quando há um RoboAgente selecionado e se utiliza o comando de atribuição de missões (ram) e o comando da missão com as informações adicionais dela, que podem ser vistas pelo comando de listar missões (rdm).
+  Ex: ram VERVAZIO 10 20 30
   ### MissaoEMP
-  O robo com essa missao inverte o estado de todos os robos no raio do seu sensor de robos
+  O robo com essa missao inverte o estado de todos os robos no raio do seu sensor de robos, e envia uma mensagem para os comunicáveis avisando isso
   ### MissaoEncontrar
   Nessa missao o robo encontra um tipo de obstaculo especifico
   ### MissaoVerificarVazio
