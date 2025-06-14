@@ -37,7 +37,7 @@ Encontrou os seguintes obstaculos do tipo ARVORE:
 Nenhum obstáculo encontrado
 Ativou Sensor de Obstaculos do robo r1, de raio 50.0
 Encontrou os seguintes obstaculos do tipo ARVORE: 
-Obstaculo do tipo ARVORE, com largura(x) 2, comprimento(y) 2 e altura(z) 8, com posicao inicial: 50, 5
+Obstaculo do tipo ARVORE, com largura(x) 2, comprimento(y) 2 e altura(z) 8, com posicao inicial: 90, 9
 
 Rodando Missao de Encontrar Obstaculos com robo r1: 
 Ativou Sensor de Obstaculos do robo r1, de raio 50.0
@@ -45,7 +45,7 @@ Encontrou os seguintes obstaculos do tipo ARVORE:
 Nenhum obstáculo encontrado
 Ativou Sensor de Obstaculos do robo r1, de raio 50.0
 Encontrou os seguintes obstaculos do tipo ARVORE: 
-Obstaculo do tipo ARVORE, com largura(x) 2, comprimento(y) 2 e altura(z) 8, com posicao inicial: 50, 5
+Obstaculo do tipo ARVORE, com largura(x) 2, comprimento(y) 2 e altura(z) 8, com posicao inicial: 90, 9
 
 Rodando Missao de Encontrar Obstaculos com robo r1: 
 Ativou Sensor de Obstaculos do robo r1, de raio 50.0
@@ -53,43 +53,5 @@ Encontrou os seguintes obstaculos do tipo ARVORE:
 Nenhum obstáculo encontrado
 Ativou Sensor de Obstaculos do robo r1, de raio 50.0
 Encontrou os seguintes obstaculos do tipo ARVORE: 
-Obstaculo do tipo ARVORE, com largura(x) 2, comprimento(y) 2 e altura(z) 8, com posicao inicial: 50, 5
-
-Rodando Missao de Encontrar Obstaculos com robo r1: 
-Ativou Sensor de Obstaculos do robo r1, de raio 50.0
-Encontrou os seguintes obstaculos do tipo ARVORE: 
-Ativou Sensor de Obstaculos do robo r1, de raio 50.0
-Encontrou os seguintes obstaculos do tipo ARVORE: 
-Obstaculo do tipo ARVORE, com largura(x) 2, comprimento(y) 2 e altura(z) 8, com posicao inicial: 50, 5
-
-Rodando Missao de Encontrar Obstaculos com robo r1: 
-Ativou Sensor de Obstaculos do robo r1, de raio 50.0
-Encontrou os seguintes obstaculos do tipo ARVORE: 
-Ativou Sensor de Obstaculos do robo r1, de raio 50.0
-Encontrou os seguintes obstaculos do tipo ARVORE: 
-Obstaculo do tipo ARVORE, com largura(x) 2, comprimento(y) 2 e altura(z) 8, com posicao inicial: 50, 5
-
-Rodando Missao de Encontrar Obstaculos com robo r1: 
-Ativou Sensor de Obstaculos do robo r1, de raio 50.0
-Encontrou os seguintes obstaculos do tipo ARVORE: 
-Ativou Sensor de Obstaculos do robo r1, de raio 50.0
-Encontrou os seguintes obstaculos do tipo ARVORE: 
-Obstaculo do tipo ARVORE, com largura(x) 2, comprimento(y) 2 e altura(z) 8, com posicao inicial: 50, 5
-
-Rodando Missao de Encontrar Obstaculos com robo r1: 
-Ativou Sensor de Obstaculos do robo r1, de raio 50.0
-Encontrou os seguintes obstaculos do tipo ARVORE: 
-Ativou Sensor de Obstaculos do robo r1, de raio 50.0
-Encontrou os seguintes obstaculos do tipo ARVORE: 
-Obstaculo do tipo ARVORE, com largura(x) 2, comprimento(y) 2 e altura(z) 8, com posicao inicial: 50, 5
-
-Rodando Missao de Encontrar Obstaculos com robo r1: 
-Ativou Sensor de Obstaculos do robo r1, de raio 50.0
-Encontrou os seguintes obstaculos do tipo ARVORE: 
-Obstaculo do tipo ARVORE, com largura(x) 2, comprimento(y) 2 e altura(z) 8, com posicao inicial: 10, 5
-
-Rodando Missao de Encontrar Obstaculos com robo r1: 
-Ativou Sensor de Obstaculos do robo r1, de raio 50.0
-Encontrou os seguintes obstaculos do tipo CASA: 
-Obstaculo do tipo CASA, com largura(x) 10, comprimento(y) 10 e altura(z) 10, com posicao inicial: 0, 0
+Obstaculo do tipo ARVORE, com largura(x) 2, comprimento(y) 2 e altura(z) 8, com posicao inicial: 90, 9
 
