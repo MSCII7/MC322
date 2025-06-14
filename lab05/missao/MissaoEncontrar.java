@@ -73,31 +73,7 @@ public class MissaoEncontrar implements Missao {
         return comandoMissao + " ARVORE";
     }
 
-  //private void moverPara1(AgenteInteligente ai,Ambiente amb,  int x, int y){
-  //    boolean chegou = false;
-  //    SensorLimites sl = new SensorLimites(50);
-  //    ai.getGerenciadorSensores().adicionarSensor(sl);
-  //    double dist = dist(x, ai.getX(), y, ai.getY());
-  //    int novo_x = 0, novo_y = 0;
-  //    try {
-  //        while (!chegou){
-  //            if (dist < 50){
-  //                if (ai.getGerenciadorSensores().estaLivre(x, y, 0, amb)){
-  //                    ai.getControleMovimento().moverPara(x, y, y, amb);
-  //                }
-  //            }else{
-
-  //        }
-  //        }
-  //        for (int i = 0; i<x;){
-  //            for (int j)
-
-  //            }
-  //        
-  //    } catch (NaoAereoException | RoboDesligadoException e) {
-  //    }
-  //}
-    private void moverPara(AgenteInteligente ai, Ambiente amb, int targetX, int targetY) throws NaoAereoException, RoboDesligadoException {
+    private void moverPara(AgenteInteligente ai, Ambiente amb, int fimX, int fimY) throws NaoAereoException, RoboDesligadoException {
     
         SensorLimites sensor = new SensorLimites(50);
         ai.getGerenciadorSensores().adicionarSensor(sensor);
@@ -105,25 +81,24 @@ public class MissaoEncontrar implements Missao {
         int atualX = ai.getX();
         int atualY = ai.getY();
         
-        while (atualX != targetX || atualY != targetY) {
-            // Calculate direction (1, 0, or -1 for each axis)
-            int dirX = Integer.compare(targetX, atualX);
-            int dirY = Integer.compare(targetY, atualY);
+        while (atualX != fimX || atualY != fimY) {
+            // Calcula o vetor direção para cada eixo
+            int dirX = Integer.compare(fimX, atualX);
+            int dirY = Integer.compare(fimY, atualY);
             
-            // Try moving in X direction first
+            // Começa com o eixo x
             if (dirX != 0 && ai.getGerenciadorSensores().estaLivre(atualX + dirX, atualY, 0, amb)) {
                 ai.getControleMovimento().moverPara(atualX + dirX, atualY,0, amb);
                 atualX += dirX;
             } 
-            // If X blocked, try Y
+            // Continua no y caso o x esteja bloqueado
             else if (dirY != 0 && ai.getGerenciadorSensores().estaLivre(atualX, atualY + dirY, 0, amb)) {
                 ai.getControleMovimento().moverPara(atualX, atualY + dirY,0, amb);
                 atualY += dirY;
             }
-            // If completely blocked, try adjacent cells
             else {
-                // Implement obstacle avoidance (e.g., move around)
-                boolean moved = false;
+                // Tenta dar a volta
+                boolean moveu = false;
                 for (int[] dir : new int[][]{{1,0}, {0,1}, {-1,0}, {0,-1}}) {
                     int proxX = atualX + dir[0];
                     int proxY = atualY + dir[1];
@@ -132,17 +107,18 @@ public class MissaoEncontrar implements Missao {
                         ai.getControleMovimento().moverPara(proxX, proxY,0, amb);
                         atualX = proxX;
                         atualY = proxY;
-                        moved = true;
+                        moveu = true;
                         break;
                     }
                 }
                 
-                if (!moved) {
-                    throw new RuntimeException("Robô preso! Não há caminho livre.");
+                if (!moveu) {
+                    //throw new RuntimeException("Robô preso! Não há caminho livre.");
+                    return; //Fim do percurso, ponto mais próximo atingido
                 }
             }
+        }
     }
-}
     
 
 
@@ -226,13 +202,16 @@ public class MissaoEncontrar implements Missao {
             ", de raio " + ai.getGerenciadorSensores().getSensorObstaculos().getRaio() + "\n";
             
             msgMissao += "Encontrou os seguintes obstaculos do tipo " + tipo.toString() + ": \n";
-
+            boolean encontrou = false;
             for(Obstaculo ob : obstaculos){
                 if(ob.getTipoObstaculo() == tipo){
                     msgMissao += ob.getDescricao() + "\n";
-                    return new Resultado(true, msgMissao);
+                    encontrou = true;
                 }
             }
+            if (encontrou)
+                return new Resultado(true, msgMissao);
+            msgMissao += "Nenhum obstáculo encontrado\n";
         }
         catch(RoboDesligadoException e){
             System.err.println(e.getMessage());
