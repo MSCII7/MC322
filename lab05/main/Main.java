@@ -17,7 +17,7 @@ public class Main{
             Teste.testeSensoreavel();
             Teste.testeTerrestrePanfletario();
             Teste.lerArquivo("construir_amb.txt");
-            Teste.missaoEncontrar("testeEcontrar.txt");
+            Teste.missaoEncontrar("testeEncontrar.txt");
             //Criar robos e ambiente para menu interativo
             Ambiente meuAmbiente = new Ambiente(100, 100, 200);
             criarObstaculos(meuAmbiente);  

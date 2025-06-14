@@ -142,7 +142,6 @@ public class MissaoEncontrar implements Missao {
         boolean direita = true;
         int xAtual = ai.getX(), yAtual = ai.getY();
         while (true) {
-            amb.visualizarAmbiente(ai);
             // Verifica alvo na posição atual antes de mover
             msgMissao = verificarAlvo(msgMissao, ai, amb).mensagem();
             if (verificarAlvo(msgMissao, ai, amb).sucesso()) {

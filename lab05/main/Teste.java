@@ -194,6 +194,7 @@ public class Teste {
         System.out.println("\n-----FIM DO TESTE------\n");
     }
     public static void lerArquivo(String arq){
+        System.out.println("\nTeste Leitura de Arquivo---------------------------");
         LeitorConfiguracao lc = new LeitorConfiguracao();
         try {
           Ambiente amb = lc.ler(arq);
@@ -202,6 +203,7 @@ public class Teste {
         } catch (Exception e) {
             System.out.println("Erro de leitura de arquivo: "+e.getMessage());
         } 
+        System.out.println("\n-----FIM DO TESTE------\n");
     }
     public static void  missaoEncontrar(String arq){
         System.out.println("\nTeste Missão Encontrar ---------------------------");
