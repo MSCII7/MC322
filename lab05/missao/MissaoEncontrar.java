@@ -106,32 +106,10 @@ public class MissaoEncontrar implements Missao {
                 atualY += dirY;
             }
             // Se ambos os caminhos ideais estiverem bloqueados, procura um caminho alternativo
-            else {
-                boolean moveu = false;
-                // Itera sobre as quatro direções possíveis para encontrar um desvio
-                for (int[] dir : new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}}) { // Direita, Baixo, Esquerda, Cima
-                    int proxX = atualX + dir[0];
-                    int proxY = atualY + dir[1];
-
-                    if ((proxX != prevX || proxY != prevY) && ai.getGerenciadorSensores().estaLivre(proxX, proxY, 0, amb)) {
-                        ai.getControleMovimento().moverPara(proxX, proxY, 0, amb);
-                        atualX = proxX;
-                        atualY = proxY;
-                        moveu = true;
-                        break; // Sai do loop de desvio assim que encontrar um caminho
-                    }
-                }
-
-                if (!moveu) {
-                    // Se não se moveu, o robô está preso.
-                    // throw new RuntimeException("Robô preso! Não há caminho livre.");
-                    return; // Fim do percurso, ponto mais próximo atingido
-                }
-            }
-            
-            // Atualiza a posição anterior com a posição em que o robô estava no início desta iteração
-            prevX = tempX;
-            prevY = tempY;
+            else if ((dist(atualX, fimX, atualY, fimY)<=50) && ai.getGerenciadorSensores().estaLivre(fimX, fimY,0,amb)){
+                ai.getControleMovimento().moverPara(fimX,fimY,0,amb);
+            } else
+                return; //dist mais proxima atingida
         }
     }
         
@@ -234,6 +212,9 @@ public class MissaoEncontrar implements Missao {
         return new Resultado(false, msgMissao);
     }
 
+    private double dist(int x1,int x2,int y1,int y2){
+        return Math.sqrt(Math.pow((x1-x2),2)+Math.pow((y1-y2),2));
+    }
     
 
 }
