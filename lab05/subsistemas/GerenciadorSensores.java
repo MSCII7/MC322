@@ -61,6 +61,7 @@ public class GerenciadorSensores {
         return escolhido;
     }
 
+    //raio minimo de todos os raios do gerenciador
     public double getRaioMinimo(){
         double raioMinimo = Double.MAX_VALUE;
         for(Sensor s : sensores){

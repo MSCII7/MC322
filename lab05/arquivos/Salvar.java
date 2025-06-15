@@ -1,32 +1,15 @@
 package arquivos;
 import java.io.*;
 import java.nio.file.Paths;
-import java.time.format.DateTimeFormatter;
 
 public class Salvar {
-    String conteudo, titulo;
-    private static final String LOG_DIR = "logs";
+    //fica salvo na base da propria pasta sendo executada (lab05)
     private static final String LOG_FILE = "missoes.log";
-
-    private static final DateTimeFormatter TIMESTAMP_FORMAT = 
-        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public Salvar(){
     }
-/*
-    public void escrever(String mensagem){
-        File file = new File(this.titulo);
-        if (file.exists() && file.isFile()){
-            file.write();
-        }
-        else{
-            file.createNewFile();
-        }
-        String entrada = String.format("[%s] %s%n",
-                LocalDateTime.now().format(TIMESTAMP_FORMAT), mensagem);
-        Path caminho = Paths.get(LOG_DIR);
-    }
-*/
+
+    //recebe uma mensagem no fim do codigo de execucao de missao para escrever no arquivo
     public static void escreverMissao(String mensagemMissao){
         String caminho = Paths.get(LOG_FILE).toString();
 

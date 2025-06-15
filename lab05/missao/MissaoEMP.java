@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import robos.*;
 
 //o robo com essa missao inverte o estado de todos os robos no raio do seu sensor de robos
-//(liga os desligados, desliga os ligados)
+//(liga os desligados, desliga os ligados) e envia uma mensagem avisando isso aos comunicaveis
 
 public class MissaoEMP implements Missao{
 
     String comandoMissao = "EMP";
     
     public MissaoEMP(){
-        
+        //A missao nao tem argumentos adicionais
     }
 
     @Override
@@ -71,6 +71,7 @@ public class MissaoEMP implements Missao{
         return new MissaoEMP();
     }
 
+    //como a missao eh so ram EMP, nao tem nada mais que o proprio comando no formato de entrada
     @Override
     public String formatoEntrada(){
         return comandoMissao;

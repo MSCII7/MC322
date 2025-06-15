@@ -56,6 +56,7 @@ public class MissaoVerificarVazio implements Missao{
         return comandoMissao;
     }
 
+    //primeiros 2 valores sao comando de atribuicao e comando de missao, entao ve de 2 a 4
     @Override
     public Missao formatarParaMissao(String[] comDividido){
         MissaoVerificarVazio novaMissao = null;

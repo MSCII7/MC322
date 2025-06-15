@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import robos.*;
 import sensores.SensorLimites;
 
+//procura um obstaculo de um certo tipo ao redor, no raio do sensor de obstaculos
+//se nao tiver, percorre o ambiente ate encontrar
 public class MissaoEncontrar implements Missao {
     TipoObstaculo tipo;
     String comandoMissao = "ENC";
@@ -15,8 +17,6 @@ public class MissaoEncontrar implements Missao {
     public MissaoEncontrar(TipoObstaculo t){
         this.tipo = t;
     }
-
-    //exemplo: ME Bond ARVORE atribui a missao de encontrar arvore ao robo Bond
 
 
 
