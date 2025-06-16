@@ -217,6 +217,9 @@ class MissaoEncontrar{
     # comandoMissao : String
     -- 
     + MissaoEncontrar(TipoObstaculo)
+    + executarMissao(): void
+    - moverPara(int, int, Ambiente): void
+    - varrerAmbiente(Ambiente): void
 }
 class MissaoVerificarVazio{
     # comandoMissao : String
