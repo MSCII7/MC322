@@ -147,6 +147,9 @@ public class MenuInterativo {
                         if(roboSelecionado instanceof AgenteInteligente ai){
                             MenuHelper.imprimirMissoes(comAtribuirMissao);
                         }
+                        else{
+                            System.err.println("Robo selecionado nao eh agente");
+                        }
                     }
                     
                     
@@ -165,6 +168,9 @@ public class MenuInterativo {
                     else if(divisor[0].equals(comAtribuirMissao)){
                         if(roboSelecionado instanceof AgenteInteligente ai){
                             MenuHelper.atribuirMissao(divisor, ai, meuAmbiente);
+                        }
+                        else{
+                            System.err.println("Robo selecionado nao eh agente");
                         }
                     }
 
