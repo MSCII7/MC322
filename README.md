@@ -78,7 +78,7 @@ Esse repositório apresenta os laboratórios de MC322, com o objetivo de gerar u
   
 ## Como executar:
   - Abra o terminal e navegue para a pasta com o laboratório que você deseja rodar (certifique-se de que você está na pasta correta)
-  - Utilize o comando "javac */*.java" para compilar todos os arquivos java dentro da pasta com o laboratório desejado recursivamente
+  - Utilize o comando "javac \*/\*.java" para compilar todos os arquivos java dentro da pasta com o laboratório desejado recursivamente
   - Rode a classe Main com o comando "java main/Main"
 
 ## Diagrama de classes:
